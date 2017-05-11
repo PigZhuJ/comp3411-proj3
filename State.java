@@ -1,20 +1,24 @@
 
 public class State {
 
-    private boolean hasKey;
+    private boolean hasGold;
     private char[][] viewAtState;
-    
+
     public State(boolean hadKey, char[][] viewAtState) {
-        this.hasKey = false;
+        this.hasGold = false;
         this.viewAtState = viewAtState.clone();
     }
-    
-    public boolean getHasKey() {
-        return hasKey;
+
+    public boolean getHasGold() {
+        return hasGold;
     }
-    
-    public void setHasKey(boolean hasKey) {
-        this.hasKey = hasKey;
+
+    public char[][] getViewAtState(){
+        return viewAtState;
     }
-    
+
+    public void setHasGold(boolean hasKey) {
+        this.hasGold = hasGold;
+    }
+
 }

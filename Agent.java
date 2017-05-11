@@ -15,7 +15,6 @@ public class Agent {
 
     public char get_action(char view[][]) {
         char action;
-        // create a newState
         State newState;
         if (stateList.isEmpty()) {
             newState = new State(false, view);
@@ -25,7 +24,7 @@ public class Agent {
         }
 
         if (newState.getHasKey()) {
-            buildExploredMap();
+
         }
 
         if (view[1][2] == '~') {
@@ -35,7 +34,6 @@ public class Agent {
             action = 'f';
         } else {
             action = 'f';
-
         }
 
         stateList.add(newState);
@@ -43,24 +41,34 @@ public class Agent {
         return action;
     }
 
-    private void buildExploredMap() {
-        // the minimum and maximum values which the
-        int xMin, xMax, yMin, yMax, xCurr, yCurr = 0;
+    private void create_map(char view[][], char prev){
+        boolean gold = find_gold(view);
+        char[][] prevMap;
+        prevMap = stateList.get(stateList.size()-1).getViewAtState();
+        char newMap[][] = stitch_map(view, prevMap);
+        upMap = new State(gold, newMap);
 
-        for (State checkState : stateList) {
-            if () {
-
-            } else if () {
-
-            } else if () {
-
-            } else if () {
-
-            }
-        }
+        stateList.add(upMap);
     }
 
-    void print_view(char view[][]) {
+    private char[][] stitch_map(char curr[][], char prev_map[][]){
+        //TODO
+        return new char[0][0];
+    }
+
+    private boolean find_gold (char view[][]){
+        boolean gold = false;
+        for (int i = 0; i < view.length; i++) {
+            for (int j = 0; j < view.length; j++) {
+                if (view[i][j] == '$'){
+                    gold = true;
+                }
+            }
+        }
+        return gold;
+    }
+
+    private void print_view(char view[][]) {
         int i, j;
         System.out.println("\n+-----+");
         for (i = 0; i < 5; i++) {
