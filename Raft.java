@@ -168,20 +168,20 @@ public class Raft {
                 if( on_raft ) {
                     if( !off_map ) map[row][col] = '~';
                 }
-		else if( have_raft ) {
-		    on_raft = true;
-		    if( !off_map ) map[row][col] = ' ';
-		}
+        else if( have_raft ) {
+            on_raft = true;
+            if( !off_map ) map[row][col] = ' ';
+        }
                 else {
                     game_lost = true;
                 }
                 break;
              case ' ': case 'a': case 'k': case '$': case 'd':
-		if( on_raft && !off_map ) {
-		    map[row][col] = '~';
-		    on_raft = false;
-		    have_raft = false;
-		}
+        if( on_raft && !off_map ) {
+            map[row][col] = '~';
+            on_raft = false;
+            have_raft = false;
+        }
                 break;
             }
             row = new_row;
@@ -203,7 +203,7 @@ public class Raft {
          case 'C': case 'c': // chop
             if(( ch == 'T' )&& have_axe ) {
                map[new_row][new_col] = ' ';
-	       have_raft = true;
+           have_raft = true;
                return( true );
             }
             break;

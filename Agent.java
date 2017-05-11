@@ -10,35 +10,62 @@ import java.io.*;
 import java.net.*;
 
 public class Agent {
-
+    
+   private List<State> stateList = new ArrayList<State>();
+   private char[][] exploredMap;
+   
    public char get_action( char view[][] ) {
 
-      // TODO REPLACE THIS CODE WITH AI TO CHOOSE ACTION
+       char action;
+       
+       // create a newState
+       State newState;
+       if (stateList.isEmpty()) {
+           newState = new State(false, view);
+       } else {
+           State prevState = stateList.get(stateList.size() - 1);
+           newState = new State(prevState.getHasKey(), view);
+       }
+       
+       if (newState.getHasKey()) {
+           buildExploredMap();
+       }
+       
+       if (view[1][2] == '~') {
+           action = 'r';
+       } else if (view[1][2] == '$') {
+           newState.setHasKey(true);
+           action = 'f';
+       } else {
+           action = 'f';
+           
+       }
 
-      int ch=0;
-
-      System.out.print("Enter Action(s): ");
-
-      try {
-         while ( ch != -1 ) {
-            // read character from keyboard
-            ch  = System.in.read();
-
-            switch( ch ) { // if character is a valid action, return it
-            case 'F': case 'L': case 'R': case 'C': case 'U': case 'B':
-            case 'f': case 'l': case 'r': case 'c': case 'u': case 'b':
-               return((char) ch );
-            }
-         }
-      }
-      catch (IOException e) {
-         System.out.println ("IO error:" + e );
-      }
-
-      return 0;
+       stateList.add(newState);
+       
+       return action;
+       
    }
 
-   void print_view( char view[][] ) {
+   private void buildExploredMap() {
+    
+       // the minimum and maximum values which the 
+       int xMin, xMax, yMin, yMax, xCurr, yCurr = 0;
+       
+       for (State checkState : stateList) {
+           if () {
+               
+           } else if () {
+               
+           } else if () {
+               
+           } else if () {
+               
+           }
+       }
+   }
+
+void print_view( char view[][] ) {
       int i,j;
 
       System.out.println("\n+-----+");
