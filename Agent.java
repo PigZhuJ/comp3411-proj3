@@ -69,6 +69,20 @@ public class Agent {
         return gold;
     }
 
+    private char[][] rotate_view (char view[][], int times){
+        char newView[][] = new char[view.length][view.length];
+        while (times != 0){
+            if (times < 0){
+                newView = clockwise(view);
+                times++;
+            } else if (times > 0){
+                newView = anticlockwise(view);
+                times--;
+            }
+        }
+        return newView;
+    }
+
     private char[][] clockwise (char view[][]){
         char rot_view[][] = new char[view.length][view.length];
 
