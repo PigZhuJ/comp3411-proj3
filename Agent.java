@@ -12,30 +12,28 @@ import java.net.*;
 public class Agent {
 
    public char get_action( char view[][] ) {
-
-      // TODO REPLACE THIS CODE WITH AI TO CHOOSE ACTION
-
-      int ch=0;
-
-      System.out.print("Enter Action(s): ");
-
-      try {
-         while ( ch != -1 ) {
-            // read character from keyboard
-            ch  = System.in.read();
-
-            switch( ch ) { // if character is a valid action, return it
-            case 'F': case 'L': case 'R': case 'C': case 'U': case 'B':
-            case 'f': case 'l': case 'r': case 'c': case 'u': case 'b':
-               return((char) ch );
-            }
-         }
-      }
-      catch (IOException e) {
-         System.out.println ("IO error:" + e );
-      }
-
-      return 0;
+       //testing functionality
+       return ('f');
+//
+// int ch=0;
+//
+//      System.out.print("Enter Action(s): ");
+//
+//      try {
+//         while ( ch != -1 ) {
+//            // read character from keyboard
+//            ch  = System.in.read();
+//
+//            switch( ch ) { // if character is a valid action, return it
+//            case 'F': case 'L': case 'R': case 'C': case 'U': case 'B':
+//            case 'f': case 'l': case 'r': case 'c': case 'u': case 'b':
+//               return((char) ch );
+//            }
+//         }
+//      }
+//      catch (IOException e) {
+//         System.out.println ("IO error:" + e );
+//      }
    }
 
    void print_view( char view[][] ) {
@@ -85,7 +83,7 @@ public class Agent {
          System.exit(-1);
       }
 
-      try { // scan 5-by-5 wintow around current location
+      try { // scan 5-by-5 window around current location
          while( true ) {
             for( i=0; i < 5; i++ ) {
                for( j=0; j < 5; j++ ) {
