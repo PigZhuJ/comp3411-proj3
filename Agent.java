@@ -10,7 +10,7 @@ import java.io.*;
 import java.net.*;
 
 public class Agent {
-    private List<State> stateList = new ArrayList<State>();
+    private List<State> stateList = new ArrayList<>();
     private char[][] exploredMap;
 
     public char get_action(char view[][]) {
@@ -41,13 +41,14 @@ public class Agent {
         return action;
     }
 
-    private void create_map(char view[][], char prev){
+    private void create_map(char view[][]){
         boolean gold = find_gold(view);
-        char[][] prevMap;
-        prevMap = stateList.get(stateList.size()-1).getViewAtState();
+        char[][] prevMap = null;
+        if (!stateList.isEmpty()) {
+            prevMap = stateList.get(stateList.size() - 1).getViewAtState();
+        }
         char newMap[][] = stitch_map(view, prevMap);
-        upMap = new State(gold, newMap);
-
+        State upMap = new State(gold, newMap);
         stateList.add(upMap);
     }
 
@@ -66,6 +67,28 @@ public class Agent {
             }
         }
         return gold;
+    }
+
+    private char[][] clockwise (char view[][]){
+        char rot_view[][] = new char[view.length][view.length];
+
+        for (int i = 0; i < view.length; i++) {
+            for (int j = 0; j < view.length; j++) {
+                rot_view[i][j] = view[view.length - j - 1][i];
+            }
+        }
+        return rot_view;
+    }
+
+    private char[][] anticlockwise (char view[][]){
+        char aRot_view[][] = new char[view.length][view.length];
+
+        for (int i = 0; i < view.length; i++) {
+            for (int j = 0; j < view.length; j++) {
+                aRot_view[i][j] = view[j][view.length - i - 1];
+            }
+        }
+        return aRot_view;
     }
 
     private void print_view(char view[][]) {

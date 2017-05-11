@@ -4,8 +4,8 @@ public class State {
     private boolean hasGold;
     private char[][] viewAtState;
 
-    public State(boolean hadKey, char[][] viewAtState) {
-        this.hasGold = false;
+    public State(boolean hasGold, char[][] viewAtState) {
+        this.hasGold = hasGold;
         this.viewAtState = viewAtState.clone();
     }
 
@@ -16,9 +16,4 @@ public class State {
     public char[][] getViewAtState(){
         return viewAtState;
     }
-
-    public void setHasGold(boolean hasKey) {
-        this.hasGold = hasGold;
-    }
-
 }
