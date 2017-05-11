@@ -1,0 +1,25 @@
+javac *.java
+java Raft -p 31415 -i s0.in
+java Agent -p 31415
+
+raft gets consumed
+dynamite gets consumed
+key is consumed 
+axe is reusable
+
+Default Example
+If see collectable object (key, dynamite, axe)
+    Go to collectable
+keep moving in 1 direction until obstacle (water, edge of map, wall)
+if hit tree and have axe
+    cut tree for raft
+otherwise go around tree
+rng%2 to decide direct in opposite plane
+keep going in that direction until obstacle
+follow the wall and other obstacles
+detect that there's a door nearby
+go to door
+open the door
+hug the edges
+detect collectable
+colect collectable
