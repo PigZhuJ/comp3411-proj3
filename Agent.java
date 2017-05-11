@@ -10,11 +10,71 @@ import java.io.*;
 import java.net.*;
 
 public class Agent {
+<<<<<<< HEAD
 
     public char get_action(char view[][]) {
         //testing functionality
 //        int ch = 0;
 //        System.out.print("Enter Action(s): ");
+=======
+    
+   private List<State> stateList = new ArrayList<State>();
+   private char[][] exploredMap;
+   
+   public char get_action( char view[][] ) {
+<<<<<<< HEAD
+
+       char action;
+       
+       // create a newState
+       State newState;
+       if (stateList.isEmpty()) {
+           newState = new State(false, view);
+       } else {
+           State prevState = stateList.get(stateList.size() - 1);
+           newState = new State(prevState.getHasKey(), view);
+       }
+       
+       if (newState.getHasKey()) {
+           buildExploredMap();
+       }
+       
+       if (view[1][2] == '~') {
+           action = 'r';
+       } else if (view[1][2] == '$') {
+           newState.setHasKey(true);
+           action = 'f';
+       } else {
+           action = 'f';
+           
+       }
+
+       stateList.add(newState);
+       
+       return action;
+       
+   }
+
+   private void buildExploredMap() {
+    
+       // the minimum and maximum values which the 
+       int xMin, xMax, yMin, yMax, xCurr, yCurr = 0;
+       
+       for (State checkState : stateList) {
+           if () {
+               
+           } else if () {
+               
+           } else if () {
+               
+           } else if () {
+               
+           }
+       }
+=======
+       //testing functionality
+       return ('f');
+>>>>>>> 4a93b83e18a6d786b7dc4e1ff39b00666e9619f6
 //
 //        try {
 //            while (ch != -1) {
@@ -37,6 +97,7 @@ public class Agent {
 //                        return ((char) ch);
 //                }
 //            }
+<<<<<<< HEAD
 //        } catch (IOException e) {
 //            System.out.println("IO error:" + e);
 //        }
@@ -44,6 +105,18 @@ public class Agent {
 
     void print_view(char view[][]) {
         int i, j;
+=======
+//         }
+//      }
+//      catch (IOException e) {
+//         System.out.println ("IO error:" + e );
+//      }
+>>>>>>> baf4df538ed584214e585a49de46481485155fc5
+   }
+
+void print_view( char view[][] ) {
+      int i,j;
+>>>>>>> 4a93b83e18a6d786b7dc4e1ff39b00666e9619f6
 
         System.out.println("\n+-----+");
         for (i = 0; i < 5; i++) {
