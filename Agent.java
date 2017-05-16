@@ -10,53 +10,72 @@ import java.io.*;
 import java.net.*;
 
 public class Agent {
-    private List<State> stateList = new ArrayList<>();
-    private char[][] exploredMap;
+    private State currState = new State(false, null);
+    private char prevMove = 'Q';
+    private int rotation  = 0;
 
     public char get_action(char view[][]) {
-        char action;
-        State newState;
-        if (stateList.isEmpty()) {
-            newState = new State(false, view);
-        } else {
-            State prevState = stateList.get(stateList.size() - 1);
-            newState = new State(prevState.getHasKey(), view);
-        }
-
-        if (newState.getHasKey()) {
-
-        }
-
-        if (view[1][2] == '~') {
-            action = 'r';
-        } else if (view[1][2] == '$') {
-            newState.setHasKey(true);
-            action = 'f';
-        } else {
-            action = 'f';
-        }
-
-        stateList.add(newState);
+        char action = 'f';
+//        State newState;
+//        if (stateList.isEmpty()) {
+//            newState = new State(false, view);
+//        } else {
+//            State prevState = stateList.get(stateList.size() - 1);
+//            newState = new State(prevState.getHasKey(), view);
+//        }
+//
+//        if (newState.getHasKey()) {
+//
+//        }
+//
+//        if (view[1][2] == '~') {
+//            action = 'r';
+//        } else if (view[1][2] == '$') {
+//            newState.setHasKey(true);
+//            action = 'f';
+//        } else {
+//            action = 'f';
+//        }
+//
+//        stateList.add(newState);
 
         return action;
     }
 
-    private void create_map(char view[][]){
-        boolean gold = find_gold(view);
-        char[][] prevMap = null;
-        if (!stateList.isEmpty()) {
-            prevMap = stateList.get(stateList.size() - 1).getViewAtState();
+    private void update_map(State curr, char[][] currView){
+        if (curr.getView() == null){
+            curr.setView(currView);
+            curr.setHasGold(find_gold(currView));
+        } else {
+            if (prevMove == 'f'){
+                char[][] newMap = stitch_map(currView, rotate_view(curr.getView(), rotation), rotation, prevMove);
+                curr.setView(newMap);
+                curr.setHasGold(find_gold(curr.getView()));
+            }
         }
-        char newMap[][] = stitch_map(view, prevMap);
-        State upMap = new State(gold, newMap);
-        stateList.add(upMap);
     }
 
-    private char[][] stitch_map(char curr[][], char prev_map[][]){
-        //TODO
-        return new char[0][0];
+
+    private char[][] stitch_map(char curr[][], char prev_map[][], int times, char prev){
+        // should we make sure the map is always square or can it be varying dimension???
+        char[][] newMap = new char[curr.length+1][curr.length+1]
+        if (prev == 'f'){
+            if (times == 0){
+                //draws the first row with prev map's first row
+            } else if (times == 1){
+                //draws the last col ...
+            } else if (times == 2){
+                //draws the last row ...
+            } else if (times == 3){
+                //draws the first col ...
+            }
+        } else {
+            return curr;
+        }
+        return newMap;
     }
 
+    //scan through the current view and gve back a boolean value
     private boolean find_gold (char view[][]){
         boolean gold = false;
         for (int i = 0; i < view.length; i++) {
@@ -69,9 +88,10 @@ public class Agent {
         return gold;
     }
 
+    //Rotate the view to 0 degree
     private char[][] rotate_view (char view[][], int times){
         char newView[][] = new char[view.length][view.length];
-        while (times != 0){
+        while ((times % 4) != 0){
             if (times < 0){
                 newView = clockwise(view);
                 times++;
@@ -83,6 +103,7 @@ public class Agent {
         return newView;
     }
 
+    //Rotate a matrix 90 degree to the right
     private char[][] clockwise (char view[][]){
         char rot_view[][] = new char[view.length][view.length];
 
@@ -94,6 +115,7 @@ public class Agent {
         return rot_view;
     }
 
+    //Rotate a matrix 90 degrees to the left
     private char[][] anticlockwise (char view[][]){
         char aRot_view[][] = new char[view.length][view.length];
 
