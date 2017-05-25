@@ -117,7 +117,7 @@ public class Agent {
                 Cood accCo = new Cood(i, j);
                 System.out.print(map.get(accCo));
             }
-            System.out.print();
+            System.out.println();
         }
     }
 
