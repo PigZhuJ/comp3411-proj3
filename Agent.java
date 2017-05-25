@@ -160,9 +160,9 @@ public class Agent {
             for (int j = sY; j < lY + 1; j++) {
                 Cood accCo = new Cood(j, i);
                 if (map.get(accCo) != null){
-                    System.out.print(map.get(accCo));
+                    System.out.print(map.get(accCo) + " ");
                 } else {
-                    System.out.print(" ");
+                    System.out.print("  ");
                 }
             }
             System.out.println();
@@ -220,7 +220,7 @@ public class Agent {
                 if ((i == 2) && (j == 2)) {
                     System.out.print('^');
                 } else {
-                    System.out.print(view[i][j]);
+                    System.out.print(view[i][j] + " ");
                 }
             }
             System.out.println("|");
