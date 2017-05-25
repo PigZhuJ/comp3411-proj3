@@ -30,7 +30,6 @@ public class Agent {
         }
 
         if (action == 'f') {
-
             updateCurrPosition();
         }
         return action;
@@ -104,8 +103,8 @@ public class Agent {
     private void print_map(){
         for(Cood coKey : map.keySet()){
             System.out.print(map.get(coKey));
-            System.out.println();
         }
+        System.out.println();
 
     }
 
