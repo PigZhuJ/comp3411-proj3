@@ -158,7 +158,7 @@ public class Agent {
         System.out.println("-----------------------");
         for (int i = sX; i < lX + 1; i++) {
             for (int j = sY; j < lY + 1; j++) {
-                Cood accCo = new Cood(j, i);
+                Cood accCo = new Cood(i, j);
                 if (map.get(accCo) != null){
                     System.out.print(map.get(accCo) + " ");
                 } else {
@@ -213,7 +213,7 @@ public class Agent {
 
     private void print_view(char view[][]) {
         int i, j;
-        System.out.println("\n+---------+");
+        System.out.println("\n+----------+");
         for (i = 0; i < 5; i++) {
             System.out.print("|");
             for (j = 0; j < 5; j++) {
@@ -225,7 +225,7 @@ public class Agent {
             }
             System.out.println("|");
         }
-        System.out.println("+---------+");
+        System.out.println("+----------+");
     }
 
     public static void main(String[] args) {
