@@ -104,7 +104,9 @@ public class Agent {
     private void print_map(){
         for(Cood coKey : map.keySet()){
             System.out.print(map.get(coKey));
+            System.out.println();
         }
+
     }
 
     private void print_view(char view[][]) {
