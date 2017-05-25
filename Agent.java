@@ -42,18 +42,12 @@ public class Agent {
     }
 
     public void stitchMap(char view[][]) {
-        boolean flag = false;
         char[][] newView = rotate_view(view, direction);
         for (int x = 0; x < view.length; x++) {
             for (int y = 0; y < view.length; y++) {
                 Cood newCood = new Cood((currX + x -2), (currY + y - 2));
 
-                for (Cood co : map.keySet()){
-                    if (newCood.equals(co)){
-                        flag = true;
-                    }
-                }
-                if (flag == false){
+                if (map.get(newCood) == null){
                     map.put(newCood, newView[x][y]);
 //                    System.out.print(map.get(newCood));
                 }
