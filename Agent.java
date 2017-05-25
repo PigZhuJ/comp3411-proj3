@@ -101,13 +101,14 @@ public class Agent {
     //Rotate the view to 0 degree
     private char[][] rotate_view (char view[][], int times){
         char newView[][] = new char[view.length][view.length];
-        while ((times % 4) != 0){
-            if (times < 0){
+        int temp = times;
+        while (temp != 0){
+            if (temp < 0){
                 newView = clockwise(view);
-                times++;
-            } else if (times > 0){
+                temp++;
+            } else if (temp > 0){
                 newView = anticlockwise(view);
-                times--;
+                temp--;
             }
         }
         return newView;
