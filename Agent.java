@@ -114,8 +114,10 @@ public class Agent {
         System.out.println(sX + ", " + sY);
         System.out.println(lX + ", " + lY);
         for (Cood coKey : map.keySet()){
+            System.out.println("--------------");
             System.out.println(coKey.getX() + ", " + coKey.getY());
         }
+        System.out.println("--------------");
 //        for (int i = sX; i < lX + 1; i++) {
 //            for (int j = sY; j < lY + 1; j++) {
 //                Cood accCo = new Cood(i, j);
