@@ -32,31 +32,21 @@ public class Agent {
         if (action == 'f') {
             updateCurrPosition();
         }
-
+        print_map();
         return action;
 
     }
 
     public void stitchMap(char view[][]) {
+        int time = direction;
+        char newView[][] = view;
+        newView = rotate_view(newView, time);
 
-        if (direction == 1) {
-
-        } else if (direction == 2) {
-
-        } else if (direction == 3) {
-
-        }
-
-        for (int x = -2; x < 3; x++) {
-
+        for (int x = currX - 2; x < currX + 3; x++) {
             HashMap<Integer, Character> yValueMap = map.get(x);
-
-            for (int y = -2; y < 3; y++) {
-
+            for (int y = currX - 2; y < currY + 3; y++) {
                 yValueMap.put(y, view[y][x]);
-
             }
-
         }
 
     }
@@ -100,7 +90,7 @@ public class Agent {
         return aRot_view;
     }
 
-    public void updateCurrPosition() {
+    private void updateCurrPosition() {
 
         if (direction == 0) {
             currY--;
@@ -112,6 +102,16 @@ public class Agent {
             currX--;
         }
 
+    }
+
+    private void print_map(){
+        for (Integer kx : map.keySet()){
+            HashMap<Integer, Character> yValueMap = map.get(kx);
+            for (Integer ky : yValueMap.keySet()){
+                System.out.print(yValueMap.get(ky));
+            }
+            System.out.println();
+        }
     }
 
     private void print_view(char view[][]) {
