@@ -32,6 +32,10 @@ public class Agent {
         if (action == 'f') {
             updateCurrPosition();
         }
+
+        System.out.println(currX + " " + currY);
+        print_map();
+
         return action;
 
     }
