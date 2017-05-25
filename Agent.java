@@ -34,18 +34,19 @@ public class Agent {
         }
 
         System.out.println(currX + " " + currY);
-        print_map();
+
 
         return action;
 
     }
 
     public void stitchMap(char view[][]) {
+        char[][] newView = rotate_view(view, direction);
         for (int x = 0; x < view.length; x++) {
             for (int y = 0; y < view.length; y++) {
                 Cood newCood = new Cood((currX + x -2), (currY + y - 2));
                 if (map.get(newCood) == null){
-                    map.put(newCood, view[y][x]);
+                    map.put(newCood, newView[y][x]);
                 }
             }
         }
@@ -105,11 +106,13 @@ public class Agent {
     }
 
     private void print_map(){
+        int y = currY - 2;
         for(Cood coKey : map.keySet()){
-            System.out.print(map.get(coKey));
+            if(coKey.getY() == y){
+                System.out.print(map.get(coKey));
+            }
         }
         System.out.println();
-
     }
 
     private void print_view(char view[][]) {
