@@ -115,6 +115,7 @@ public class Agent {
         System.out.println(lX + ", " + lY);
         Cood accCo = new Cood(1, 2);
         System.out.print(map.get(accCo));
+
 //        for (int i = sX; i < lX + 1; i++) {
 //            for (int j = sY; j < lY + 1; j++) {
 //                Cood accCo = new Cood(i, j);
@@ -157,7 +158,7 @@ public class Agent {
     private int getLargey() {
         int y = 0;
         for (Cood coKey : map.keySet()) {
-            if (y > coKey.getY()) {
+            if (y < coKey.getY()) {
                 y = coKey.getY();
             }
         }
