@@ -113,8 +113,8 @@ public class Agent {
         int lY = getLargey();
         System.out.println(sX + ", " + sY);
         System.out.println(lX + ", " + lY);
+        System.out.println("--------------");
         for (Cood coKey : map.keySet()){
-            System.out.println("--------------");
             System.out.println(coKey.getX() + ", " + coKey.getY());
         }
         System.out.println("--------------");
