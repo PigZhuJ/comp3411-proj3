@@ -11,10 +11,18 @@ import java.net.*;
 
 public class Agent {
 
-    private HashMap<Cood, Character> map = new HashMap<Cood, Character>();
+    private HashMap<Cood, Character> map;
     private Integer currX = 0;
     private Integer currY = 0;
     private int direction = 0;
+    private Queue<Character> nextMoves;
+    private boolean isHugging;
+
+    public Agent () {
+        this.map = new HashMap<Cood, Character>();
+        this.nextMoves = new LinkedList<Character>();
+        this.isHugging = false;
+    }
 
     public char get_action(char view[][]) {
 
@@ -24,9 +32,44 @@ public class Agent {
         // stitch the map given the view
         stitchMap(view);
 
-        if(view[1][2] == '~' || view[1][2] == '*' || view[1][2] == 'T') {
-            action = 'r';
-            direction = (direction + 1) % 4;
+        // if there are a list of moves to travel
+        if (!nextMoves.isEmpty()) {
+
+            action = nextMoves.poll();
+
+        // else start roaming around
+        } else {
+
+            // if we have started to hug the walls
+            if (isHugging) {
+
+                // if we hit an obstacle, then turn
+                if(view[1][2] == '~' || view[1][2] == '*' || view[1][2] == 'T') {
+
+                    action = 'r';
+                    direction = (direction + 1) % 4;
+
+                // else if we're no longer touching a wall, turn the other way
+                } else if (view[2][1] == ' ') {
+
+                    action = 'l';
+                    direction = (direction - 1) % 4;
+                    nextMoves.add('f');
+
+                }
+
+            // else just start roaming until we hit an obstacle
+            } else {
+
+                // if we hit an obstacle, start hugging obstacles
+                if (view[1][2] == '~' || view[1][2] == '*' || view[1][2] == 'T') {
+
+                    action = 'r';
+                    direction = (direction + 1) % 4;
+                    isHugging = true;
+
+                }
+            }
         }
 
         if (action == 'f') {
@@ -35,7 +78,6 @@ public class Agent {
 
         System.out.println("(" + currX + ", " + currY + ")");
         print_map();
-
 
         return action;
 
