@@ -154,13 +154,15 @@ public class Agent {
         int sY = getSmally();
         int lX = getLargex();
         int lY = getLargey();
+        System.out.println("-----------------------");
         for (int i = sX; i < lX + 1; i++) {
             for (int j = sY; j < lY + 1; j++) {
-                Cood accCo = new Cood(i, j);
+                Cood accCo = new Cood(j, i);
                 System.out.print(map.get(accCo));
             }
             System.out.println();
         }
+        System.out.println("-----------------------");
     }
 
     private int getSmallx(){
