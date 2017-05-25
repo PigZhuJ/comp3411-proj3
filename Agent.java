@@ -88,10 +88,10 @@ public class Agent {
         for (int x = 0; x < view.length; x++) {
             for (int y = 0; y < view.length; y++) {
                 Cood newCood = new Cood((currX + x), (currY + y));
-
                 if (map.get(newCood) == null){
                     map.put(newCood, newView[y][x]);
-//                    System.out.print(map.get(newCood));
+                    System.out.print(map.get(newCood));
+                    System.out.print(map.get(newCood.getX()) + ", " + map.get(newCood.getY()));
                 }
             }
             System.out.println();
