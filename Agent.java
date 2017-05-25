@@ -213,19 +213,19 @@ public class Agent {
 
     private void print_view(char view[][]) {
         int i, j;
-        System.out.println("\n+-----+");
+        System.out.println("\n+---------+");
         for (i = 0; i < 5; i++) {
             System.out.print("|");
             for (j = 0; j < 5; j++) {
                 if ((i == 2) && (j == 2)) {
-                    System.out.print('^');
+                    System.out.print('^' + " ");
                 } else {
                     System.out.print(view[i][j] + " ");
                 }
             }
             System.out.println("|");
         }
-        System.out.println("+-----+");
+        System.out.println("+---------+");
     }
 
     public static void main(String[] args) {
