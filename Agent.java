@@ -76,7 +76,7 @@ public class Agent {
             updateCurrPosition();
         }
 
-//        System.out.println("(" + currX + ", " + currY + ")");
+        System.out.println("(" + currX + ", " + currY + ")");
         print_map();
 
         return action;
