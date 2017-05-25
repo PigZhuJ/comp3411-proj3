@@ -40,13 +40,18 @@ public class Agent {
     public void stitchMap(char view[][]) {
         int time = direction;
         char newView[][] = view;
+        int dodgeX = 0;
+        int dodgeY = 0;
         newView = rotate_view(newView, time);
 
         for (int x = currX - 2; x < currX + 3; x++) {
             HashMap<Integer, Character> yValueMap = map.get(x);
+            dodgeY = 0;
             for (int y = currX - 2; y < currY + 3; y++) {
-                yValueMap.put(y, view[y][x]);
+                yValueMap.put(y, view[dodgeY][dodgeX]);
+                dodgeY++;
             }
+            dodgeX++;
         }
 
     }
