@@ -148,7 +148,7 @@ public class Agent {
                 y = coKey.getY();
             }
         }
-        return x;
+        return y;
     }
 
     private int getLargey() {
