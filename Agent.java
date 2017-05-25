@@ -34,7 +34,7 @@ public class Agent {
         }
 
         System.out.println("(" + currX + ", " + currY + ")");
-        print_map();
+//        print_map();
 
 
         return action;
@@ -48,6 +48,7 @@ public class Agent {
                 Cood newCood = new Cood((currX + x -2), (currY + y - 2));
                 if (map.get(newCood) == null){
                     map.put(newCood, newView[y][x]);
+                    System.out.print(map.get(newCood));
                 }
             }
         }
