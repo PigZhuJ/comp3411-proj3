@@ -33,7 +33,7 @@ public class Agent {
             updateCurrPosition();
         }
 
-        System.out.println("(" + currX + ", " + currY + ")");
+//        System.out.println("(" + currX + ", " + currY + ")");
         print_map();
 
 
@@ -111,8 +111,8 @@ public class Agent {
         int sY = getSmally();
         int lX = getLargex();
         int lY = getLargey();
-        System.out.println(sX + ", " + sY);
-        System.out.println(lX + ", " + lY);
+//        System.out.println(sX + ", " + sY);
+//        System.out.println(lX + ", " + lY);
         System.out.println("--------------");
         for (Cood coKey : map.keySet()){
             System.out.println(coKey.getX() + ", " + coKey.getY());
