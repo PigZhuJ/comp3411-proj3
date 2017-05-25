@@ -47,7 +47,7 @@ public class Agent {
             for (int y = 0; y < view.length; y++) {
                 Cood newCood = new Cood((currX + x -2), (currY + y - 2));
                 if (map.get(newCood) == null){
-                    map.put(newCood, newView[y][x]);
+                    map.put(newCood, newView[x][y]);
                     System.out.print(map.get(newCood));
                 }
             }
