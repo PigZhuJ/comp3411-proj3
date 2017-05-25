@@ -159,7 +159,11 @@ public class Agent {
         for (int i = sX; i < lX + 1; i++) {
             for (int j = sY; j < lY + 1; j++) {
                 Cood accCo = new Cood(j, i);
-                System.out.print(map.get(accCo));
+                if (map.get(accCo) != null){
+                    System.out.print(map.get(accCo));
+                } else {
+                    System.out.print(" ");
+                }
             }
             System.out.println();
         }
