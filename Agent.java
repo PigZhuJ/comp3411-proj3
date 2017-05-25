@@ -50,8 +50,8 @@ public class Agent {
                     map.put(newCood, newView[y][x]);
                     System.out.print(map.get(newCood));
                 }
-                System.out.println();
             }
+            System.out.println();
         }
     }
 
