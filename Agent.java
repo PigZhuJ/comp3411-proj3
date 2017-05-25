@@ -24,7 +24,7 @@ public class Agent {
         // stitch the map given the view
         stitchMap(view);
 
-        if(view[1][2] == '~' || view[1][2] == '*') {
+        if(view[1][2] == '~' || view[1][2] == '*' || view[1][2] == 'T') {
             action = 'r';
             direction = (direction + 1) % 4;
         }
