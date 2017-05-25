@@ -10,87 +10,60 @@ import java.io.*;
 import java.net.*;
 
 public class Agent {
-    private State currState = new State(false, null);
-    private char prevMove = 'Q';
-    private int rotation  = 0;
+
+    private HashMap<Integer, HashMap<Integer, Character>> map = new HashMap<Integer, HashMap<Integer, Character>>();
+    private Integer currX = 0;
+    private Integer currY = 0;
+    private int direction = 0;
 
     public char get_action(char view[][]) {
+
+        // default action is to go forward
         char action = 'f';
-//        State newState;
-//        if (stateList.isEmpty()) {
-//            newState = new State(false, view);
-//        } else {
-//            State prevState = stateList.get(stateList.size() - 1);
-//            newState = new State(prevState.getHasKey(), view);
-//        }
-//
-//        if (newState.getHasKey()) {
-//
-//        }
-//
-//        if (view[1][2] == '~') {
-//            action = 'r';
-//        } else if (view[1][2] == '$') {
-//            newState.setHasKey(true);
-//            action = 'f';
-//        } else {
-//            action = 'f';
-//        }
-//
-//        stateList.add(newState);
+
+        // stitch the map given the view
+        stitchMap(view);
+
+        if(view[1][2] == '~') {
+            action = 'r';
+            direction = (direction + 1) % 4;
+        }
+
+        if (action == 'f') {
+            updateCurrPosition();
+        }
 
         return action;
+
     }
 
-    private void update_map(State curr, char[][] currView){
-        if (curr.getView() == null){
-            curr.setView(currView);
-            curr.setHasGold(find_gold(currView));
-        } else {
-            if (prevMove == 'f'){
-                char[][] newMap = stitch_map(currView, rotate_view(curr.getView(), rotation), rotation, prevMove);
-                curr.setView(newMap);
-                curr.setHasGold(find_gold(curr.getView()));
-            }
-        }
-    }
+    public void stitchMap(char view[][]) {
 
+        if (direction == 1) {
 
-    private char[][] stitch_map(char curr[][], char prev_map[][], int times, char prev){
-        // should we make sure the map is always square or can it be varying dimension???
-        char[][] newMap = new char[curr.length+1][curr.length+1]
-        if (prev == 'f'){
-            if (times == 0){
-                //draws the first row with prev map's first row
-            } else if (times == 1){
-                //draws the last col ...
-            } else if (times == 2){
-                //draws the last row ...
-            } else if (times == 3){
-                //draws the first col ...
-            }
-        } else {
-            return curr;
-        }
-        return newMap;
-    }
+        } else if (direction == 2) {
 
-    //scan through the current view and gve back a boolean value
-    private boolean find_gold (char view[][]){
-        boolean gold = false;
-        for (int i = 0; i < view.length; i++) {
-            for (int j = 0; j < view.length; j++) {
-                if (view[i][j] == '$'){
-                    gold = true;
-                }
-            }
+        } else if (direction == 3) {
+
         }
-        return gold;
+
+        for (int x = -2; x < 3; x++) {
+
+            HashMap<Integer, Character> yValueMap = map.get(x);
+
+            for (int y = -2; y < 3; y++) {
+
+                yValueMap.put(y, view[y][x]);
+
+            }
+
+        }
+
     }
 
     //Rotate the view to 0 degree
     private char[][] rotate_view (char view[][], int times){
-        char newView[][] = new char[view.length][view.length];
+        char newView[][] = new char[5][5];
         while ((times % 4) != 0){
             if (times < 0){
                 newView = clockwise(view);
@@ -125,6 +98,20 @@ public class Agent {
             }
         }
         return aRot_view;
+    }
+
+    public void updateCurrPosition() {
+
+        if (direction == 0) {
+            currY--;
+        } else if (direction == 1) {
+            currX++;
+        } else if (direction == 2) {
+            currY++;
+        } else {
+            currX--;
+        }
+
     }
 
     private void print_view(char view[][]) {
