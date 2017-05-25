@@ -32,55 +32,152 @@ public class Agent {
         // stitch the map given the view
         stitchMap(view);
 
-        // if there are a list of moves to travel
+        // if there are a list of moves to travel, then continue with the steps
         if (!nextMoves.isEmpty()) {
-
             action = nextMoves.poll();
 
-        // else start roaming around
+        // else try to find something to do
         } else {
 
-            // if we have started to hug the walls
-            if (isHugging) {
+            // Look for items in the view
+            Cood item = searchForItems(view);
+            boolean canGetAnItem = false;
 
-                // if we hit an obstacle, then turn
-                if(view[1][2] == '~' || view[1][2] == '*' || view[1][2] == 'T') {
+            // if the player can see a collectable, attempt to go to the collectable
+            if (item != null) {
+                canGetAnItem = aStarSearch(item);
+            }
 
-                    action = 'r';
-                    direction = (direction + 1) % 4;
+            // if you can get to the item, start poll the path set out by the queue
+            if (canGetAnItem) {
+                action = nextMoves.poll();
 
-                // else if we're no longer touching a wall, turn the other way
-                } else if (view[2][1] == ' ') {
-
-                    action = 'l';
-                    direction = (direction - 1) % 4;
-                    nextMoves.add('f');
-
-                }
-
-            // else just start roaming until we hit an obstacle
+            // if there is no item or you currently can't get to an item, do standard roaming
             } else {
 
-                // if we hit an obstacle, start hugging obstacles
-                if (view[1][2] == '~' || view[1][2] == '*' || view[1][2] == 'T') {
+                // if we have started to hug the walls
+                if (isHugging) {
 
-                    action = 'r';
-                    direction = (direction + 1) % 4;
-                    isHugging = true;
+                    // if we hit an obstacle, then turn
+                    if (view[1][2] == '~' || view[1][2] == '*' || view[1][2] == 'T') {
+                        action = 'r';
+
+                    // else if we're no longer touching a wall, turn the other way
+                    } else if (view[2][1] == ' ') {
+                        action = 'l';
+                        nextMoves.add('f');
+                    }
+
+                // else just start roaming until we hit an obstacle
+                } else {
+
+                    // if we hit an obstacle, start hugging obstacles
+                    if (view[1][2] == '~' || view[1][2] == '*' || view[1][2] == 'T') {
+
+                        action = 'r';
+                        isHugging = true;
+
+                    }
 
                 }
+
             }
+
         }
 
+        // Update information about the player if a player makes a certain move
         if (action == 'f') {
             updateCurrPosition();
+        } else if (action == 'l') {
+            direction = (direction - 1) % 4;
+        } else if (action == 'r') {
+            direction = (direction + 1) % 4;
         }
 
-//        System.out.println("(" + currX + ", " + currY + ")");
         print_map();
 
         return action;
 
+    }
+
+    private Cood searchForItems(char[][] view) {
+
+        for (int x = 0; x < 5; x++) {
+            for (int y = 0; y < 5; y++) {
+                if(view[y][x] == '$' || view[y][x] == 'a' || view[y][x] == 'd' || view[y][x] == 'k') {
+                    Cood itemFound = new Cood(currX + x - 2,currY + y - 2);
+                    return itemFound;
+                }
+            }
+        }
+        return null;
+
+    }
+
+    private boolean aStarSearch(Cood destination) {
+
+    // initialize the open list
+    Queue<State> open = new PriorityQueue<State>();
+    // initialize the closed list
+    HashMap<Cood, Integer> closed = new HashMap<Cood, Integer>();
+    // put the starting node on the open list (you can leave its f at zero)
+    open.add(new State(new Cood(currX, currY),null, 0));
+
+    // initialize the successor queue
+    Queue<State> successorQueue = new LinkedList<State>();
+
+    // while the open list is not empty
+    while(!open.isEmpty()) {
+        // pop the node with the least f off the open list
+        State currState = open.poll();
+        // generate q's 8 successors and set their parents to q
+        generateSuccessors(currState, successorQueue);
+
+        // for each successor
+        while (!successorQueue.isEmpty()) {
+
+            State successor = successorQueue.poll();
+            // if successor is the goal, stop the search
+            if (successor.getCurrCood().equals(destination)) {
+                // TODO
+                return false;
+            }
+
+            // calculate g(x)
+            successor.calculateGx();
+            // calculate h(x)
+            successor.calculateHx(destination);
+
+            // if a node with the same position as successor is in the OPEN list \
+            // which has a lower f than successor, skip this successor
+
+
+        }
+
+    }
+
+//
+
+//        if a node with the same position as successor is in the CLOSED list \
+//        which has a lower f than successor, skip this successor
+//        otherwise, add the node to the open list
+//        end
+//        push q on the closed list
+//        end
+
+        return false;
+
+    }
+
+    public void generateSuccessors(State currState, Queue<State> successorQueue) {
+        for(int x = 0; x < 3; x++) {
+            for (int y = 0; y < 3; y++) {
+                if (!(x == 1 && y == 1)) {
+                    State newState = new State(new Cood(currState.getCurrCood().getX() + x - 1, currState.getCurrCood().getY() + y - 1), currState, currState.getGx());
+                    successorQueue.add(newState);
+                }
+            }
+        }
     }
 
     public void stitchMap(char view[][]) {
