@@ -86,6 +86,7 @@ public class Agent {
 
     public void stitchMap(char view[][]) {
         char[][] newView = rotate_view(view, direction);
+        System.out.println("(" + currX + ", " + currY + ")");
         for (int x = 0; x < view.length; x++) {
             for (int y = 0; y < view.length; y++) {
                 //TODO redo stitching formula
@@ -107,7 +108,6 @@ public class Agent {
         int temp = times;
         if (temp == 0){
             return view;
-
         }
         while (temp % 4 != 0){
             newView = clockwise(view);
@@ -160,7 +160,7 @@ public class Agent {
         int lY = getLargey();
         System.out.println("-----------------------");
         for (int i = sX; i < lX + 1; i++) {
-            System.out.print("|");
+            System.out.print("| ");
             for (int j = sY; j < lY + 1; j++) {
                 Cood accCo = new Cood(i, j);
                 if (map.get(accCo) != null){
@@ -217,9 +217,9 @@ public class Agent {
 
     private void print_view(char view[][]) {
         int i, j;
-        System.out.println("\n+----------+");
+        System.out.println("\n+-----------+");
         for (i = 0; i < 5; i++) {
-            System.out.print("|");
+            System.out.print("| ");
             for (j = 0; j < 5; j++) {
                 if ((i == 2) && (j == 2)) {
                     System.out.print('^' + " ");
@@ -229,7 +229,7 @@ public class Agent {
             }
             System.out.println("|");
         }
-        System.out.println("+----------+");
+        System.out.println("+-----------+");
     }
 
     public static void main(String[] args) {
