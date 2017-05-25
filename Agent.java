@@ -113,6 +113,8 @@ public class Agent {
         int lY = getLargey();
         System.out.println(sX + ", " + sY);
         System.out.println(lX + ", " + lY);
+        Cood accCo = new Cood(1, 2);
+        System.out.print(map.get(accCo));
 //        for (int i = sX; i < lX + 1; i++) {
 //            for (int j = sY; j < lY + 1; j++) {
 //                Cood accCo = new Cood(i, j);
