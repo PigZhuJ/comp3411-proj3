@@ -11,7 +11,7 @@ import java.net.*;
 
 public class Agent {
 
-    private HashMap<Integer, HashMap<Integer, Character>> map = new HashMap<Integer, HashMap<Integer, Character>>();
+    private HashMap<Cood, Character> map = new HashMap<Cood, Character>();
     private Integer currX = 0;
     private Integer currY = 0;
     private int direction = 0;
@@ -38,22 +38,14 @@ public class Agent {
     }
 
     public void stitchMap(char view[][]) {
-        int time = direction;
-        char newView[][] = view;
-        int dodgeX = 0;
-        int dodgeY = 0;
-        newView = rotate_view(newView, time);
-
-        for (int x = currX - 2; x < currX + 3; x++) {
-            HashMap<Integer, Character> yValueMap = map.get(x);
-            dodgeY = 0;
-            for (int y = currX - 2; y < currY + 3; y++) {
-                yValueMap.put(y, view[dodgeY][dodgeX]);
-                dodgeY++;
+        for (int x = 0; x < view.length; x++) {
+            for (int y = 0; y < view.length; y++) {
+                Cood newCood = new Cood((currX + x -2), (currY + y - 2));
+                if (map.get(newCood) == null){
+                    map.put(newCood, view[y][x]);
+                }
             }
-            dodgeX++;
         }
-
     }
 
     //Rotate the view to 0 degree
@@ -110,12 +102,8 @@ public class Agent {
     }
 
     private void print_map(){
-        for (Integer kx : map.keySet()){
-            HashMap<Integer, Character> yValueMap = map.get(kx);
-            for (Integer ky : yValueMap.keySet()){
-                System.out.print(yValueMap.get(ky));
-            }
-            System.out.println();
+        for(Cood coKey : map.keySet()){
+            System.out.print(map.get(coKey));
         }
     }
 
