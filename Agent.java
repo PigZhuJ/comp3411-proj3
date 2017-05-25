@@ -76,8 +76,9 @@ public class Agent {
             updateCurrPosition();
         }
 
-        System.out.println("(" + currX + ", " + currY + ")");
+//        System.out.println("(" + currX + ", " + currY + ")");
         print_map();
+        System.out.println("*---------------------------------------*");
 
         return action;
 
@@ -87,15 +88,16 @@ public class Agent {
         char[][] newView = rotate_view(view, direction);
         for (int x = 0; x < view.length; x++) {
             for (int y = 0; y < view.length; y++) {
-                Cood newCood = new Cood((currX + x), (currY + y));
+                //TODO redo stitching formula
+                Cood newCood = new Cood((currX + x - 2), (currY + y - 2));
                 if (map.get(newCood) == null){
-                    System.out.println("Symbol is:" + newView[y][x]);
-                    map.put(newCood, newView[y][x]);
-                    System.out.println(map.get(newCood));
-                    System.out.println(map.get(newCood.getX()) + ", " + map.get(newCood.getY()));
+                    if (newView[x][y] != '\0') {
+                        map.put(newCood, newView[x][y]);
+                    } else {
+                        map.put(newCood, 'G');
+                    }
                 }
             }
-            System.out.println();
         }
     }
 
@@ -103,14 +105,13 @@ public class Agent {
     private char[][] rotate_view (char view[][], int times){
         char newView[][] = new char[view.length][view.length];
         int temp = times;
-        while (temp != 0){
-            if (temp < 0){
-                newView = clockwise(view);
-                temp++;
-            } else if (temp > 0){
-                newView = anticlockwise(view);
-                temp--;
-            }
+        if (temp == 0){
+            return view;
+
+        }
+        while (temp % 4 != 0){
+            newView = clockwise(view);
+            temp++;
         }
         return newView;
     }
@@ -121,12 +122,13 @@ public class Agent {
 
         for (int i = 0; i < view.length; i++) {
             for (int j = 0; j < view.length; j++) {
-                rot_view[i][j] = view[view.length - j - 1][i];
+               rot_view[i][j] = view[view.length - j - 1][i];
             }
         }
         return rot_view;
     }
 
+    //Not really needed
     //Rotate a matrix 90 degrees to the left
     private char[][] anticlockwise (char view[][]){
         char aRot_view[][] = new char[view.length][view.length];
@@ -158,6 +160,7 @@ public class Agent {
         int lY = getLargey();
         System.out.println("-----------------------");
         for (int i = sX; i < lX + 1; i++) {
+            System.out.print("|");
             for (int j = sY; j < lY + 1; j++) {
                 Cood accCo = new Cood(i, j);
                 if (map.get(accCo) != null){
@@ -166,7 +169,7 @@ public class Agent {
                     System.out.print("  ");
                 }
             }
-            System.out.println();
+            System.out.println("|");
         }
         System.out.println("-----------------------");
     }
