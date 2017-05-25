@@ -76,7 +76,7 @@ public class Agent {
             updateCurrPosition();
         }
 
-        System.out.println("(" + currX + ", " + currY + ")");
+//        System.out.println("(" + currX + ", " + currY + ")");
         print_map();
 
         return action;
@@ -88,8 +88,9 @@ public class Agent {
         for (int x = 0; x < view.length; x++) {
             for (int y = 0; y < view.length; y++) {
                 Cood newCood = new Cood((currX + x -2), (currY + y - 2));
+
                 if (map.get(newCood) == null){
-                    map.put(newCood, newView[x][y]);
+                    map.put(newCood, newView[y][x]);
 //                    System.out.print(map.get(newCood));
                 }
             }
@@ -153,18 +154,13 @@ public class Agent {
         int sY = getSmally();
         int lX = getLargex();
         int lY = getLargey();
-        System.out.println(sX + ", " + sY);
-        System.out.println(lX + ", " + lY);
-        Cood accCo = new Cood(1, 2);
-        System.out.print(map.get(accCo));
-
-//        for (int i = sX; i < lX + 1; i++) {
-//            for (int j = sY; j < lY + 1; j++) {
-//                Cood accCo = new Cood(i, j);
-//                System.out.print(map.get(accCo));
-//            }
-//            System.out.println();
-//        }
+        for (int i = sX; i < lX + 1; i++) {
+            for (int j = sY; j < lY + 1; j++) {
+                Cood accCo = new Cood(i, j);
+                System.out.print(map.get(accCo));
+            }
+            System.out.println();
+        }
     }
 
     private int getSmallx(){

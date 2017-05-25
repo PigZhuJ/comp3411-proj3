@@ -25,4 +25,25 @@ public class Cood {
     public void setY(int y) {
         this.y = y;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof Cood)) {
+            return false;
+        }
+        Cood cood = (Cood) o;
+        return cood.getX() == x && cood.getY() == y;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + x;
+        result = 31 * result + y;
+        return result;
+    }
+
 }
