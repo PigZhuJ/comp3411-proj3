@@ -34,7 +34,7 @@ public class Agent {
         }
 
         System.out.println("(" + currX + ", " + currY + ")");
-//        print_map();
+        print_map();
 
 
         return action;
@@ -95,7 +95,6 @@ public class Agent {
     }
 
     private void updateCurrPosition() {
-
         if (direction == 0) {
             currY--;
         } else if (direction == 1) {
@@ -105,18 +104,63 @@ public class Agent {
         } else {
             currX--;
         }
-
     }
 
     private void print_map(){
-        int y = currY - 2;
+        int sX = getSmallx();
+        int sY = getSmally();
+        int lX = getLargex();
+        int lY = getLargey();
+
+        for (int i = sX; i < lX + 1; i++) {
+            for (int j = sY; j < lY + 1; j++) {
+                Cood accCo = new Cood(i, j);
+                System.out.print(map.get(accCo));
+            }
+            System.out.print();
+        }
+    }
+
+    private int getSmallx(){
+        int x = 0;
         for(Cood coKey : map.keySet()){
-            if(coKey.getY() == y){
-                System.out.print(map.get(coKey));
+            if (x > coKey.getX()){
+                x = coKey.getX();
             }
         }
-        System.out.println();
+        return x;
     }
+
+    private int getLargex() {
+        int x = 0;
+        for (Cood coKey : map.keySet()) {
+            if (x < coKey.getX()) {
+                x = coKey.getX();
+            }
+        }
+        return x;
+    }
+
+    private int getSmally() {
+        int y = 0;
+        for (Cood coKey : map.keySet()) {
+            if (y > coKey.getY()) {
+                y = coKey.getY();
+            }
+        }
+        return x;
+    }
+
+    private int getLargey() {
+        int y = 0;
+        for (Cood coKey : map.keySet()) {
+            if (y > coKey.getY()) {
+                y = coKey.getY();
+            }
+        }
+        return y;
+    }
+
 
     private void print_view(char view[][]) {
         int i, j;
