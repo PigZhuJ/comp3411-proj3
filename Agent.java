@@ -24,15 +24,15 @@ public class Agent {
         // stitch the map given the view
         stitchMap(view);
 
-        if(view[1][2] == '~') {
+        if(view[1][2] == '~' || view[1][2] == '*') {
             action = 'r';
             direction = (direction + 1) % 4;
         }
 
         if (action == 'f') {
+
             updateCurrPosition();
         }
-        print_map();
         return action;
 
     }
