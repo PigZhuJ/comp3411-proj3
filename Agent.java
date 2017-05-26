@@ -17,6 +17,8 @@ public class Agent {
     private int direction = 0;
     private Queue<Character> nextMoves;
     private boolean isHugging;
+    private int moves = 0;
+    private ArrayList<Character> prevMove = new ArrayList<>();
 
     public Agent () {
         this.map = new HashMap<Cood, Character>();
@@ -30,6 +32,8 @@ public class Agent {
         char action = 'f';
 
         // stitch the map given the view
+        System.out.println("Current Pos: " + currX + ", " + currY);
+        System.out.println("direction is: " + direction);
         stitchMap(view);
 
         // if there are a list of moves to travel, then continue with the steps
@@ -94,15 +98,17 @@ public class Agent {
             direction = (direction + 1) % 4;
         }
 
-        print_map();
         System.out.println("*---------------------------------------*");
-
+        moves++;
+        if (moves == 35){
+            System.exit(0);
+        }
+        prevMove.add(action);
         return action;
 
     }
 
     private Cood searchForItems(char[][] view) {
-
         for (int x = 0; x < 5; x++) {
             for (int y = 0; y < 5; y++) {
                 if(view[y][x] == '$' || view[y][x] == 'a' || view[y][x] == 'd' || view[y][x] == 'k') {
@@ -112,7 +118,6 @@ public class Agent {
             }
         }
         return null;
-
     }
 
     private boolean aStarSearch(Cood destination) {
@@ -151,14 +156,8 @@ public class Agent {
 
             // if a node with the same position as successor is in the OPEN list \
             // which has a lower f than successor, skip this successor
-
-
         }
-
     }
-
-//
-
 //        if a node with the same position as successor is in the CLOSED list \
 //        which has a lower f than successor, skip this successor
 //        otherwise, add the node to the open list
@@ -183,35 +182,41 @@ public class Agent {
 
     public void stitchMap(char view[][]) {
         char[][] newView = rotate_view(view, direction);
-        System.out.println("(" + currX + ", " + currY + ")");
-        for (int x = 0; x < view.length; x++) {
-            for (int y = 0; y < view.length; y++) {
-                //TODO redo stitching formula
-                Cood newCood = new Cood((currX + x - 2), (currY + y - 2));
+        print_view(newView);
+        for (int i = 0; i < newView.length; i++) {
+            for (int j = 0; j < newView.length; j++) {
+                Cood newCood = createCood(i, j);
+//                System.out.println("(" + i + ", " + j + ") Symbol is: (" + newView[i][j] + ")");
                 if (map.get(newCood) == null){
-                    if (newView[x][y] != '\0') {
-                        map.put(newCood, newView[x][y]);
+                    if (view[j][i] != '\0'){
+                        map.put(newCood, newView[i][j]);
                     } else {
                         map.put(newCood, 'G');
                     }
                 }
+                System.out.println("(" + i + ", " + j + ") -> (" + newCood.getX() + ", " + newCood.getY() + ") => (" + newView[i][j] + ") => (" + map.get(newCood) + ")");
             }
         }
+        print_map();
     }
+
 
     //Rotate the view to 0 degree
     private char[][] rotate_view (char view[][], int times){
-        char newView[][] = new char[view.length][view.length];
+        char newView[][] = view;
         int temp = times;
         if (temp == 0){
             return view;
         }
         while (temp % 4 != 0){
-            newView = clockwise(view);
+            newView = clockwise(newView);
+
             temp++;
+            System.out.println("Rotation is: " + temp);
         }
         return newView;
     }
+
 
     //Rotate a matrix 90 degree to the right
     private char[][] clockwise (char view[][]){
@@ -240,35 +245,136 @@ public class Agent {
 
     private void updateCurrPosition() {
         if (direction == 0) {
-            currY--;
-        } else if (direction == 1) {
-            currX++;
-        } else if (direction == 2) {
             currY++;
-        } else {
+        } else if (direction == 1) {
             currX--;
+        } else if (direction == 2) {
+            currY--;
+        } else {
+            currX++;
         }
     }
 
-    private void print_map(){
-        int sX = getSmallx();
-        int sY = getSmally();
-        int lX = getLargex();
-        int lY = getLargey();
-        System.out.println("-----------------------");
-        for (int i = sX; i < lX + 1; i++) {
-            System.out.print("| ");
-            for (int j = sY; j < lY + 1; j++) {
-                Cood accCo = new Cood(i, j);
-                if (map.get(accCo) != null){
-                    System.out.print(map.get(accCo) + " ");
-                } else {
-                    System.out.print("  ");
-                }
+    // convert to coord system in relation to where the player starts at 0,0
+    // 0,0|0,1|0,2|0,3|0,4               -2,2 |-1,2 |0,2 |1,2 |2,2
+    // 1,0|1,1|1,2|1,3|1,4         ->    -2,1 |-1,1 |0,1 |1,1 |2,1
+    // 2,0|2,1|2,2|2,3|2,4               -2,0 |-1,0 |0,0 |1,0 |2,0
+    // 3,0|3,1|3,2|3,3|3,4               -2,-1|-1,-1|0,-1|1,-1|2,-1
+    // 4,0|4,1|4,2|4,3|4,4               -2,-2|-1,-2|0,-2|1,-2|2,-2
+    //Might still be wrong
+    public Cood createCood (int x, int y){
+        int newX = x;
+        int newY = y;
+        if (x == 0){
+            if (y == 0){
+                newX = newX - 2 + currX;
+                newY = newY + 2 + currY;
+            } else if (y == 1){
+                newX = newX - 1 + currX;
+                newY = newY + 1 + currY;
+            } else if (y == 2){
+                newX = newX + currX;
+                newY = newY + currY;
+            } else if (y == 3){
+                newX = newX + 1 + currX;
+                newY = newY - 1 + currY;
+            } else if (y == 4){
+                newX = newX + 2 + currX;
+                newY = newY - 2 + currY;
             }
-            System.out.println("|");
+        } else if (x == 1) {
+            if (y == 0) {
+                newX = newX - 3 + currX;
+                newY = newY + 1 + currY;
+            } else if (y == 1) {
+                newX = newX - 2 + currY;
+                newY = newY + currY;
+            } else if (y == 2) {
+                newX = newX - 1 + currX;
+                newY = newY - 1 + currY;
+            } else if (y == 3) {
+                newX = newX + currX;
+                newY = newY - 2 + currY;
+            } else if (y == 4) {
+                newX = newX + 1 + currX;
+                newY = newY - 3 + currY;
+            }
+        } else if (x == 2) {
+            if (y == 0) {
+                newX = newX - 4 + currX;
+                newY = newY + currY;
+            } else if (y == 1) {
+                newX = newX - 3 + currX;
+                newY = newY - 1 + currY;
+            } else if (y == 2) {
+                newX = newX - 2 + currX;
+                newY = newY - 2 + currY;
+            } else if (y == 3) {
+                newX = newX - 1 + currX;
+                newY = newY - 3 + currY;
+            } else if (y == 4) {
+                newX = newX + currX;
+                newY = newY - 4 + currY;
+            }
+        } else if (x == 3) {
+            if (y == 0) {
+                newX = newX - 5 + currX;
+                newY = newY - 1 + currY;
+            } else if (y == 1) {
+                newX = newX - 4 + currX;
+                newY = newY - 2 + currY;
+            } else if (y == 2) {
+                newX = newX - 3 + currX;
+                newY = newY - 3 + currY;
+            } else if (y == 3) {
+                newX = newX - 2 + currX;
+                newY = newY - 4 + currY;
+            } else if (y == 4) {
+                newX = newX - 1 + currX;
+                newY = newY - 5 + currY;
+            }
+        } else if (x == 4) {
+            if (y == 0) {
+                newX = newX - 6 + currX;
+                newY = newY - 2 + currY;
+            } else if (y == 1) {
+                newX = newX - 5 + currX;
+                newY = newY - 3 + currY;
+            } else if (y == 2) {
+                newX = newX - 4 + currX;
+                newY = newY - 4 + currY;
+            } else if (y == 3) {
+                newX = newX - 3 + currX;
+                newY = newY - 5 + currY;
+            } else if (y == 4) {
+                newX = newX - 2 + currX;
+                newY = newY - 6 + currY;
+            }
         }
-        System.out.println("-----------------------");
+        return new Cood(newX , newY);
+    }
+
+    //Actually is so fucking trash...
+    private void print_map(){
+        int xs = getSmallx();
+        int ys = getSmally();
+        int xl = getLargex();
+        int yl = getLargey();
+
+        for(Cood key : map.keySet()){
+            System.out.println("(" + key.getX() + ", " + key.getY() + ") => (" + map.get(key) + ")");
+        }
+        System.out.println("----------------");
+        for (int i = xs; i < xl + 1; i++) {
+            for (int j = ys; j < yl + 1; j++) {
+                Cood accCo = new Cood(i,j);
+//                System.out.print(map.get(accCo));
+
+                System.out.print("(" + i + ", " + j + ")");
+            }
+            System.out.println();
+        }
+        System.out.println("----------------");
     }
 
     private int getSmallx(){
