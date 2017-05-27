@@ -117,11 +117,11 @@ public class Agent {
         if (action == 'f') {
             updateCurrPosition();
         } else if (action == 'l') {
-            direction = (direction - 1) % 4;
+            direction = Math.abs((direction - 1) % 4);
         } else if (action == 'r') {
-            direction = (direction + 1) % 4;
+            direction = Math.abs((direction + 1) % 4);
         }
-
+        System.out.println("New Direction is:" + direction);
         //For debugging purposes
         System.out.println("*-------------------END--------------------*");
         moves++;
