@@ -34,15 +34,12 @@ public class Agent {
         // stitch the map given the view
         System.out.println("Current Pos: " + currX + ", " + currY);
         System.out.println("direction is: " + direction);
-        if (action == 'f') {
-            stitchMap(view);
-        }
 
         // if there are a list of moves to travel, then continue with the steps
         if (!nextMoves.isEmpty()) {
             action = nextMoves.poll();
 
-        // else try to find something to do
+            // else try to find something to do
         } else {
 
             // Look for items in the view
@@ -59,7 +56,7 @@ public class Agent {
             if (canGetAnItem) {
                 action = nextMoves.poll();
 
-            // if there is no item or you currently can't get to an item, do standard roaming
+                // if there is no item or you currently can't get to an item, do standard roaming
             } else {
 
                 // if we have started to hug the walls
@@ -69,13 +66,13 @@ public class Agent {
                     if (view[1][2] == '~' || view[1][2] == '*' || view[1][2] == 'T') {
                         action = 'r';
 
-                    // else if we're no longer touching a wall, turn the other way
+                        // else if we're no longer touching a wall, turn the other way
                     } else if (view[2][1] == ' ') {
                         action = 'l';
                         nextMoves.add('f');
                     }
 
-                // else just start roaming until we hit an obstacle
+                    // else just start roaming until we hit an obstacle
                 } else {
 
                     // if we hit an obstacle, start hugging obstacles
@@ -93,6 +90,9 @@ public class Agent {
         }
 
         // Update information about the player if a player makes a certain move
+        if (action == 'f') {
+            stitchMap(view);
+        }
         if (action == 'f') {
             updateCurrPosition();
         } else if (action == 'l') {
@@ -322,11 +322,11 @@ public class Agent {
         if (direction == 0) {
             currY++;
         } else if (direction == 1) {
-            currX++;
+            currX--;
         } else if (direction == 2) {
             currY--;
         } else {
-            currX--;
+            currX++;
         }
     }
 
