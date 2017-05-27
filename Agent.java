@@ -20,6 +20,13 @@ public class Agent {
     private int moves = 0;
     private ArrayList<Character> prevMove = new ArrayList<>();
 
+    //Inventory
+    private boolean axe = false;
+    private boolean key = false;
+    private boolean dynamite = false;
+    private boolean gold = false;
+    private boolean wood = false;
+
     public Agent () {
         this.map = new HashMap<Cood, Character>();
         this.nextMoves = new LinkedList<Character>();
@@ -115,12 +122,14 @@ public class Agent {
 
     }
 
+    //Scan the view and return Cood for item
     private Cood searchForItems(char[][] view) {
         for (int x = 0; x < 5; x++) {
             for (int y = 0; y < 5; y++) {
                 // if there is an item seen in the view, record the position of that
-                if(view[y][x] == '$' || view[y][x] == 'a' || view[y][x] == 'd' || view[y][x] == 'k') {
-                    Cood itemFound = new Cood(currX + x - 2,currY + 2 - y);
+                if(view[x][y] == '$' || view[x][y] == 'a' || view[x][y] == 'd' || view[x][y] == 'k') {
+                    Cood itemFound = createCood(x,y);
+                    System.out.println("(" + itemFound.getX() + ", " + itemFound.getY() + ") => " + "(" + view[x][y] + ")");
                     return itemFound;
                 }
             }
@@ -268,12 +277,12 @@ public class Agent {
                 Cood newCood = createCood(i, j);
                 //For debugging purposes
 //                System.out.println("(" + i + ", " + j + ") Symbol is: (" + newView[i][j] + ")");
-                if (map.get(newCood) == null) {
+//                if (map.get(newCood) == null) {
                     if (view[j][i] != '\0') {
                         map.put(newCood, newView[i][j]);
                     } else {
-                        map.put(newCood, 'G');
-                    }
+                        map.put(newCood, ' ');
+//                    }
                 }
                 //For debugging purposes
 //                System.out.println("(" + i + ", " + j + ") -> (" + newCood.getX() + ", " + newCood.getY() + ") => (" + newView[i][j] + ") => (" + map.get(newCood) + ")");
