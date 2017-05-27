@@ -50,9 +50,10 @@ public class Agent {
             boolean canGetAnItem = false;
 
             // if the player can see a collectable, attempt to go to the collectable
-            if (item != null) {
-                canGetAnItem = aStarSearch(item);
-            }
+            //TODO
+//            if (item != null) {
+//                canGetAnItem = aStarSearch(item);
+//            }
 
             // if you can get to the item, start poll the path set out by the queue
             if (canGetAnItem) {
@@ -223,7 +224,8 @@ public class Agent {
         } else {
             projectedX--;
         }
-        Cood newCood = new Cood();
+//        Cood newCood = new Cood();
+        return null;
     }
 
     public void generateSuccessors(State currState, Queue<State> successorQueue) {
@@ -262,18 +264,31 @@ public class Agent {
     private char[][] rotate_view (char view[][], int times){
         char newView[][] = view;
         int temp = times;
-        if (temp == 0){
+        if (temp == 0 && currX == 0){
             return view;
-        }
-        while (temp % 4 != 0){
-            newView = clockwise(newView);
+        } else {
+            newView = flip_view(newView);
+            System.out.println("Flipped");
+            print_view(newView);
+            while (temp % 4 != 0){
+                newView = clockwise(newView);
 
-            temp++;
-            System.out.println("Rotation is: " + temp);
+                temp++;
+                System.out.println("Rotation is: " + temp);
+            }
+            return newView;
+        }
+    }
+
+    public static char[][] flip_view(char[][] view) {
+        char[][] newView = new char[view.length][view.length];
+        for (int i = 0; i < view.length; i++) {
+            for (int j = 0; j < view.length; j++) {
+                newView[i][view.length - j - 1] = view[i][j];
+            }
         }
         return newView;
     }
-
 
     //Rotate a matrix 90 degree to the right
     private char[][] clockwise (char view[][]){
