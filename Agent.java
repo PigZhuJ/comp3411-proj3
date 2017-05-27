@@ -35,7 +35,7 @@ public class Agent {
 
     public char get_action(char view[][]) {
         //For debugging purposes
-        if (prevMove.isEmpty() == false) {
+        if (!prevMove.isEmpty()) {
             System.out.println("Prev Move is: " + prevMove.get(prevMove.size() - 1));
         }
         System.out.println("Current Pos: " + currX + ", " + currY);
@@ -43,7 +43,7 @@ public class Agent {
 
         // stitch the map given the view
 //        if (prevMove.get(prevMove.size()-1) == 'f' || moves == 0){
-//            stitchMap(view);
+            stitchMap(view);
 //        }
 
         // default action is to go forward
@@ -109,7 +109,7 @@ public class Agent {
         }
 
         //For debugging purposes
-//        System.out.println("Action: " + action);
+        System.out.println("Action: " + action);
 
 
         // TODO need to implement it if action involve anything else that is not a rotate
