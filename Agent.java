@@ -34,13 +34,20 @@ public class Agent {
     }
 
     public char get_action(char view[][]) {
+        //For debugging purposes
+        if (prevMove.isEmpty() == false) {
+            System.out.println("Prev Move is: " + prevMove.get(prevMove.size() - 1));
+        }
+        System.out.println("Current Pos: " + currX + ", " + currY);
+        System.out.println("direction is: " + direction);
+
+        // stitch the map given the view
+//        if (prevMove.get(prevMove.size()-1) == 'f' || moves == 0){
+//            stitchMap(view);
+//        }
 
         // default action is to go forward
         char action = 'f';
-
-        //For debugging purposes
-//        System.out.println("Current Pos: " + currX + ", " + currY);
-//        System.out.println("direction is: " + direction);
 
         // if there are a list of moves to travel, then continue with the steps
         if (!nextMoves.isEmpty()) {
@@ -102,11 +109,9 @@ public class Agent {
 
         //For debugging purposes
 //        System.out.println("Action: " + action);
-        // stitch the map given the view
-        if (action == 'f') {
-            stitchMap(view);
-        }
-        //TODO need to implement it if action involve anything else that is not a rotate
+
+
+        // TODO need to implement it if action involve anything else that is not a rotate
         // Update information about the player if a player makes a certain move
         if (action == 'f') {
             updateCurrPosition();
@@ -274,7 +279,9 @@ public class Agent {
 
 //--------------------------------------Map Stitching Algorithm-----------------------------//
     //Get the absolute cood of each character in the given view
-    public void stitchMap ( char view[][]){
+
+
+    public void stitchMap(char view[][]) {
         char[][] newView = rotate_view(view, direction);
         //For debugging purposes
 //        print_view(newView);
@@ -284,10 +291,10 @@ public class Agent {
                 //For debugging purposes
 //                System.out.println("(" + i + ", " + j + ") Symbol is: (" + newView[i][j] + ")");
 //                if (map.get(newCood) == null) {
-                    if (view[j][i] != '\0') {
-                        map.put(newCood, newView[i][j]);
-                    } else {
-                        map.put(newCood, ' ');
+                if (view[j][i] != '\0') {
+                    map.put(newCood, newView[i][j]);
+                } else {
+                    map.put(newCood, ' ');
 //                    }
                 }
                 //For debugging purposes
@@ -299,10 +306,10 @@ public class Agent {
     }
 
     //Rotate the view to 0 degree
-    private char[][] rotate_view (char view[][], int times){
+    private char[][] rotate_view(char view[][], int times) {
         char newView[][] = view;
         int temp = times;
-        if (temp == 0 && currX == 0){
+        if (temp == 0 && currX == 0) {
             return view;
         } else {
             //For debugging purposes
@@ -310,7 +317,7 @@ public class Agent {
             newView = flip_view(newView);
             //For debugging purposes
 //            print_view(newView);
-            while (temp % 4 != 0){
+            while (temp % 4 != 0) {
                 newView = clockwise(newView);
 
                 temp++;
@@ -333,18 +340,18 @@ public class Agent {
     }
 
     //Rotate a matrix 90 degree to the right for rotate_view
-    private char[][] clockwise (char view[][]){
+    private char[][] clockwise(char view[][]) {
         char rot_view[][] = new char[view.length][view.length];
 
         for (int i = 0; i < view.length; i++) {
             for (int j = 0; j < view.length; j++) {
-               rot_view[i][j] = view[view.length - j - 1][i];
+                rot_view[i][j] = view[view.length - j - 1][i];
             }
         }
         return rot_view;
     }
 
-    //Custom Cood works
+    //Custom Cood works... maybe
     public Cood createCood(int x, int y) {
         int newX = x;
         int newY = y;
