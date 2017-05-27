@@ -135,16 +135,14 @@ public class Agent {
         // initialize the closed list
         ArrayList<State> closed = new ArrayList<>();
         // put the starting node on the open list (you can leave its f at zero)
-        open.add(new State(new Cood(currX, currY),null, 0));
-
-        Queue<State> successorQueue = new LinkedList<>();
+        open.add(new State(new Cood(currX, currY),null, 0, 0));
 
         // while the open list is not empty
         while(!open.isEmpty()) {
             // pop the node with the least f off the open list
             State currState = open.poll();
             // generate q's 8 successors and set their parents to q
-            generateSuccessors(currState, successorQueue);
+            Queue<State> successorQueue = generateSuccessors(currState);
 
             // for each successor
             while (!successorQueue.isEmpty()) {
@@ -197,6 +195,20 @@ public class Agent {
 
     }
 
+    public LinkedList<State> generateSuccessors(State currState) {
+        LinkedList<State> successorQueue = new LinkedList<>();
+        for(int x = 0; x < 3; x++) {
+            for (int y = 0; y < 3; y++) {
+                // make sure that the current player position is not recorded as a successor
+                if (!(x == 1 && y == 1)) {
+                    State newState = new State(createCood(x,y), currState, currState.getGx(), 0);
+                    successorQueue.add(newState);
+                }
+            }
+        }
+        return successorQueue;
+    }
+
     private void buildNextMovesToReachItem(State successor) {
         LinkedList<Cood> moveList = new LinkedList<>();
         State currState = successor;
@@ -230,18 +242,6 @@ public class Agent {
         }
 //        Cood newCood = new Cood();
         return null;
-    }
-
-    public void generateSuccessors(State currState, Queue<State> successorQueue) {
-        for(int x = 0; x < 3; x++) {
-            for (int y = 0; y < 3; y++) {
-                // make sure that the current player position is not recorded as a successor
-                if (!(x == 1 && y == 1)) {
-                    State newState = new State(new Cood(currState.getCurrCood().getX() + x - 1, currState.getCurrCood().getY() + y - 1), currState, currState.getGx());
-                    successorQueue.add(newState);
-                }
-            }
-        }
     }
 
     //Update Current position based on direction
