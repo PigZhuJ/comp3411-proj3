@@ -294,7 +294,7 @@ public class Agent {
             }
         }
         //For debugging purposes
-//        print_map();
+        print_map();
     }
 
     //Rotate the view to 0 degree
