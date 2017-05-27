@@ -76,6 +76,7 @@ public class Agent {
                         } else {
                             action = 'l';
                         }
+                        nextMoves.add('f');
                     // else if we're no longer touching a wall, turn the other way
                     } else if (view[2][1] == ' ') {
                         action = 'l';
