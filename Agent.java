@@ -111,8 +111,9 @@ public class Agent {
     private Cood searchForItems(char[][] view) {
         for (int x = 0; x < 5; x++) {
             for (int y = 0; y < 5; y++) {
+                // if there is an item seen in the view, record the position of that
                 if(view[y][x] == '$' || view[y][x] == 'a' || view[y][x] == 'd' || view[y][x] == 'k') {
-                    Cood itemFound = new Cood(currX + x - 2,currY + y - 2);
+                    Cood itemFound = new Cood(currX + x - 2,currY + 2 - y);
                     return itemFound;
                 }
             }
@@ -122,56 +123,111 @@ public class Agent {
 
     private boolean aStarSearch(Cood destination) {
 
-    // initialize the open list
-    Queue<State> open = new PriorityQueue<State>();
-    // initialize the closed list
-    HashMap<Cood, Integer> closed = new HashMap<Cood, Integer>();
-    // put the starting node on the open list (you can leave its f at zero)
-    open.add(new State(new Cood(currX, currY),null, 0));
+        // initialize the open list
+        Queue<State> open = new PriorityQueue<>();
+        // initialize the closed list
+        ArrayList<State> closed = new ArrayList<>();
+        // put the starting node on the open list (you can leave its f at zero)
+        open.add(new State(new Cood(currX, currY),null, 0));
 
-    // initialize the successor queue
-    Queue<State> successorQueue = new LinkedList<State>();
+        Queue<State> successorQueue = new LinkedList<>();
 
-    // while the open list is not empty
-    while(!open.isEmpty()) {
-        // pop the node with the least f off the open list
-        State currState = open.poll();
-        // generate q's 8 successors and set their parents to q
-        generateSuccessors(currState, successorQueue);
+        // while the open list is not empty
+        while(!open.isEmpty()) {
+            // pop the node with the least f off the open list
+            State currState = open.poll();
+            // generate q's 8 successors and set their parents to q
+            generateSuccessors(currState, successorQueue);
 
-        // for each successor
-        while (!successorQueue.isEmpty()) {
+            // for each successor
+            while (!successorQueue.isEmpty()) {
 
-            State successor = successorQueue.poll();
-            // if successor is the goal, stop the search
-            if (successor.getCurrCood().equals(destination)) {
-                // TODO
-                return false;
+                State successor = successorQueue.poll();
+                // if successor is the goal, stop the search
+                if (successor.getCurrCood().equals(destination)) {
+                    buildNextMovesToReachItem(successor);
+                    return true;
+                }
+
+                // calculate g(x)
+                successor.calculateGx();
+                // calculate h(x)
+                successor.calculateHx(destination);
+
+                boolean skipNode = false;
+
+                // if a node with the same position as successor is in the OPEN list \
+                // which has a lower f than successor, skip this successor
+                for (State checkState : open) {
+                    if (checkState.getCurrCood().equals(successor.getCurrCood()) &&
+                            successor.calculateFx() > checkState.calculateFx()){
+                        skipNode = true;
+                    }
+                }
+
+                // if a node with the same position as successor is in the CLOSED list \
+                // which has a lower f than successor, skip this successor
+                for (State checkState : closed) {
+                    if (checkState.getCurrCood().equals(successor.getCurrCood()) &&
+                            successor.calculateFx() > checkState.calculateFx()){
+                        skipNode = true;
+                    }
+                }
+
+                // otherwise, add the node to the open list
+                if(!skipNode) {
+                    open.add(successor);
+                }
+
             }
 
-            // calculate g(x)
-            successor.calculateGx();
-            // calculate h(x)
-            successor.calculateHx(destination);
+            // push q on the closed list
+            closed.add(currState);
 
-            // if a node with the same position as successor is in the OPEN list \
-            // which has a lower f than successor, skip this successor
         }
-    }
-//        if a node with the same position as successor is in the CLOSED list \
-//        which has a lower f than successor, skip this successor
-//        otherwise, add the node to the open list
-//        end
-//        push q on the closed list
-//        end
 
         return false;
 
     }
 
+    private void buildNextMovesToReachItem(State successor) {
+        LinkedList<Cood> moveList = new LinkedList<>();
+        State currState = successor;
+        // retrieve all the coordinates that the player has to travel
+        while(!currState.getPrevState().equals(null)) {
+            moveList.add(0, currState.getCurrCood());
+            currState = currState.getPrevState();
+        }
+        // add the last coordinate
+        //moveList.add(0, currState.getCurrCood());
+        Cood currPosition = new Cood(currX, currY);
+        int currDirection = this.direction;
+        // go through the moves
+        for (Cood nextPosition : moveList) {
+            Cood projectedPosition = calculatePosition(currPosition, currDirection);
+            currPosition = nextPosition;
+        }
+    }
+
+    private Cood calculatePosition(Cood currPosition, int currDirection) {
+        int projectedX = currPosition.getX();
+        int projectedY = currPosition.getY();
+        if (currDirection == 0) {
+            projectedY++;
+        } else if (currDirection == 1) {
+            projectedX++;
+        } else if (currDirection == 2) {
+            projectedY--;
+        } else {
+            projectedX--;
+        }
+        Cood newCood = new Cood();
+    }
+
     public void generateSuccessors(State currState, Queue<State> successorQueue) {
         for(int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
+                // make sure that the current player position is not recorded as a successor
                 if (!(x == 1 && y == 1)) {
                     State newState = new State(new Cood(currState.getCurrCood().getX() + x - 1, currState.getCurrCood().getY() + y - 1), currState, currState.getGx());
                     successorQueue.add(newState);
