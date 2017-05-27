@@ -53,8 +53,8 @@ public class Agent {
             Cood item = searchForItems(view);
             boolean canGetAnItem = false;
 
+            //TODO implement check to get item
             // if the player can see a collectable, attempt to go to the collectable
-            //TODO
 //            if (item != null) {
 //                canGetAnItem = aStarSearch(item);
 //            }
@@ -100,11 +100,13 @@ public class Agent {
 
         }
 
-
+        //For debugging purposes
+//        System.out.println("Action: " + action);
         // stitch the map given the view
         if (action == 'f') {
             stitchMap(view);
         }
+        //TODO need to implement it if action involve anything else that is not a rotate
         // Update information about the player if a player makes a certain move
         if (action == 'f') {
             updateCurrPosition();
@@ -293,7 +295,7 @@ public class Agent {
             }
         }
         //For debugging purposes
-        print_map();
+//        print_map();
     }
 
     //Rotate the view to 0 degree
@@ -303,9 +305,10 @@ public class Agent {
         if (temp == 0 && currX == 0){
             return view;
         } else {
-            newView = flip_view(newView);
             //For debugging purposes
 //            System.out.println("Flipped");
+            newView = flip_view(newView);
+            //For debugging purposes
 //            print_view(newView);
             while (temp % 4 != 0){
                 newView = clockwise(newView);
