@@ -71,9 +71,12 @@ public class Agent {
 
                     // if we hit an obstacle, then turn
                     if (view[1][2] == '~' || view[1][2] == '*' || view[1][2] == 'T') {
-                        action = 'r';
-
-                        // else if we're no longer touching a wall, turn the other way
+                        if (view[2][1] == '~' || view[2][1] == '*' || view[2][1] == 'T') {
+                            action = 'r';
+                        } else {
+                            action = 'l';
+                        }
+                    // else if we're no longer touching a wall, turn the other way
                     } else if (view[2][1] == ' ') {
                         action = 'l';
                         nextMoves.add('f');
