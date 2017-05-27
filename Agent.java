@@ -34,7 +34,9 @@ public class Agent {
         // stitch the map given the view
         System.out.println("Current Pos: " + currX + ", " + currY);
         System.out.println("direction is: " + direction);
-        stitchMap(view);
+        if (action == 'f') {
+            stitchMap(view);
+        }
 
         // if there are a list of moves to travel, then continue with the steps
         if (!nextMoves.isEmpty()) {
@@ -180,15 +182,15 @@ public class Agent {
         }
     }
 
-    public void stitchMap(char view[][]) {
+    public void stitchMap ( char view[][]){
         char[][] newView = rotate_view(view, direction);
         print_view(newView);
         for (int i = 0; i < newView.length; i++) {
             for (int j = 0; j < newView.length; j++) {
                 Cood newCood = createCood(i, j);
 //                System.out.println("(" + i + ", " + j + ") Symbol is: (" + newView[i][j] + ")");
-                if (map.get(newCood) == null){
-                    if (view[j][i] != '\0'){
+                if (map.get(newCood) == null) {
+                    if (view[j][i] != '\0') {
                         map.put(newCood, newView[i][j]);
                     } else {
                         map.put(newCood, 'G');
@@ -199,7 +201,6 @@ public class Agent {
         }
         print_map();
     }
-
 
     //Rotate the view to 0 degree
     private char[][] rotate_view (char view[][], int times){
@@ -247,11 +248,11 @@ public class Agent {
         if (direction == 0) {
             currY++;
         } else if (direction == 1) {
-            currX--;
+            currX++;
         } else if (direction == 2) {
             currY--;
         } else {
-            currX++;
+            currX--;
         }
     }
 
@@ -262,23 +263,23 @@ public class Agent {
     // 3,0|3,1|3,2|3,3|3,4               -2,-1|-1,-1|0,-1|1,-1|2,-1
     // 4,0|4,1|4,2|4,3|4,4               -2,-2|-1,-2|0,-2|1,-2|2,-2
     //Might still be wrong
-    public Cood createCood (int x, int y){
+    public Cood createCood(int x, int y) {
         int newX = x;
         int newY = y;
-        if (x == 0){
-            if (y == 0){
+        if (x == 0) {
+            if (y == 0) {
                 newX = newX - 2 + currX;
                 newY = newY + 2 + currY;
-            } else if (y == 1){
+            } else if (y == 1) {
                 newX = newX - 1 + currX;
                 newY = newY + 1 + currY;
-            } else if (y == 2){
-                newX = newX + currX;
-                newY = newY + currY;
-            } else if (y == 3){
+            } else if (y == 2) {
+                newX = newX + 0 + currX;
+                newY = newY + 0 + currY;
+            } else if (y == 3) {
                 newX = newX + 1 + currX;
                 newY = newY - 1 + currY;
-            } else if (y == 4){
+            } else if (y == 4) {
                 newX = newX + 2 + currX;
                 newY = newY - 2 + currY;
             }
@@ -287,13 +288,13 @@ public class Agent {
                 newX = newX - 3 + currX;
                 newY = newY + 1 + currY;
             } else if (y == 1) {
-                newX = newX - 2 + currY;
-                newY = newY + currY;
+                newX = newX - 2 + currX;
+                newY = newY + 0 + currY;
             } else if (y == 2) {
                 newX = newX - 1 + currX;
                 newY = newY - 1 + currY;
             } else if (y == 3) {
-                newX = newX + currX;
+                newX = newX + 0 + currX;
                 newY = newY - 2 + currY;
             } else if (y == 4) {
                 newX = newX + 1 + currX;
@@ -302,7 +303,7 @@ public class Agent {
         } else if (x == 2) {
             if (y == 0) {
                 newX = newX - 4 + currX;
-                newY = newY + currY;
+                newY = newY + 0 + currY;
             } else if (y == 1) {
                 newX = newX - 3 + currX;
                 newY = newY - 1 + currY;
@@ -313,7 +314,7 @@ public class Agent {
                 newX = newX - 1 + currX;
                 newY = newY - 3 + currY;
             } else if (y == 4) {
-                newX = newX + currX;
+                newX = newX + 0 + currX;
                 newY = newY - 4 + currY;
             }
         } else if (x == 3) {
@@ -351,7 +352,7 @@ public class Agent {
                 newY = newY - 6 + currY;
             }
         }
-        return new Cood(newX , newY);
+        return new Cood(newX, newY);
     }
 
     //Actually is so fucking trash...
@@ -361,20 +362,59 @@ public class Agent {
         int xl = getLargex();
         int yl = getLargey();
 
+        int smallest = 0;
+        int largest = 0;
+
+        //Find the smallest point
+        if (xs <= ys){
+            smallest = xs;
+        } else if (xs >= ys){
+            smallest = ys;
+        }
+
+        //Find the largest point
+        if (xl >= yl){
+            largest = xl;
+        } else if (xl <= yl){
+            largest = yl;
+        }
+        System.out.println("--------------------------------");
+        System.out.println("Small: (" + xs + ", " + ys + ")");
+        System.out.println("Large: (" + xl + ", " + yl + ")");
+        System.out.println("--------------------------------");
+        System.out.println("From the hashmap:");
         for(Cood key : map.keySet()){
             System.out.println("(" + key.getX() + ", " + key.getY() + ") => (" + map.get(key) + ")");
         }
         System.out.println("----------------");
-        for (int i = xs; i < xl + 1; i++) {
-            for (int j = ys; j < yl + 1; j++) {
-                Cood accCo = new Cood(i,j);
+        for (int i = smallest; i < largest + 1; i++) {
+            for (int j = smallest; j < largest + 1; j++) {
+//                Cood accCo = new Cood(i,j);
 //                System.out.print(map.get(accCo));
-
-                System.out.print("(" + i + ", " + j + ")");
+                if (i >= 0 && j >= 0){
+                    System.out.print(" (" + j + ", " + i + ")");
+                } else {
+                    System.out.print(" (" + j + ", " + i + ")");
+                }
             }
             System.out.println();
         }
         System.out.println("----------------");
+
+        System.out.println("----------------------");
+        for (int i = smallest; i < largest + 1; i++) {
+            System.out.print("| ");
+            for (int j = smallest; j < largest + 1; j++) {
+                Cood accCo = new Cood(j, i);
+                if (map.get(accCo) != null){
+                    System.out.print(map.get(accCo) + " ");
+                } else {
+                    System.out.print("x ");
+                }
+            }
+            System.out.println("|");
+        }
+        System.out.println("----------------------");
     }
 
     private int getSmallx(){
