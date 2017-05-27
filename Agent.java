@@ -78,32 +78,21 @@ public class Agent {
 
                     // if we hit an obstacle, then turn
                     if (view[1][2] == '~' || view[1][2] == '*' || view[1][2] == 'T') {
-                        if (view[2][1] == '~' || view[2][1] == '*' || view[2][1] == 'T') {
-                            action = 'r';
-                            if (view[2][3] != '~' && view[2][3] != '*' && view[2][3] != 'T') nextMoves.add('f');
-                        } else {
-                            action = 'l';
-                            nextMoves.add('f');
-                        }
+                        action = rotateAtAnObstacle(view);
+
                     // else if we're no longer touching a wall, turn the other way
                     } else if (view[2][1] == ' ') {
                         action = 'l';
                         nextMoves.add('f');
                     }
 
-                    // else just start roaming until we hit an obstacle
+                // else just start roaming until we hit an obstacle
                 } else {
 
                     // if we hit an obstacle, start hugging obstacles
                     if (view[1][2] == '~' || view[1][2] == '*' || view[1][2] == 'T') {
 
-                        if (view[2][1] == '~' || view[2][1] == '*' || view[2][1] == 'T') {
-                            action = 'r';
-                            if (view[2][3] != '~' && view[2][3] != '*' && view[2][3] != 'T') nextMoves.add('f');
-                        } else {
-                            action = 'l';
-                            nextMoves.add('f');
-                        }
+                        action = rotateAtAnObstacle(view);
                         isHugging = true;
 
                     }
@@ -138,6 +127,18 @@ public class Agent {
         prevMove.add(action);
         return action;
 
+    }
+
+    private char rotateAtAnObstacle(char view[][]) {
+        char action;
+        if (view[2][1] == '~' || view[2][1] == '*' || view[2][1] == 'T') {
+            action = 'r';
+            if (view[2][3] != '~' && view[2][3] != '*' && view[2][3] != 'T') nextMoves.add('f');
+        } else {
+            action = 'l';
+            nextMoves.add('f');
+        }
+        return action;
     }
 
     //Scan the view and return Cood for item
