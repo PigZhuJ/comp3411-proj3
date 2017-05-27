@@ -240,6 +240,7 @@ public class Agent {
         }
     }
 
+    //Get the absolute cood of each character in the given view
     public void stitchMap ( char view[][]){
         char[][] newView = rotate_view(view, direction);
         print_view(newView);
@@ -280,6 +281,7 @@ public class Agent {
         }
     }
 
+    //flip the view
     public static char[][] flip_view(char[][] view) {
         char[][] newView = new char[view.length][view.length];
         for (int i = 0; i < view.length; i++) {
@@ -315,6 +317,7 @@ public class Agent {
         return aRot_view;
     }
 
+    //Update Current position based on direction
     private void updateCurrPosition() {
         if (direction == 0) {
             currY++;
