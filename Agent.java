@@ -31,9 +31,9 @@ public class Agent {
         // default action is to go forward
         char action = 'f';
 
-        // stitch the map given the view
-        System.out.println("Current Pos: " + currX + ", " + currY);
-        System.out.println("direction is: " + direction);
+        //For debugging purposes
+//        System.out.println("Current Pos: " + currX + ", " + currY);
+//        System.out.println("direction is: " + direction);
 
         // if there are a list of moves to travel, then continue with the steps
         if (!nextMoves.isEmpty()) {
@@ -89,10 +89,12 @@ public class Agent {
 
         }
 
-        // Update information about the player if a player makes a certain move
+
+        // stitch the map given the view
         if (action == 'f') {
             stitchMap(view);
         }
+        // Update information about the player if a player makes a certain move
         if (action == 'f') {
             updateCurrPosition();
         } else if (action == 'l') {
@@ -101,11 +103,13 @@ public class Agent {
             direction = (direction + 1) % 4;
         }
 
-        System.out.println("*---------------------------------------*");
+        //For debugging purposes
+        System.out.println("*-------------------END--------------------*");
         moves++;
-        if (moves == 35){
+        if (moves == 50){
             System.exit(0);
         }
+        //add curr move into arraylist of prev move
         prevMove.add(action);
         return action;
 
@@ -240,83 +244,6 @@ public class Agent {
         }
     }
 
-    //Get the absolute cood of each character in the given view
-    public void stitchMap ( char view[][]){
-        char[][] newView = rotate_view(view, direction);
-        print_view(newView);
-        for (int i = 0; i < newView.length; i++) {
-            for (int j = 0; j < newView.length; j++) {
-                Cood newCood = createCood(i, j);
-//                System.out.println("(" + i + ", " + j + ") Symbol is: (" + newView[i][j] + ")");
-                if (map.get(newCood) == null) {
-                    if (view[j][i] != '\0') {
-                        map.put(newCood, newView[i][j]);
-                    } else {
-                        map.put(newCood, 'G');
-                    }
-                }
-                System.out.println("(" + i + ", " + j + ") -> (" + newCood.getX() + ", " + newCood.getY() + ") => (" + newView[i][j] + ") => (" + map.get(newCood) + ")");
-            }
-        }
-        print_map();
-    }
-
-    //Rotate the view to 0 degree
-    private char[][] rotate_view (char view[][], int times){
-        char newView[][] = view;
-        int temp = times;
-        if (temp == 0 && currX == 0){
-            return view;
-        } else {
-            newView = flip_view(newView);
-            System.out.println("Flipped");
-            print_view(newView);
-            while (temp % 4 != 0){
-                newView = clockwise(newView);
-
-                temp++;
-                System.out.println("Rotation is: " + temp);
-            }
-            return newView;
-        }
-    }
-
-    //flip the view
-    public static char[][] flip_view(char[][] view) {
-        char[][] newView = new char[view.length][view.length];
-        for (int i = 0; i < view.length; i++) {
-            for (int j = 0; j < view.length; j++) {
-                newView[i][view.length - j - 1] = view[i][j];
-            }
-        }
-        return newView;
-    }
-
-    //Rotate a matrix 90 degree to the right
-    private char[][] clockwise (char view[][]){
-        char rot_view[][] = new char[view.length][view.length];
-
-        for (int i = 0; i < view.length; i++) {
-            for (int j = 0; j < view.length; j++) {
-               rot_view[i][j] = view[view.length - j - 1][i];
-            }
-        }
-        return rot_view;
-    }
-
-    //Not really needed
-    //Rotate a matrix 90 degrees to the left
-    private char[][] anticlockwise (char view[][]){
-        char aRot_view[][] = new char[view.length][view.length];
-
-        for (int i = 0; i < view.length; i++) {
-            for (int j = 0; j < view.length; j++) {
-                aRot_view[i][j] = view[j][view.length - i - 1];
-            }
-        }
-        return aRot_view;
-    }
-
     //Update Current position based on direction
     private void updateCurrPosition() {
         if (direction == 0) {
@@ -330,13 +257,78 @@ public class Agent {
         }
     }
 
-    // convert to coord system in relation to where the player starts at 0,0
-    // 0,0|0,1|0,2|0,3|0,4               -2,2 |-1,2 |0,2 |1,2 |2,2
-    // 1,0|1,1|1,2|1,3|1,4         ->    -2,1 |-1,1 |0,1 |1,1 |2,1
-    // 2,0|2,1|2,2|2,3|2,4               -2,0 |-1,0 |0,0 |1,0 |2,0
-    // 3,0|3,1|3,2|3,3|3,4               -2,-1|-1,-1|0,-1|1,-1|2,-1
-    // 4,0|4,1|4,2|4,3|4,4               -2,-2|-1,-2|0,-2|1,-2|2,-2
-    //Might still be wrong
+//--------------------------------------Map Stitching Algorithm-----------------------------//
+    //Get the absolute cood of each character in the given view
+    public void stitchMap ( char view[][]){
+        char[][] newView = rotate_view(view, direction);
+        //For debugging purposes
+//        print_view(newView);
+        for (int i = 0; i < newView.length; i++) {
+            for (int j = 0; j < newView.length; j++) {
+                Cood newCood = createCood(i, j);
+                //For debugging purposes
+//                System.out.println("(" + i + ", " + j + ") Symbol is: (" + newView[i][j] + ")");
+                if (map.get(newCood) == null) {
+                    if (view[j][i] != '\0') {
+                        map.put(newCood, newView[i][j]);
+                    } else {
+                        map.put(newCood, 'G');
+                    }
+                }
+                //For debugging purposes
+//                System.out.println("(" + i + ", " + j + ") -> (" + newCood.getX() + ", " + newCood.getY() + ") => (" + newView[i][j] + ") => (" + map.get(newCood) + ")");
+            }
+        }
+        //For debugging purposes
+        print_map();
+    }
+
+    //Rotate the view to 0 degree
+    private char[][] rotate_view (char view[][], int times){
+        char newView[][] = view;
+        int temp = times;
+        if (temp == 0 && currX == 0){
+            return view;
+        } else {
+            newView = flip_view(newView);
+            //For debugging purposes
+//            System.out.println("Flipped");
+//            print_view(newView);
+            while (temp % 4 != 0){
+                newView = clockwise(newView);
+
+                temp++;
+                //For debugging purposes
+//                System.out.println("Rotation is: " + temp);
+            }
+            return newView;
+        }
+    }
+
+    //flip the view for rotate_view
+    public static char[][] flip_view(char[][] view) {
+        char[][] newView = new char[view.length][view.length];
+        for (int i = 0; i < view.length; i++) {
+            for (int j = 0; j < view.length; j++) {
+                newView[i][view.length - j - 1] = view[i][j];
+            }
+        }
+        return newView;
+    }
+
+    //Rotate a matrix 90 degree to the right for rotate_view
+    private char[][] clockwise (char view[][]){
+        char rot_view[][] = new char[view.length][view.length];
+
+        for (int i = 0; i < view.length; i++) {
+            for (int j = 0; j < view.length; j++) {
+               rot_view[i][j] = view[view.length - j - 1][i];
+            }
+        }
+        return rot_view;
+    }
+
+    //Custom Cood works
     public Cood createCood(int x, int y) {
         int newX = x;
         int newY = y;
@@ -429,7 +421,7 @@ public class Agent {
         return new Cood(newX, newY);
     }
 
-    //Actually is so fucking trash...
+    //Print out the map for debugging purposes
     private void print_map(){
         int xs = getSmallx();
         int ys = getSmally();
@@ -452,28 +444,28 @@ public class Agent {
         } else if (xl <= yl){
             largest = yl;
         }
-        System.out.println("--------------------------------");
-        System.out.println("Small: (" + xs + ", " + ys + ")");
-        System.out.println("Large: (" + xl + ", " + yl + ")");
-        System.out.println("--------------------------------");
-        System.out.println("From the hashmap:");
-        for(Cood key : map.keySet()){
-            System.out.println("(" + key.getX() + ", " + key.getY() + ") => (" + map.get(key) + ")");
-        }
-        System.out.println("----------------");
-        for (int i = smallest; i < largest + 1; i++) {
-            for (int j = smallest; j < largest + 1; j++) {
-//                Cood accCo = new Cood(i,j);
-//                System.out.print(map.get(accCo));
-                if (i >= 0 && j >= 0){
-                    System.out.print(" (" + j + ", " + i + ")");
-                } else {
-                    System.out.print(" (" + j + ", " + i + ")");
-                }
-            }
-            System.out.println();
-        }
-        System.out.println("----------------");
+        //For debugging purposes
+//        System.out.println("--------------------------------");
+//        System.out.println("Small: (" + xs + ", " + ys + ")");
+//        System.out.println("Large: (" + xl + ", " + yl + ")");
+//        System.out.println("--------------------------------");
+//        System.out.println("From the hashmap:");
+//        for(Cood key : map.keySet()){
+//            System.out.println("(" + key.getX() + ", " + key.getY() + ") => (" + map.get(key) + ")");
+//        }
+        //For debugging purposes
+//        System.out.println("----------------");
+//        for (int i = smallest; i < largest + 1; i++) {
+//            for (int j = smallest; j < largest + 1; j++) {
+//                if (i >= 0 && j >= 0){
+//                    System.out.print(" (" + j + ", " + i + ")");
+//                } else {
+//                    System.out.print(" (" + j + ", " + i + ")");
+//                }
+//            }
+//            System.out.println();
+//        }
+//        System.out.println("----------------");
 
         System.out.println("----------------------");
         for (int i = smallest; i < largest + 1; i++) {
@@ -491,6 +483,7 @@ public class Agent {
         System.out.println("----------------------");
     }
 
+    //For print_map
     private int getSmallx(){
         int x = 0;
         for(Cood coKey : map.keySet()){
@@ -530,8 +523,9 @@ public class Agent {
         }
         return y;
     }
+//--------------------------------------END--------------------------------------------------//
 
-
+    //Change back to original function after finish
     private void print_view(char view[][]) {
         int i, j;
         System.out.println("\n+-----------+");
