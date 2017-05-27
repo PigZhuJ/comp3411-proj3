@@ -80,10 +80,10 @@ public class Agent {
                     if (view[1][2] == '~' || view[1][2] == '*' || view[1][2] == 'T') {
                         if (view[2][1] == '~' || view[2][1] == '*' || view[2][1] == 'T') {
                             action = 'r';
-                            if (view[2][4] != '~' && view[2][4] != '*' && view[2][4] != 'T') nextMoves.add('f');
+                            if (view[2][3] != '~' && view[2][3] != '*' && view[2][3] != 'T') nextMoves.add('f');
                         } else {
                             action = 'l';
-                            if (view[2][0] != '~' && view[2][0] != '*' && view[2][0] != 'T') nextMoves.add('f');
+                            if (view[2][1] != '~' && view[2][1] != '*' && view[2][1] != 'T') nextMoves.add('f');
                         }
                     // else if we're no longer touching a wall, turn the other way
                     } else if (view[2][1] == ' ') {
