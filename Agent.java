@@ -80,10 +80,11 @@ public class Agent {
                     if (view[1][2] == '~' || view[1][2] == '*' || view[1][2] == 'T') {
                         if (view[2][1] == '~' || view[2][1] == '*' || view[2][1] == 'T') {
                             action = 'r';
+                            if (view[2][4] != '~' && view[2][4] != '*' && view[2][4] != 'T') nextMoves.add('f');
                         } else {
                             action = 'l';
+                            if (view[2][0] != '~' && view[2][0] != '*' && view[2][0] != 'T') nextMoves.add('f');
                         }
-                        nextMoves.add('f');
                     // else if we're no longer touching a wall, turn the other way
                     } else if (view[2][1] == ' ') {
                         action = 'l';
@@ -135,12 +136,12 @@ public class Agent {
 
     //Scan the view and return Cood for item
     private Cood searchForItems(char[][] view) {
-        for (int x = 0; x < 5; x++) {
-            for (int y = 0; y < 5; y++) {
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
                 // if there is an item seen in the view, record the position of that
-                if(view[x][y] == '$' || view[x][y] == 'a' || view[x][y] == 'd' || view[x][y] == 'k') {
-                    Cood itemFound = createCood(x,y);
-                    System.out.println("(" + itemFound.getX() + ", " + itemFound.getY() + ") => " + "(" + view[x][y] + ")");
+                if(view[j][i] == '$' || view[j][i] == 'a' || view[j][i] == 'd' || view[j][i] == 'k') {
+                    Cood itemFound = createCood(i,j);
+                    System.out.println("(" + itemFound.getX() + ", " + itemFound.getY() + ") => " + "(" + view[j][i] + ")");
                     return itemFound;
                 }
             }
@@ -243,25 +244,31 @@ public class Agent {
         int currDirection = this.direction;
         // go through the moves
         for (Cood nextPosition : moveList) {
-            Cood projectedPosition = calculatePosition(currPosition, currDirection);
+            Cood projectedPosition = calculateProjection(currPosition, currDirection);
+            while(!projectedPosition.equals(nextPosition)) {
+                currDirection++;
+                nextMoves.add('r');
+                projectedPosition = calculateProjection(currPosition, currDirection);
+            }
+            nextMoves.add('f');
             currPosition = nextPosition;
         }
     }
 
-    private Cood calculatePosition(Cood currPosition, int currDirection) {
+    private Cood calculateProjection(Cood currPosition, int currDirection) {
         int projectedX = currPosition.getX();
         int projectedY = currPosition.getY();
         if (currDirection == 0) {
             projectedY++;
         } else if (currDirection == 1) {
-            projectedX++;
+            projectedX--;
         } else if (currDirection == 2) {
             projectedY--;
         } else {
-            projectedX--;
+            projectedX++;
         }
-//        Cood newCood = new Cood();
-        return null;
+        Cood newCood = new Cood(projectedX,projectedY);
+        return newCood;
     }
 
     //Update Current position based on direction
