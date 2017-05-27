@@ -10,7 +10,7 @@ public class State implements Comparable<State> {
     private int gx;
     private int hx;
 
-    public State(Cood currCood, State prevState, int gx) {
+    public State(Cood currCood, State prevState, int gx, int hx) {
         this.currCood = currCood;
         this.prevState = prevState;
         this.gx = gx;
