@@ -256,7 +256,7 @@ public class Agent3 {
             while(!projectedPosition.equals(nextPosition)) {
                 Cood leftOfPlayer = calculateProjection(currPosition, (currDirection + 4 - 1)%4);
                 Cood rightOfPlayer = calculateProjection(currPosition, (currDirection + 1)%4);
-                if (isAnObstacle(map.get(leftOfPlayer)) || nextPosition.equals(map.get(rightOfPlayer))) {
+                if (isAnObstacle(map.get(leftOfPlayer)) || nextPosition.equals(rightOfPlayer)) {
                     nextMoves.add('r');
                     currDirection = (currDirection + 1)%4;
                 } else {
