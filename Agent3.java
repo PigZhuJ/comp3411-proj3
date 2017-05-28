@@ -33,6 +33,9 @@ public class Agent3 {
     private boolean axe;
     private boolean key;
 
+    // DEBUG
+    private int moves;
+
     public Agent3() {
         // Map Related Fields
         this.map = new HashMap<>();
@@ -53,6 +56,8 @@ public class Agent3 {
         this.gold = false;
         this.axe = false;
         this.key = false;
+        // DEBUG
+        this.moves = 0;
     }
 
     public char get_action( char view[][] ) {
@@ -104,7 +109,7 @@ public class Agent3 {
                         } else if (view[2][3] == ' ' && !onWater) {
                             action = 'r';
                         }
-                        nextMoves.add('f');
+                        //nextMoves.add('f');
                     // *   ^
                     // *     *
                     // * * * *
@@ -117,7 +122,7 @@ public class Agent3 {
                         } else if (view[2][1] == ' ' && !onWater) {
                             action = 'l';
                         }
-                        nextMoves.add('f');
+                        //nextMoves.add('f');
                     }
                 // else do standard roaming
                 } else {
@@ -168,6 +173,13 @@ public class Agent3 {
             direction = (direction + 4 + 1) % 4;
         }
 
+        // DEBUG
+        if (moves < 10) {
+            moves++;
+        } else {
+            System.exit(0);
+        }
+
         return action;
 
     }
@@ -195,10 +207,10 @@ public class Agent3 {
         char action;
         if (isAnObstacle(view[2][1])) {
             action = 'r';
-            if (view[2][3] != '~' && view[2][3] != '*' && view[2][3] != 'T' && view[2][3] != '.') nextMoves.add('f');
+            //if (isAnObstacle(view[2][3])) nextMoves.add('f');
         } else {
             action = 'l';
-            nextMoves.add('f');
+            //nextMoves.add('f');
         }
         return action;
     }

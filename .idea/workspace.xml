@@ -53,14 +53,13 @@
       <file leaf-file-name="Agent3.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Agent3.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="135" column="46" lean-forward="false" selection-start-line="135" selection-start-column="46" selection-end-line="135" selection-end-column="46" />
+            <state relative-caret-position="459">
+              <caret line="179" column="25" lean-forward="false" selection-start-line="179" selection-start-column="25" selection-end-line="179" selection-end-column="25" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="imports" expanded="true" />
                 <element signature="method#updateCurrPosition#0;class#Agent3#0" expanded="false" />
                 <element signature="method#isAnObstacle#0;class#Agent3#0" expanded="false" />
-                <element signature="method#rotateAtAnObstacle#0;class#Agent3#0" expanded="false" />
                 <element signature="method#searchForItems#0;class#Agent3#0" expanded="false" />
                 <element signature="method#aStarSearch#0;class#Agent3#0" expanded="false" />
                 <element signature="method#generateSuccessors#0;class#Agent3#0" expanded="false" />
@@ -886,14 +885,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Agent3.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="135" column="46" lean-forward="false" selection-start-line="135" selection-start-column="46" selection-end-line="135" selection-end-column="46" />
+        <state relative-caret-position="459">
+          <caret line="179" column="25" lean-forward="false" selection-start-line="179" selection-start-column="25" selection-end-line="179" selection-end-column="25" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
             <element signature="method#updateCurrPosition#0;class#Agent3#0" expanded="false" />
             <element signature="method#isAnObstacle#0;class#Agent3#0" expanded="false" />
-            <element signature="method#rotateAtAnObstacle#0;class#Agent3#0" expanded="false" />
             <element signature="method#searchForItems#0;class#Agent3#0" expanded="false" />
             <element signature="method#aStarSearch#0;class#Agent3#0" expanded="false" />
             <element signature="method#generateSuccessors#0;class#Agent3#0" expanded="false" />
