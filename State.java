@@ -9,11 +9,14 @@ public class State implements Comparable<State> {
     private State prevState;
     private int gx;
     private int hx;
+    private boolean isStartingState;
 
-    public State(Cood currCood, State prevState, int gx, int hx) {
+    public State(Cood currCood, State prevState, int gx, int hx, boolean isStartingState) {
         this.currCood = currCood;
         this.prevState = prevState;
         this.gx = gx;
+        this.hx = hx;
+        this.isStartingState = isStartingState;
     }
 
     public void calculateGx() {
@@ -38,6 +41,10 @@ public class State implements Comparable<State> {
 
     public State getPrevState () {
         return this.prevState;
+    }
+
+    public boolean isStartingState() {
+        return isStartingState;
     }
 
     @Override
