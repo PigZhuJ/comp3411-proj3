@@ -85,8 +85,8 @@ public class Agent2 {
             System.out.println("Already know where to go!");
             action = nextMoves.poll();
             // else try to find something to do
-        } else if (nextMoves.isEmpty() && gold){
-            aStarSearch(new Cood(0,0));
+//        } else if (nextMoves.isEmpty() && gold){
+//            aStarSearch(new Cood(0,0));
         } else {
             // if you can find an item
             if(scanItem(view)){
@@ -98,10 +98,10 @@ public class Agent2 {
                 Cood item = searchForItems(view);
                 boolean canGetAnItem = false;
                 // try to get to the item
-                if (item != null) {
-                    canGetAnItem = aStarSearch(item);
-                    System.out.println("I'm using A* search");
-                }
+//                if (item != null) {
+//                    canGetAnItem = aStarSearch(item);
+//                    System.out.println("I'm using A* search");
+//                }
                 // if you can get to the item, then perform the preset actions to go to the item
                 if (canGetAnItem) {
                     action = nextMoves.poll();
@@ -118,7 +118,6 @@ public class Agent2 {
                         if ((view[1][2] == '~' && !wood) || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.' || view[1][2] == '-') {
                             action = rotateAtAnObstacle(view);
                             // else if we're no longer touching a wall, turn the other way
-                            //TODO need to make sure wood is false when back on land
                         } else if (view[2][1] == ' ' && !wood) {
                             /*if (hugSide == 'l') {
                                 action = 'l';
@@ -180,7 +179,7 @@ public class Agent2 {
         if (action == 'f' && view[1][2] == '~') {
             System.out.println("going for a swim!");
             onWater = true;
-        } else if (action == 'f' && view[1][2] == ' ' && onWater == true){
+        } else if (action == 'f' && view[1][2] == ' ' && !onWater){
             System.out.println("Back to land!");
             onWater = false;
             wood = false;
@@ -470,7 +469,7 @@ public class Agent2 {
         return false;
     }
 
-    public LinkedList<State> generateSuccessors(State currState) {
+    private LinkedList<State> generateSuccessors(State currState) {
         LinkedList<State> successorQueue = new LinkedList<>();
         for(int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
@@ -566,7 +565,7 @@ public class Agent2 {
 //--------------[DONE DO NOT TOUCH ANYMORE]----Map Stitching Algorithm-----------------------------//
 
     //Get the absolute cood of each character in the given view
-    public void stitchMap(char view[][]) {
+    private void stitchMap(char view[][]) {
         char[][] newView = rotate_view(view, direction);
         // for each y coordinate
         for (int i = 0; i < 5; i++) {
@@ -578,7 +577,7 @@ public class Agent2 {
                 if (view[j][i] != '\0') {
                     map.put(newCood, newView[i][j]);
                 } else {
-                    if (onWater == true) {
+                    if (onWater) {
                         map.put(newCood, '~');
                     } else {
                         map.put(newCood, ' ');
@@ -623,7 +622,7 @@ public class Agent2 {
 
     }
 
-    public Cood createCood(int x, int y) {
+    private Cood createCood(int x, int y) {
 
         int newX = x;
         int newY = y;
