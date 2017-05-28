@@ -85,8 +85,8 @@ public class Agent2 {
             System.out.println("Already know where to go!");
             action = nextMoves.poll();
             // else try to find something to do
-//        } else if (nextMoves.isEmpty() && gold){
-//            aStarSearch(new Cood(0,0));
+        } else if (nextMoves.isEmpty() && gold){
+            aStarSearch(new Cood(0,0));
         } else {
             // if you can find an item
             if(scanItem(view)){
@@ -98,10 +98,10 @@ public class Agent2 {
                 Cood item = searchForItems(view);
                 boolean canGetAnItem = false;
                 // try to get to the item
-//                if (item != null) {
-//                    canGetAnItem = aStarSearch(item);
-//                    System.out.println("I'm using A* search");
-//                }
+                if (item != null) {
+                    canGetAnItem = aStarSearch(item);
+                    System.out.println("I'm using A* search");
+                }
                 // if you can get to the item, then perform the preset actions to go to the item
                 if (canGetAnItem) {
                     action = nextMoves.poll();
@@ -162,7 +162,7 @@ public class Agent2 {
         // update the coordinate
         if (action == 'f') {
             if (view[1][2] == '$') {
-//                aStarSearch(new Cood(0,0));
+                aStarSearch(new Cood(0,0));
                 gold = true;
             }
             updateCurrPosition();
