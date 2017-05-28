@@ -32,19 +32,18 @@
       <file leaf-file-name="Agent2.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Agent2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="74">
-              <caret line="355" column="29" lean-forward="false" selection-start-line="355" selection-start-column="29" selection-end-line="355" selection-end-column="29" />
+            <state relative-caret-position="-4465">
+              <caret line="124" column="28" lean-forward="false" selection-start-line="124" selection-start-column="28" selection-end-line="124" selection-end-column="28" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="imports" expanded="true" />
-                <element signature="method#get_action#0;class#Agent2#0" expanded="false" />
-                <marker date="1495958614269" expanded="false" signature="24027:24589" ph="{...}" />
-                <marker date="1495958614269" expanded="false" signature="24638:24815" ph="{...}" />
-                <marker date="1495958614269" expanded="false" signature="24845:25025" ph="{...}" />
-                <marker date="1495958614269" expanded="false" signature="25055:25235" ph="{...}" />
-                <marker date="1495958614269" expanded="false" signature="25265:25445" ph="{...}" />
-                <marker date="1495958614269" expanded="false" signature="25589:26059" ph="{...}" />
-                <marker date="1495958614269" expanded="false" signature="26110:27873" ph="{...}" />
+                <marker date="1495959027556" expanded="false" signature="24145:24707" ph="{...}" />
+                <marker date="1495959027556" expanded="false" signature="24756:24933" ph="{...}" />
+                <marker date="1495959027556" expanded="false" signature="24963:25143" ph="{...}" />
+                <marker date="1495959027556" expanded="false" signature="25173:25353" ph="{...}" />
+                <marker date="1495959027556" expanded="false" signature="25383:25563" ph="{...}" />
+                <marker date="1495959027556" expanded="false" signature="25707:26177" ph="{...}" />
+                <marker date="1495959027556" expanded="false" signature="26228:27991" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -870,19 +869,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Agent2.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="74">
-          <caret line="355" column="29" lean-forward="false" selection-start-line="355" selection-start-column="29" selection-end-line="355" selection-end-column="29" />
+        <state relative-caret-position="-4465">
+          <caret line="124" column="28" lean-forward="false" selection-start-line="124" selection-start-column="28" selection-end-line="124" selection-end-column="28" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="method#get_action#0;class#Agent2#0" expanded="false" />
-            <marker date="1495958614269" expanded="false" signature="24027:24589" ph="{...}" />
-            <marker date="1495958614269" expanded="false" signature="24638:24815" ph="{...}" />
-            <marker date="1495958614269" expanded="false" signature="24845:25025" ph="{...}" />
-            <marker date="1495958614269" expanded="false" signature="25055:25235" ph="{...}" />
-            <marker date="1495958614269" expanded="false" signature="25265:25445" ph="{...}" />
-            <marker date="1495958614269" expanded="false" signature="25589:26059" ph="{...}" />
-            <marker date="1495958614269" expanded="false" signature="26110:27873" ph="{...}" />
+            <marker date="1495959027556" expanded="false" signature="24145:24707" ph="{...}" />
+            <marker date="1495959027556" expanded="false" signature="24756:24933" ph="{...}" />
+            <marker date="1495959027556" expanded="false" signature="24963:25143" ph="{...}" />
+            <marker date="1495959027556" expanded="false" signature="25173:25353" ph="{...}" />
+            <marker date="1495959027556" expanded="false" signature="25383:25563" ph="{...}" />
+            <marker date="1495959027556" expanded="false" signature="25707:26177" ph="{...}" />
+            <marker date="1495959027556" expanded="false" signature="26228:27991" ph="{...}" />
           </folding>
         </state>
       </provider>

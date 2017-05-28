@@ -120,6 +120,10 @@ public class Agent2 {
 
         // update the coordinate
         if (action == 'f') {
+            if (view[1][2] == '$') {
+                aStarSearch(new Cood(0,0));
+                gold = true;
+            }
             updateCurrPosition();
         } else if (action == 'l') {
             direction = (direction + 4 - 1) % 4;
