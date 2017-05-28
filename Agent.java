@@ -113,15 +113,15 @@ public class Agent {
             updateCurrPosition();
         } else if (action == 'l') {
             if (direction == 0 || direction == 1) {
-                direction = Math.abs((direction - 1) % 4);
+                direction = (direction + 4 - 1) % 4);
             } else {
-                direction = Math.abs((direction + 1) % 4);
+                direction = (direction + 4 + 1) % 4;
             }
         } else if (action == 'r') {
             if (direction == 0 || direction == 1) {
-                direction = Math.abs((direction + 1) % 4);
+                direction = Math.abs((direction + 4 + 1) % 4);
             } else {
-                direction = Math.abs((direction - 1) % 4);
+                direction = Math.abs((direction + 4 - 1) % 4);
             }
         }
         System.out.println("New Direction is:" + direction);
