@@ -42,8 +42,8 @@ public class Agent {
         System.out.println("Prev direction is: " + direction);
 
         // stitch the map given the view
-//        if (prevMove.get(prevMove.size()-1) == 'f' || moves == 0){
-            stitchMap(view);
+//        if ((!prevMove.isEmpty() && prevMove.get(prevMove.size()-1) == 'f') || moves == 0){
+//            stitchMap(view);
 //        }
 
         // default action is to go forward
@@ -113,7 +113,7 @@ public class Agent {
             updateCurrPosition();
         } else if (action == 'l') {
             if (direction == 0 || direction == 1) {
-                direction = (direction + 4 - 1) % 4);
+                direction = (direction + 4 - 1) % 4;
             } else {
                 direction = (direction + 4 + 1) % 4;
             }
@@ -128,7 +128,7 @@ public class Agent {
         //For debugging purposes
         System.out.println("*-------------------END--------------------*");
         moves++;
-        if (moves == 50){
+        if (moves == 1000){
             System.exit(0);
         }
         //add curr move into arraylist of prev move
@@ -291,11 +291,11 @@ public class Agent {
         if (direction == 0) {
             currY++;
         } else if (direction == 1) {
-            currX--;
+            currX++;
         } else if (direction == 2) {
             currY--;
         } else {
-            currX++;
+            currX--;
         }
     }
 
@@ -304,12 +304,14 @@ public class Agent {
 
 
     public void stitchMap(char view[][]) {
+//        char[][] newView = view;
         char[][] newView = rotate_view(view, direction);
         //For debugging purposes
+//        System.out.println("Rotated");
 //        print_view(newView);
         for (int i = 0; i < newView.length; i++) {
             for (int j = 0; j < newView.length; j++) {
-                Cood newCood = createCood(i, j);
+                Cood newCood = getCood(i, j);
                 //For debugging purposes
 //                System.out.println("(" + i + ", " + j + ") Symbol is: (" + newView[i][j] + ")");
 //                if (map.get(newCood) == null) {
@@ -317,8 +319,8 @@ public class Agent {
                     map.put(newCood, newView[i][j]);
                 } else {
                     map.put(newCood, ' ');
-//                    }
-                }
+                    }
+//                }
                 //For debugging purposes
 //                System.out.println("(" + i + ", " + j + ") -> (" + newCood.getX() + ", " + newCood.getY() + ") => (" + newView[i][j] + ") => (" + map.get(newCood) + ")");
             }
@@ -334,18 +336,17 @@ public class Agent {
         if (temp == 0 && currX == 0) {
             return view;
         } else {
-            //For debugging purposes
-//            System.out.println("Flipped");
-            newView = flip_view(newView);
-            //For debugging purposes
-//            print_view(newView);
             while (temp % 4 != 0) {
                 newView = clockwise(newView);
-
                 temp++;
                 //For debugging purposes
-//                System.out.println("Rotation is: " + temp);
+                System.out.println("Rotation is: " + temp);
+                print_view(newView);
             }
+            //For debugging purposes
+            System.out.println("Flipped");
+            print_view(newView);
+            newView = flip_view(newView);
             return newView;
         }
     }
@@ -464,6 +465,94 @@ public class Agent {
             }
         }
         return new Cood(newX, newY);
+    }
+
+    public Cood getCood(int x, int y) {
+        int newx = 0;
+        int newy = 0;
+
+        if (direction == 0) {
+
+            if (x == 0) {
+                newy = currY + 2;
+            } else if (x == 1) {
+                newy = currY + 1;
+            } else if (x == 2) {
+                newy = currY + 0;
+            } else if (x == 3) {
+                newy = currY - 1;
+            } else if (x == 4) {
+                newy = currY - 2;
+            }
+
+            if (y == 0) {
+                newx = currX - 2;
+            } else if (y == 1) {
+                newx = currX - 1;
+            } else if (y == 2) {
+                newx = currX + 0;
+            } else if (y == 3) {
+                newx = currX + 1;
+            } else if (y == 4) {
+                newx = currX + 2;
+            }
+
+        } else if (direction == 1) {
+            newx = currX + 2;
+            if (y == 0) {
+                newy = currY + 2;
+            }
+            if (y == 1) {
+                newy = currY + 1;
+            }
+            if (y == 2) {
+                newy = currY + 0;
+            }
+            if (y == 3) {
+                newy = currY - 1;
+            }
+            if (y == 4) {
+                newy = currY - 2;
+            }
+        } else if (direction == 2) {
+            newy = currY - 2;
+            if (y == 0) {
+                newx = currX + 2;
+            }
+            if (y == 1) {
+                newx = currX + 1;
+            }
+            if (y == 2) {
+                newx = currX + 0;
+            }
+            if (y == 3) {
+                newx = currX - 1;
+            }
+            if (y == 4) {
+                newx = currX - 2;
+            }
+        } else if (direction == 3) {
+            newx = currX - 2;
+            if (y == 0) {
+                newy = currY - 2;
+            }
+            if (y == 1) {
+                newy = currY - 1;
+            }
+            if (y == 2) {
+                newy = currY + 0;
+            }
+            if (y == 3) {
+                newy = currY + 1;
+            }
+            if (y == 4) {
+                newy = currY + 2;
+            }
+        }
+
+        Cood cood = new Cood(newx, newy);
+
+        return cood;
     }
 
     //Print out the map for debugging purposes
