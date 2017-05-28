@@ -53,14 +53,13 @@
       <file leaf-file-name="Agent3.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Agent3.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="45" column="81" lean-forward="false" selection-start-line="45" selection-start-column="81" selection-end-line="45" selection-end-column="81" />
+            <state relative-caret-position="327">
+              <caret line="126" column="35" lean-forward="false" selection-start-line="126" selection-start-column="35" selection-end-line="126" selection-end-column="35" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="imports" expanded="true" />
                 <element signature="method#updateCurrPosition#0;class#Agent3#0" expanded="false" />
                 <element signature="method#searchForItems#0;class#Agent3#0" expanded="false" />
-                <element signature="method#aStarSearch#0;class#Agent3#0" expanded="false" />
                 <element signature="method#generateSuccessors#0;class#Agent3#0" expanded="false" />
                 <element signature="method#buildNextMovesToReachItem#0;class#Agent3#0" expanded="false" />
                 <element signature="method#calculateProjection#0;class#Agent3#0" expanded="false" />
@@ -883,14 +882,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Agent3.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="45" column="81" lean-forward="false" selection-start-line="45" selection-start-column="81" selection-end-line="45" selection-end-column="81" />
+        <state relative-caret-position="327">
+          <caret line="126" column="35" lean-forward="false" selection-start-line="126" selection-start-column="35" selection-end-line="126" selection-end-column="35" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
             <element signature="method#updateCurrPosition#0;class#Agent3#0" expanded="false" />
             <element signature="method#searchForItems#0;class#Agent3#0" expanded="false" />
-            <element signature="method#aStarSearch#0;class#Agent3#0" expanded="false" />
             <element signature="method#generateSuccessors#0;class#Agent3#0" expanded="false" />
             <element signature="method#buildNextMovesToReachItem#0;class#Agent3#0" expanded="false" />
             <element signature="method#calculateProjection#0;class#Agent3#0" expanded="false" />

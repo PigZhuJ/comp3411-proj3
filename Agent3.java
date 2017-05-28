@@ -58,7 +58,6 @@ public class Agent3 {
             Cood item = searchForItems(view);
             if (item != null) {
                 canGetAnItem = aStarSearch(item);
-                System.out.println("I'm using A* search");
             }
             // if you can get to the item, then perform the preset actions to go to the item
             if (canGetAnItem) {
@@ -124,10 +123,8 @@ public class Agent3 {
         // while the open list is not empty
         while(!open.isEmpty()) {
             // pop the node with the least f off the open list
-            System.out.println(open.toString());
-            System.out.println(closed.toString());
             State currState = open.poll();
-            System.out.println("Current State is at: (" + currState.getCurrCood().getX() + "," + currState.getCurrCood().getY() + ") & Fx = " + currState.calculateFx());
+            System.out.println("-->Current State is at: (" + currState.getCurrCood().getX() + "," + currState.getCurrCood().getY() + ") & Fx = " + currState.calculateFx());
             // generate q's 8 successors and set their parents to q
             Queue<State> successorQueue = generateSuccessors(currState);
             // for each successor
@@ -193,29 +190,25 @@ public class Agent3 {
                 // make sure that the current player position is not recorded as a successor
                 if (x == 1 && y == 0) {
                     newState = new State(new Cood(currState.getCurrCood().getX()+x-1, currState.getCurrCood().getY()+1), currState, currState.getGx(), 0, false);
-                    System.out.println("Created successor: (" + newState.getCurrCood().getX() + "," + newState.getCurrCood().getY() + ") & Fx = " + newState.calculateFx());
-                    System.out.println("Connected to successor: (" + currState.getCurrCood().getX() + "," + currState.getCurrCood().getY() + ") & Fx = " + currState.calculateFx());
+                    System.out.println("Created successor: (" + newState.getCurrCood().getX() + "," + newState.getCurrCood().getY() + ")");
                     System.out.println("Successor has tile " + map.get(newState.getCurrCood()));
                     System.out.println("The view coordinates are: [" + y + "][" + x + "]");
                     successorQueue.add(newState);
                 } else if (x == 0 && y == 1) {
                     newState = new State(new Cood(currState.getCurrCood().getX()+x-1, currState.getCurrCood().getY()), currState, currState.getGx(), 0, false);
-                    System.out.println("Created successor: (" + newState.getCurrCood().getX() + "," + newState.getCurrCood().getY() + ") & Fx = " + newState.calculateFx());
-                    System.out.println("Connected to successor: (" + currState.getCurrCood().getX() + "," + currState.getCurrCood().getY() + ") & Fx = " + currState.calculateFx());
+                    System.out.println("Created successor: (" + newState.getCurrCood().getX() + "," + newState.getCurrCood().getY() + ")");
                     System.out.println("Successor has tile " + map.get(newState.getCurrCood()));
                     System.out.println("The view coordinates are: [" + y + "][" + x + "]");
                     successorQueue.add(newState);
                 } else if (x == 2 && y == 1) {
                     newState = new State(new Cood(currState.getCurrCood().getX()+x-1, currState.getCurrCood().getY()), currState, currState.getGx(), 0, false);
-                    System.out.println("Created successor: (" + newState.getCurrCood().getX() + "," + newState.getCurrCood().getY() + ") & Fx = " + newState.calculateFx());
-                    System.out.println("Connected to successor: (" + currState.getCurrCood().getX() + "," + currState.getCurrCood().getY() + ") & Fx = " + currState.calculateFx());
+                    System.out.println("Created successor: (" + newState.getCurrCood().getX() + "," + newState.getCurrCood().getY() + ")");
                     System.out.println("Successor has tile " + map.get(newState.getCurrCood()));
                     System.out.println("The view coordinates are: [" + y + "][" + x + "]");
                     successorQueue.add(newState);
                 } else if (x == 1 && y == 2) {
                     newState = new State(new Cood(currState.getCurrCood().getX()+x-1, currState.getCurrCood().getY()-1), currState, currState.getGx(), 0, false);
-                    System.out.println("Created successor: (" + newState.getCurrCood().getX() + "," + newState.getCurrCood().getY() + ") & Fx = " + newState.calculateFx());
-                    System.out.println("Connected to successor: (" + currState.getCurrCood().getX() + "," + currState.getCurrCood().getY() + ") & Fx = " + currState.calculateFx());
+                    System.out.println("Created successor: (" + newState.getCurrCood().getX() + "," + newState.getCurrCood().getY() + ")");
                     System.out.println("Successor has tile " + map.get(newState.getCurrCood()));
                     System.out.println("The view coordinates are: [" + y + "][" + x + "]");
                     successorQueue.add(newState);
