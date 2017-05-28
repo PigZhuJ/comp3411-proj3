@@ -21,11 +21,11 @@ public class Agent {
     private ArrayList<Character> prevMove = new ArrayList<>();
 
     //Inventory
-    //private boolean axe = false;
-    //private boolean key = false;
-    //private boolean dynamite = false;
-    //private boolean gold = false;
-    //private boolean wood = false;
+    private boolean axe = false;
+    private boolean key = false;
+    private boolean dynamite = false;
+    private boolean gold = false;
+    private boolean wood = false;
 
     public Agent () {
         this.map = new HashMap<>();
@@ -48,16 +48,17 @@ public class Agent {
 
         // default action is to go forward
         char action = 'f';
-
+        if (axe == true){
+            cutTree(view);
+        }
         // if there are a list of moves to travel, then continue with the steps
         if (!nextMoves.isEmpty()) {
             action = nextMoves.poll();
 
             // else try to find something to do
         } else {
-
             // Look for items in the view
-            Cood item = searchForItems(view);
+            //Cood item = searchForItems(view);
             boolean canGetAnItem = false;
 
             //TODO implement check to get item
@@ -69,13 +70,14 @@ public class Agent {
             // if you can get to the item, start poll the path set out by the queue
             if (canGetAnItem) {
                 action = nextMoves.poll();
-
                 // if there is no item or you currently can't get to an item, do standard roaming
             } else {
-
+                if (axe == true){
+                    cutTree(view);
+                }
+                getItem(view);
                 // if we have started to hug the walls
                 if (isHugging) {
-
                     // if we hit an obstacle, then turn
                     if (view[1][2] == '~' || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.') {
                         action = rotateAtAnObstacle(view);
@@ -85,24 +87,24 @@ public class Agent {
                         action = 'l';
                         nextMoves.add('f');
                     }
-
                 // else just start roaming until we hit an obstacle
                 } else {
-
                     // if we hit an obstacle, start hugging obstacles
                     if (view[1][2] == '~' || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.') {
-
                         action = rotateAtAnObstacle(view);
                         isHugging = true;
-
                     }
-
                 }
-
             }
-
         }
-
+        if (action == 'f' && (view[1][2] == '~' || view[1][2] == '.')){
+            double coinflip = Math.random() % 2;
+            if (coinflip == 1){
+                action = 'l';
+            } else {
+                action = 'r';
+            }
+        }
         //For debugging purposes
         System.out.println("Action: " + action);
 
@@ -128,13 +130,100 @@ public class Agent {
         //For debugging purposes
         System.out.println("*-------------------END--------------------*");
         moves++;
-        if (moves == 1000){
-            System.exit(0);
-        }
+//        if (moves == 1000){
+//            System.exit(0);
+//        }
         //add curr move into arraylist of prev move
         prevMove.add(action);
         return action;
 
+    }
+
+    //put a set of move if tree is right next to AI
+    private void cutTree (char[][] view){
+        int treePosX;
+        int treePosY;
+
+        for (int i = 0; i < view.length; i++) {
+            for (int j = 0; j < view.length; j++) {
+                if (view[i][j] == 'T') {
+                    treePosX = i;
+                    treePosY = j;
+                    if ((2 - treePosX) == 1 || (2 - treePosX) == -1 || (2 - treePosY) == 1 || (2 - treePosY) == -1) {
+                        if (treePosX == 1 && treePosY == 2){
+                            nextMoves.add('c');
+                        }else if (treePosX == 2 && treePosY == 1){
+                            nextMoves.add('l');
+                            nextMoves.add('c');
+                        } else if (treePosX == 3 && treePosY == 2) {
+                            nextMoves.add('r');
+                            nextMoves.add('c');
+                        } else if (treePosX == 2 && treePosY == 3) {
+                            nextMoves.add('r');
+                            nextMoves.add('r');
+                            nextMoves.add('c');
+                        }
+                    } else {
+
+                    }
+                }
+            }
+        }
+    }
+
+    private void walkTowardsTree (int x, int y){
+        if (x == 0){
+
+        } else if (x == 1){
+
+        } else if (x == 2){
+
+        } else if (x == 3) {
+
+        } else if (x == 4) {
+
+        }
+    }
+
+    //put a set of move if item is right next to AI
+    private void getItem (char[][] view){
+        int itemPosX;
+        int itemPosY;
+        if (!nextMoves.isEmpty() && nextMoves.peek() == 'f'){
+            nextMoves.poll();
+        }
+        for (int i = 0; i < view.length; i++) {
+            for (int j = 0; j < view.length; j++) {
+                if (view[i][j] == 'a' || view[i][j] == '$' || view[i][j] == 'd' || view[i][j] == 'k') {
+                    itemPosX = i;
+                    itemPosY = j;
+                    if (view[i][j] == 'a'){
+                        axe = true;
+                    } else if (view[i][j] == '$'){
+                        gold = true;
+                    } else if (view[i][j] == 'd'){
+                        dynamite = true;
+                    } else  if (view[i][j] == 'k'){
+                        key = true;
+                    }
+                    if ((2 - itemPosX) == 1 || (2 - itemPosX) == -1 || (2 - itemPosY) == 1 || (2 - itemPosY) == -1) {
+                        if (itemPosX == 1 && itemPosY == 2) {
+                            nextMoves.add('f');
+                        } else if (itemPosX == 2 && itemPosY == 1) {
+                            nextMoves.add('l');
+                            nextMoves.add('f');
+                        } else if (itemPosX == 3 && itemPosY == 2) {
+                            nextMoves.add('r');
+                            nextMoves.add('f');
+                        } else if (itemPosX == 2 && itemPosY == 3) {
+                            nextMoves.add('r');
+                            nextMoves.add('r');
+                            nextMoves.add('f');
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private char rotateAtAnObstacle(char view[][]) {
@@ -291,11 +380,11 @@ public class Agent {
         if (direction == 0) {
             currY++;
         } else if (direction == 1) {
-            currX++;
+            currX--;
         } else if (direction == 2) {
             currY--;
         } else {
-            currX--;
+            currX++;
         }
     }
 
