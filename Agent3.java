@@ -92,7 +92,7 @@ public class Agent3 {
             } else {
                 System.out.println("Exploring");
                 // if the player is hugging the walls
-                /*if (isHuggingWall) {
+                if (isHuggingWall) {
                     System.out.println("I'm hugging");
                     // if we hit an obstacle, then turn
                     if (isAnObstacle(view[1][2])) {
@@ -148,9 +148,9 @@ public class Agent3 {
                             }
                         }
                     }
-                }*/
+                }
                 // if we hit an obstacle
-                if (isHuggingWall) {
+                /*if (isHuggingWall) {
                     // if we hit an obstacle, then turn
                     if ((view[1][2] == '~') || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.' || view[1][2] == '-') {
                         action = rotateAtAnObstacle(view);
@@ -166,7 +166,7 @@ public class Agent3 {
                         action = rotateAtAnObstacle(view);
                         isHuggingWall = true;
                     }
-                }
+                }*/
             }
         }
 
@@ -195,19 +195,19 @@ public class Agent3 {
                 System.out.println("Ouch!");
             }
             // no long hug walls if the player is entering new territory
-//            if (currX < minX) {
-//                minX = currX;
-//                isHuggingWall = false;
-//            } else if (currX > maxX) {
-//                maxX = currX;
-//                isHuggingWall = false;
-//            } else if (currY < minY) {
-//                minY = currY;
-//                isHuggingWall = false;
-//            } else if (currY > maxY) {
-//                maxY = currY;
-//                isHuggingWall = false;
-//            }
+            if (currX < minX) {
+                minX = currX;
+                isHuggingWall = false;
+            } else if (currX > maxX) {
+                maxX = currX;
+                isHuggingWall = false;
+            } else if (currY < minY) {
+                minY = currY;
+                isHuggingWall = false;
+            } else if (currY > maxY) {
+                maxY = currY;
+                isHuggingWall = false;
+            }
             // update the direction if turning
         } else if (action == 'l') {
             direction = (direction + 4 - 1) % 4;
