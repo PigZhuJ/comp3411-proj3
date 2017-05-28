@@ -202,6 +202,7 @@ public class Agent2 {
             }
         }
     }
+
 //--------------[DONE DO NOT TOUCH ANYMORE]----Map Stitching Algorithm-----------------------------//
 
     //Get the absolute cood of each character in the given view
