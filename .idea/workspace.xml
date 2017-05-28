@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b47f10aa-5ae1-4b03-8dc9-3336d9991595" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Agent2.java" afterPath="$PROJECT_DIR$/Agent2.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -31,19 +32,19 @@
       <file leaf-file-name="Agent2.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Agent2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="329">
-              <caret line="451" column="10" lean-forward="false" selection-start-line="451" selection-start-column="10" selection-end-line="451" selection-end-column="10" />
+            <state relative-caret-position="74">
+              <caret line="355" column="29" lean-forward="false" selection-start-line="355" selection-start-column="29" selection-end-line="355" selection-end-column="29" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="imports" expanded="true" />
                 <element signature="method#get_action#0;class#Agent2#0" expanded="false" />
-                <marker date="1495957998351" expanded="false" signature="23915:24477" ph="{...}" />
-                <marker date="1495957998351" expanded="false" signature="24526:24703" ph="{...}" />
-                <marker date="1495957998351" expanded="false" signature="24733:24913" ph="{...}" />
-                <marker date="1495957998351" expanded="false" signature="24943:25123" ph="{...}" />
-                <marker date="1495957998351" expanded="false" signature="25153:25333" ph="{...}" />
-                <marker date="1495957998351" expanded="false" signature="25477:25947" ph="{...}" />
-                <marker date="1495957998351" expanded="false" signature="25998:27761" ph="{...}" />
+                <marker date="1495958614269" expanded="false" signature="24027:24589" ph="{...}" />
+                <marker date="1495958614269" expanded="false" signature="24638:24815" ph="{...}" />
+                <marker date="1495958614269" expanded="false" signature="24845:25025" ph="{...}" />
+                <marker date="1495958614269" expanded="false" signature="25055:25235" ph="{...}" />
+                <marker date="1495958614269" expanded="false" signature="25265:25445" ph="{...}" />
+                <marker date="1495958614269" expanded="false" signature="25589:26059" ph="{...}" />
+                <marker date="1495958614269" expanded="false" signature="26110:27873" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -869,19 +870,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Agent2.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="451" column="10" lean-forward="false" selection-start-line="451" selection-start-column="10" selection-end-line="451" selection-end-column="10" />
+        <state relative-caret-position="74">
+          <caret line="355" column="29" lean-forward="false" selection-start-line="355" selection-start-column="29" selection-end-line="355" selection-end-column="29" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
             <element signature="method#get_action#0;class#Agent2#0" expanded="false" />
-            <marker date="1495957998351" expanded="false" signature="23915:24477" ph="{...}" />
-            <marker date="1495957998351" expanded="false" signature="24526:24703" ph="{...}" />
-            <marker date="1495957998351" expanded="false" signature="24733:24913" ph="{...}" />
-            <marker date="1495957998351" expanded="false" signature="24943:25123" ph="{...}" />
-            <marker date="1495957998351" expanded="false" signature="25153:25333" ph="{...}" />
-            <marker date="1495957998351" expanded="false" signature="25477:25947" ph="{...}" />
-            <marker date="1495957998351" expanded="false" signature="25998:27761" ph="{...}" />
+            <marker date="1495958614269" expanded="false" signature="24027:24589" ph="{...}" />
+            <marker date="1495958614269" expanded="false" signature="24638:24815" ph="{...}" />
+            <marker date="1495958614269" expanded="false" signature="24845:25025" ph="{...}" />
+            <marker date="1495958614269" expanded="false" signature="25055:25235" ph="{...}" />
+            <marker date="1495958614269" expanded="false" signature="25265:25445" ph="{...}" />
+            <marker date="1495958614269" expanded="false" signature="25589:26059" ph="{...}" />
+            <marker date="1495958614269" expanded="false" signature="26110:27873" ph="{...}" />
           </folding>
         </state>
       </provider>

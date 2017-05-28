@@ -352,6 +352,9 @@ public class Agent2 {
             // for each successor
             while (!successorQueue.isEmpty()) {
                 State successor = successorQueue.poll();
+                if (map.get(successor.getCurrCood()) == null) {
+                    continue;
+                }
                 // if successor is the goal, stop the search
                 if (successor.getCurrCood().equals(destination)) {
                     System.out.println("Found the path to the item at: (" + successor.getCurrCood().getX() + "," + successor.getCurrCood().getY());
