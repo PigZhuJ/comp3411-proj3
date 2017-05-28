@@ -96,6 +96,9 @@ public class Agent3 {
                     // if we hit an obstacle, then turn
                     if (isAnObstacle(view[1][2])) {
                         action = rotateAtAnObstacle(view);
+                    // go forward if you can
+                    } else if (view[1][2] == ' ') {
+                        action = 'f';
                     // else if we don't have a wall to hug i.e.
                     //   ^   *
                     // *     *
