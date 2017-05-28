@@ -275,6 +275,7 @@ public class Agent2 {
         while(!open.isEmpty()) {
             // pop the node with the least f off the open list
             State currState = open.poll();
+            System.out.println("Current State is at: (" + currState.getCurrCood().getX() + "," + currState.getCurrCood().getY() + ") & Fx = " + currState.calculateFx());
             // generate q's 8 successors and set their parents to q
             Queue<State> successorQueue = generateSuccessors(currState);
             // for each successor
@@ -297,6 +298,7 @@ public class Agent2 {
                 for (State checkState : open) {
                     if (checkState.getCurrCood().equals(successor.getCurrCood()) &&
                             successor.calculateFx() > checkState.calculateFx()){
+                        System.out.println("Denied successor in open list: (" + successor.getCurrCood().getX() + "," + successor.getCurrCood().getY() + ") & Fx = " + successor.calculateFx());
                         skipNode = true;
                     }
                 }
@@ -305,6 +307,7 @@ public class Agent2 {
                 for (State checkState : closed) {
                     if (checkState.getCurrCood().equals(successor.getCurrCood()) &&
                             successor.calculateFx() > checkState.calculateFx()){
+                        System.out.println("Denied successor in closed list: (" + successor.getCurrCood().getX() + "," + successor.getCurrCood().getY() + ") & Fx = " + successor.calculateFx());
                         skipNode = true;
                     }
                 }
@@ -327,6 +330,8 @@ public class Agent2 {
                 // make sure that the current player position is not recorded as a successor
                 if (!(x == 1 && y == 1)) {
                     State newState = new State(createCood(x,y), currState, currState.getGx(), 0, false);
+                    System.out.println("Created successor: (" + newState.getCurrCood().getX() + "," + newState.getCurrCood().getY() + ") & Fx = " + newState.calculateFx());
+                    System.out.println("Connected to successor: (" + currState.getCurrCood().getX() + "," + currState.getCurrCood().getY() + ") & Fx = " + currState.calculateFx());
                     successorQueue.add(newState);
                 }
             }
@@ -357,7 +362,7 @@ public class Agent2 {
                 currDirection = (currDirection + 1)%4;
                 nextMoves.add('r');
                 projectedPosition = calculateProjection(currPosition, currDirection);
-                System.out.println("CurrDirection is at: (" + nextPosition.getX() + "," + nextPosition.getY() + ")");
+                System.out.println("CurrDirection is at: " + currDirection);
                 System.out.println("Testing if matched position is at: (" + projectedPosition.getX() + "," + projectedPosition.getY() + ")");
             }
             nextMoves.add('f');
@@ -371,11 +376,11 @@ public class Agent2 {
         if (currDirection == 0) {
             projectedY++;
         } else if (currDirection == 1) {
-            projectedX--;
+            projectedX++;
         } else if (currDirection == 2) {
             projectedY--;
         } else {
-            projectedX++;
+            projectedX--;
         }
         Cood newCood = new Cood(projectedX,projectedY);
         return newCood;
