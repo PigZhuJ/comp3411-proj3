@@ -526,6 +526,8 @@ public class Agent2 {
         for (Cood nextPosition : moveList) {
             System.out.println("Next position is at: (" + nextPosition.getX() + "," + nextPosition.getY() + ")");
             Cood projectedPosition = calculateProjection(currPosition, currDirection);
+            System.out.println("CurrDirection is at: " + currDirection);
+            System.out.println("Testing if matched position is at: (" + projectedPosition.getX() + "," + projectedPosition.getY() + ")");
             while(!projectedPosition.equals(nextPosition)) {
                 Cood leftOfPlayer = calculateProjection(currPosition, (currDirection + 4 - 1)%4);
                 if (map.get(leftOfPlayer) == '~' || map.get(leftOfPlayer) == '*' || map.get(leftOfPlayer) == 'T' || map.get(leftOfPlayer) == '.') {
