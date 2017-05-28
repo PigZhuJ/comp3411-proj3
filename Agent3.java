@@ -74,6 +74,10 @@ public class Agent3 {
                 gold = true;
             }
             updateCurrPosition();
+        } else if (action == 'l') {
+            direction = (direction + 4 - 1) % 4;
+        } else if (action == 'r') {
+            direction = (direction + 4 + 1) % 4;
         }
 
         return action;
