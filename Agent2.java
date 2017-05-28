@@ -21,6 +21,13 @@ public class Agent2 {
     private int currY;
     private boolean isHugging;
 
+    //Inventory
+    private boolean axe;
+    private boolean key;
+    private boolean dynamite;
+    private boolean gold;
+    private boolean wood;
+
     public Agent2() {
         this.map = new HashMap<>();
         this.nextMoves = new LinkedList<>();
@@ -28,14 +35,21 @@ public class Agent2 {
         this.currX = 0;
         this.currY = 0;
         this.isHugging = false;
+        axe = false;
+        key = false;
+        dynamite = false;
+        gold = false;
+        wood = false;
     }
 
     public char get_action( char view[][] ) {
 
-// ACTIONS BEFORE DETERMINING ACTION
+//-----------------ACTIONS BEFORE DETERMINING ACTION-----------------//
+
         stitchMap(view);
 
-// DETERMINING ACTION
+//---------------------------DETERMINING ACTION-----------------//
+
         // default action is to go forward
         char action = 'f';
 
@@ -76,7 +90,17 @@ public class Agent2 {
             }
         }
 
-// ACTIONS AFTER DETERMINING ACTION
+//-----------------ACTIONS AFTER DETERMINING ACTION-----------------//
+        //This snippet is so that AI isn't an idiot and jump into the water or go into the forest
+        if (action == 'f' && (view[1][2] == '~' || view[1][2] == '.')) {
+            double coinflip = Math.random() % 2;
+            if (coinflip == 1) {
+                action = 'l';
+            } else {
+                action = 'r';
+            }
+        }
+
         // update the coordinate
         if (action == 'f') {
             updateCurrPosition();
@@ -86,9 +110,24 @@ public class Agent2 {
             direction = (direction + 4 + 1) % 4;
         }
         return action;
-
     }
 
+    //Update the absolute cood of the AI on the map
+    private void updateCurrPosition() {
+        if (direction == 0) {
+            currY++;
+        } else if (direction == 1) {
+            currX++;
+        } else if (direction == 2) {
+            currY--;
+        } else {
+            currX--;
+        }
+    }
+
+//------------------AI determining code-----------------------------//
+
+    //When met with an obstacle rotate
     private char rotateAtAnObstacle(char view[][]) {
         char action;
         if (view[2][1] == '~' || view[2][1] == '*' || view[2][1] == 'T' || view[2][1] == '.') {
@@ -230,8 +269,84 @@ public class Agent2 {
         return newCood;
     }
 
-    public void stitchMap(char view[][]) {
+    //put a set of move if tree is right next to AI
+    private void cutTree(char[][] view) {
+        int treePosX = 0;
+        int treePosY = 0;
+        boolean treeExist = false;
 
+        for (int i = 1; i < view.length - 1; i++) {
+            for (int j = 1; j < view.length - 1; j++) {
+                if (view[i][j] == 'T') {
+                    treePosX = i;
+                    treePosY = j;
+                    treeExist = true;
+                    System.out.println("True...");
+                }
+            }
+        }
+        if (treeExist == true) {
+            if ((2 - treePosX) == 1 || (2 - treePosX) == -1 || (2 - treePosY) == 1 || (2 - treePosY) == -1) {
+                System.out.println("gonna cut");
+                if (treePosX == 1 && treePosY == 2) {
+                    nextMoves.add('c');
+                    wood = true;
+                } else if (treePosX == 2 && treePosY == 1) {
+                    nextMoves.add('l');
+                    nextMoves.add('c');
+                } else if (treePosX == 3 && treePosY == 2) {
+                    nextMoves.add('r');
+                    nextMoves.add('c');
+                } else if (treePosX == 2 && treePosY == 3) {
+                    nextMoves.add('r');
+                    nextMoves.add('r');
+                    nextMoves.add('c');
+                }
+//            } else {
+//                System.out.print("nah");
+//                walkTowardsTree(treePosX, treePosY);
+            }
+        }
+    }
+
+    //put a set of move if item is right next to AI
+    private void getItem(char[][] view) {
+        int itemPosX;
+        int itemPosY;
+        for (int i = 0; i < view.length; i++) {
+            for (int j = 0; j < view.length; j++) {
+                if (view[i][j] == 'a' || view[i][j] == '$' || view[i][j] == 'd' || view[i][j] == 'k') {
+                    itemPosX = i;
+                    itemPosY = j;
+                    if (view[1][2] == 'a') {
+                        axe = true;
+                    } else if (view[1][2] == '$') {
+                        gold = true;
+                    } else if (view[1][2] == 'd') {
+                        dynamite = true;
+                    } else if (view[1][2] == 'k') {
+                        key = true;
+                    }
+                    if ((2 - itemPosX) == 1 || (2 - itemPosX) == -1 || (2 - itemPosY) == 1 || (2 - itemPosY) == -1) {
+                        if (itemPosX == 1 && itemPosY == 2) {
+                            nextMoves.add('f');
+                        } else if (itemPosX == 2 && itemPosY == 1) {
+                            nextMoves.add('l');
+                        } else if (itemPosX == 3 && itemPosY == 2) {
+                            nextMoves.add('r');
+                        } else if (itemPosX == 2 && itemPosY == 3) {
+                            nextMoves.add('r');
+                            nextMoves.add('r');
+                        }
+                    }
+                }
+            }
+        }
+    }
+//--------------[DONE DO NOT TOUCH ANYMORE]----Map Stitching Algorithm-----------------------------//
+
+    //Get the absolute cood of each character in the given view
+    public void stitchMap(char view[][]) {
         char[][] newView = rotate_view(view, direction);
         // for each y coordinate
         for (int i = 0; i < 5; i++) {
@@ -252,7 +367,6 @@ public class Agent2 {
     }
 
     private char[][] rotate_view(char view[][], int times) {
-
         char newView[][] = view.clone();
         int temp = times;
         // if the view is already upright, return the view as is
@@ -307,19 +421,7 @@ public class Agent2 {
 
     }
 
-    private void updateCurrPosition() {
-        if (direction == 0) {
-            currY++;
-        } else if (direction == 1) {
-            currX++;
-        } else if (direction == 2) {
-            currY--;
-        } else {
-            currX--;
-        }
-    }
-
-    // DEBUG
+    //Print the Stitched Map out
     private void print_map(){
         int xs = getSmallx();
         int ys = getSmally();
@@ -399,6 +501,8 @@ public class Agent2 {
         }
         return y;
     }
+
+    //--------------------------------------END--------------------------------------------------//
 
     // NO LONGER OUR CODE
 
