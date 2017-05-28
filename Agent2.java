@@ -57,24 +57,24 @@ public class Agent2 {
         listInventory();
         System.out.println(nextMoves.toString());
 
-        if(scanItem(view)){
-            getItem(view);
+        // if there are a list of moves to travel, then continue with the steps
+        if (!nextMoves.isEmpty()) {
+            System.out.println("Already Know where to go!");
             action = nextMoves.poll();
-            System.out.println("I see Items!");
-        } else {
-            // if there are a list of moves to travel, then continue with the steps
-            if (!nextMoves.isEmpty()) {
-                System.out.println("Already Know where to go!");
-                action = nextMoves.poll();
             // else try to find something to do
+        } else {
+            if(scanItem(view)){
+              getItem(view);
+                action = nextMoves.poll();
+                System.out.println("I see Items!");
             } else {
                 // search the view for items that you can go to
                 Cood item = searchForItems(view);
                 boolean canGetAnItem = false;
                 // try to get to the item
-                if (item != null) {
-                    canGetAnItem = aStarSearch(item);
-                }
+//                if (item != null) {
+//                    canGetAnItem = aStarSearch(item);
+//                }
                 // if you can get to the item, then perform the preset actions to go to the item
                 if (canGetAnItem) {
                     action = nextMoves.poll();
@@ -90,7 +90,8 @@ public class Agent2 {
                         if ((view[1][2] == '~' && !wood) || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.') {
                             action = rotateAtAnObstacle(view);
                             // else if we're no longer touching a wall, turn the other way
-                        } else if (view[2][1] == ' ') {
+                            //TODO need to make sure wood is false when back on land
+                        } else if (view[2][1] == ' ' && !wood) {
                             action = 'l';
                             nextMoves.add('f');
                         }
