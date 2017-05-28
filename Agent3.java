@@ -109,7 +109,7 @@ public class Agent3 {
                         } else if (view[2][3] == ' ' && !onWater) {
                             action = 'r';
                         }
-                        //nextMoves.add('f');
+                        nextMoves.add('f');
                     // *   ^
                     // *     *
                     // * * * *
@@ -122,7 +122,7 @@ public class Agent3 {
                         } else if (view[2][1] == ' ' && !onWater) {
                             action = 'l';
                         }
-                        //nextMoves.add('f');
+                        nextMoves.add('f');
                     }
                 // else do standard roaming
                 } else {
