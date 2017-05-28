@@ -140,7 +140,81 @@ public class Agent2 {
         return action;
     }
 
-    // All the search methods
+    //put a set of move if tree is right next to AI
+    private void cutTree(char[][] view) {
+        int treePosX = 0;
+        int treePosY = 0;
+        boolean treeExist = false;
+
+        for (int i = 1; i < view.length - 1; i++) {
+            for (int j = 1; j < view.length - 1; j++) {
+                if (view[i][j] == 'T') {
+                    treePosX = i;
+                    treePosY = j;
+                    treeExist = true;
+                    System.out.println("True...");
+                }
+            }
+        }
+        if (treeExist == true) {
+            if ((2 - treePosX) == 1 || (2 - treePosX) == -1 || (2 - treePosY) == 1 || (2 - treePosY) == -1) {
+                System.out.println("gonna cut");
+                if (treePosX == 1 && treePosY == 2) {
+                    nextMoves.add('c');
+                    wood = true;
+                } else if (treePosX == 2 && treePosY == 1) {
+                    nextMoves.add('l');
+                    nextMoves.add('c');
+                } else if (treePosX == 3 && treePosY == 2) {
+                    nextMoves.add('r');
+                    nextMoves.add('c');
+                } else if (treePosX == 2 && treePosY == 3) {
+                    nextMoves.add('r');
+                    nextMoves.add('r');
+                    nextMoves.add('c');
+                }
+//            } else {
+//                System.out.print("nah");
+//                walkTowardsTree(treePosX, treePosY);
+            }
+        }
+    }
+
+    //put a set of move if item is right next to AI
+    private void getItem(char[][] view) {
+        int itemPosX;
+        int itemPosY;
+        for (int i = 0; i < view.length; i++) {
+            for (int j = 0; j < view.length; j++) {
+                if (view[i][j] == 'a' || view[i][j] == '$' || view[i][j] == 'd' || view[i][j] == 'k') {
+                    itemPosX = i;
+                    itemPosY = j;
+                    if (view[1][2] == 'a') {
+                        axe = true;
+                    } else if (view[1][2] == '$') {
+                        gold = true;
+                    } else if (view[1][2] == 'd') {
+                        dynamite = true;
+                    } else if (view[1][2] == 'k') {
+                        key = true;
+                    }
+                    if ((2 - itemPosX) == 1 || (2 - itemPosX) == -1 || (2 - itemPosY) == 1 || (2 - itemPosY) == -1) {
+                        if (itemPosX == 1 && itemPosY == 2) {
+                            nextMoves.add('f');
+                        } else if (itemPosX == 2 && itemPosY == 1) {
+                            nextMoves.add('l');
+                        } else if (itemPosX == 3 && itemPosY == 2) {
+                            nextMoves.add('r');
+                        } else if (itemPosX == 2 && itemPosY == 3) {
+                            nextMoves.add('r');
+                            nextMoves.add('r');
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     //Scan the view and return Cood for item
     private Cood searchForItems(char[][] view) {
         // for every y coordinate
@@ -158,6 +232,8 @@ public class Agent2 {
         }
         return null;
     }
+
+//-----------------------A * Search Algorithm------------------------------------//
 
     private boolean aStarSearch(Cood destination) {
 
@@ -269,80 +345,7 @@ public class Agent2 {
         return newCood;
     }
 
-    //put a set of move if tree is right next to AI
-    private void cutTree(char[][] view) {
-        int treePosX = 0;
-        int treePosY = 0;
-        boolean treeExist = false;
-
-        for (int i = 1; i < view.length - 1; i++) {
-            for (int j = 1; j < view.length - 1; j++) {
-                if (view[i][j] == 'T') {
-                    treePosX = i;
-                    treePosY = j;
-                    treeExist = true;
-                    System.out.println("True...");
-                }
-            }
-        }
-        if (treeExist == true) {
-            if ((2 - treePosX) == 1 || (2 - treePosX) == -1 || (2 - treePosY) == 1 || (2 - treePosY) == -1) {
-                System.out.println("gonna cut");
-                if (treePosX == 1 && treePosY == 2) {
-                    nextMoves.add('c');
-                    wood = true;
-                } else if (treePosX == 2 && treePosY == 1) {
-                    nextMoves.add('l');
-                    nextMoves.add('c');
-                } else if (treePosX == 3 && treePosY == 2) {
-                    nextMoves.add('r');
-                    nextMoves.add('c');
-                } else if (treePosX == 2 && treePosY == 3) {
-                    nextMoves.add('r');
-                    nextMoves.add('r');
-                    nextMoves.add('c');
-                }
-//            } else {
-//                System.out.print("nah");
-//                walkTowardsTree(treePosX, treePosY);
-            }
-        }
-    }
-
-    //put a set of move if item is right next to AI
-    private void getItem(char[][] view) {
-        int itemPosX;
-        int itemPosY;
-        for (int i = 0; i < view.length; i++) {
-            for (int j = 0; j < view.length; j++) {
-                if (view[i][j] == 'a' || view[i][j] == '$' || view[i][j] == 'd' || view[i][j] == 'k') {
-                    itemPosX = i;
-                    itemPosY = j;
-                    if (view[1][2] == 'a') {
-                        axe = true;
-                    } else if (view[1][2] == '$') {
-                        gold = true;
-                    } else if (view[1][2] == 'd') {
-                        dynamite = true;
-                    } else if (view[1][2] == 'k') {
-                        key = true;
-                    }
-                    if ((2 - itemPosX) == 1 || (2 - itemPosX) == -1 || (2 - itemPosY) == 1 || (2 - itemPosY) == -1) {
-                        if (itemPosX == 1 && itemPosY == 2) {
-                            nextMoves.add('f');
-                        } else if (itemPosX == 2 && itemPosY == 1) {
-                            nextMoves.add('l');
-                        } else if (itemPosX == 3 && itemPosY == 2) {
-                            nextMoves.add('r');
-                        } else if (itemPosX == 2 && itemPosY == 3) {
-                            nextMoves.add('r');
-                            nextMoves.add('r');
-                        }
-                    }
-                }
-            }
-        }
-    }
+//-----------------------------END---------------------------------------------//
 
 //--------------[DONE DO NOT TOUCH ANYMORE]----Map Stitching Algorithm-----------------------------//
 
