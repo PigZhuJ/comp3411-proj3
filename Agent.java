@@ -21,15 +21,15 @@ public class Agent {
     private ArrayList<Character> prevMove = new ArrayList<>();
 
     //Inventory
-    private boolean axe = false;
-    private boolean key = false;
-    private boolean dynamite = false;
-    private boolean gold = false;
-    private boolean wood = false;
+    //private boolean axe = false;
+    //private boolean key = false;
+    //private boolean dynamite = false;
+    //private boolean gold = false;
+    //private boolean wood = false;
 
     public Agent () {
-        this.map = new HashMap<Cood, Character>();
-        this.nextMoves = new LinkedList<Character>();
+        this.map = new HashMap<>();
+        this.nextMoves = new LinkedList<>();
         this.isHugging = false;
     }
 
@@ -112,9 +112,17 @@ public class Agent {
         if (action == 'f') {
             updateCurrPosition();
         } else if (action == 'l') {
-            direction = (direction - 1) % 4;
+            if (direction == 0 || direction == 1) {
+                direction = (direction - 1) % 4;
+            } else {
+                direction = (direction + 1) % 4;
+            }
         } else if (action == 'r') {
-            direction = (direction + 1) % 4;
+            if (direction == 0 || direction == 1) {
+                direction = (direction + 1) % 4;
+            } else {
+                direction = (direction - 1) % 4;
+            }
         }
 
         //For debugging purposes
