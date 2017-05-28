@@ -53,7 +53,11 @@ public class Agent2 {
         // default action is to go forward
         char action = 'f';
 
-        getItem(view);
+        if(scanItem(view)){
+            getItem(view);
+            //debug
+            listInventory();
+        }
 
         // if there are a list of moves to travel, then continue with the steps
         if (!nextMoves.isEmpty()) {
@@ -71,7 +75,7 @@ public class Agent2 {
             if (canGetAnItem) {
                 action = nextMoves.poll();
                 // if there is no item or you currently can't get to an item, do standard roaming
-            } else if (scanTree(view)){
+            } else if (scanTree(view) && axe){
                 cutTree(view);
             } else {
                 if (isHugging) {
@@ -128,6 +132,16 @@ public class Agent2 {
             currX--;
         }
     }
+
+    //debugger
+    private void listInventory(){
+        System.out.println("axe: " + axe);
+        System.out.println("gold: " +gold);
+        System.out.println("wood: " +wood);
+        System.out.println("key: " +key);
+        System.out.println("dynamite: " +dynamite);
+    }
+
 
 //------------------AI determining code-----------------------------//
 
@@ -194,6 +208,7 @@ public class Agent2 {
         }
     }
 
+    //Scan
     private boolean scanTree(char[][] view){
         boolean treeExists = false;
 
@@ -240,6 +255,19 @@ public class Agent2 {
                 }
             }
         }
+    }
+
+    private boolean scanItem(char[][] view){
+        boolean itemExists = false;
+
+        for (int i = 1; i < view.length - 1; i++) {
+            for (int j = 1; j < view.length - 1; j++) {
+                if (view[i][j] == 'T') {
+                    itemExists = true;
+                }
+            }
+        }
+        return itemExists;
     }
 
     //Scan the view and return Cood for item
