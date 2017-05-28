@@ -5,6 +5,7 @@
  *  UNSW Session 1, 2017
  */
 
+import java.awt.*;
 import java.util.*;
 import java.io.*;
 import java.net.*;
@@ -41,6 +42,16 @@ public class Agent {
         System.out.println("Prev Current Pos: " + currX + ", " + currY);
         System.out.println("Prev direction is: " + direction);
 
+        if (!nextMoves.isEmpty()){
+            int i = 0;
+            System.out.print("Moves are: ");
+            while (i < prevMove.size()){
+                System.out.print(prevMove.get(i));
+                i++;
+            }
+            System.out.println();
+        }
+
         // stitch the map given the view
 //        if ((!prevMove.isEmpty() && prevMove.get(prevMove.size()-1) == 'f') || moves == 0){
 //            stitchMap(view);
@@ -48,11 +59,16 @@ public class Agent {
 
         // default action is to go forward
         char action = 'f';
-        if (axe == true){
+        // if there are a list of moves to travel, then continue with the steps
+        getItem(view);
+
+        if (axe == true) {
+            System.out.println("Tree cutting in progress...");
             cutTree(view);
         }
-        // if there are a list of moves to travel, then continue with the steps
+
         if (!nextMoves.isEmpty()) {
+            System.out.println("Hit!!!!");
             action = nextMoves.poll();
 
             // else try to find something to do
@@ -66,28 +82,22 @@ public class Agent {
 //            if (item != null) {
 //                canGetAnItem = aStarSearch(item);
 //            }
-
             // if you can get to the item, start poll the path set out by the queue
             if (canGetAnItem) {
                 action = nextMoves.poll();
                 // if there is no item or you currently can't get to an item, do standard roaming
             } else {
-                if (axe == true){
-                    cutTree(view);
-                }
-                getItem(view);
-                // if we have started to hug the walls
                 if (isHugging) {
                     // if we hit an obstacle, then turn
                     if (view[1][2] == '~' || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.') {
                         action = rotateAtAnObstacle(view);
 
-                    // else if we're no longer touching a wall, turn the other way
+                        // else if we're no longer touching a wall, turn the other way
                     } else if (view[2][1] == ' ') {
                         action = 'l';
                         nextMoves.add('f');
                     }
-                // else just start roaming until we hit an obstacle
+                    // else just start roaming until we hit an obstacle
                 } else {
                     // if we hit an obstacle, start hugging obstacles
                     if (view[1][2] == '~' || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.') {
@@ -96,7 +106,9 @@ public class Agent {
                     }
                 }
             }
+                // if we have started to hug the walls
         }
+
         if (action == 'f' && (view[1][2] == '~' || view[1][2] == '.')){
             double coinflip = Math.random() % 2;
             if (coinflip == 1){
@@ -141,47 +153,98 @@ public class Agent {
 
     //put a set of move if tree is right next to AI
     private void cutTree (char[][] view){
-        int treePosX;
-        int treePosY;
+        int treePosX = 0;
+        int treePosY = 0;
+        boolean treeExist = false;
 
-        for (int i = 0; i < view.length; i++) {
-            for (int j = 0; j < view.length; j++) {
+        for (int i = 1; i < view.length - 1; i++) {
+            for (int j = 1; j < view.length - 1; j++) {
                 if (view[i][j] == 'T') {
                     treePosX = i;
                     treePosY = j;
-                    if ((2 - treePosX) == 1 || (2 - treePosX) == -1 || (2 - treePosY) == 1 || (2 - treePosY) == -1) {
-                        if (treePosX == 1 && treePosY == 2){
-                            nextMoves.add('c');
-                        }else if (treePosX == 2 && treePosY == 1){
-                            nextMoves.add('l');
-                            nextMoves.add('c');
-                        } else if (treePosX == 3 && treePosY == 2) {
-                            nextMoves.add('r');
-                            nextMoves.add('c');
-                        } else if (treePosX == 2 && treePosY == 3) {
-                            nextMoves.add('r');
-                            nextMoves.add('r');
-                            nextMoves.add('c');
-                        }
-                    } else {
-
-                    }
+                    treeExist = true;
+                    System.out.println("True...");
                 }
+            }
+        }
+        if (treeExist == true){
+            if ((2 - treePosX) == 1 || (2 - treePosX) == -1 || (2 - treePosY) == 1 || (2 - treePosY) == -1) {
+                System.out.println("gonna cut");
+                if (treePosX == 1 && treePosY == 2) {
+                    nextMoves.add('c');
+                    wood = true;
+                } else if (treePosX == 2 && treePosY == 1) {
+                    nextMoves.add('l');
+                    nextMoves.add('c');
+                } else if (treePosX == 3 && treePosY == 2) {
+                    nextMoves.add('r');
+                    nextMoves.add('c');
+                } else if (treePosX == 2 && treePosY == 3) {
+                    nextMoves.add('r');
+                    nextMoves.add('r');
+                    nextMoves.add('c');
+                }
+//            } else {
+//                System.out.print("nah");
+//                walkTowardsTree(treePosX, treePosY);
             }
         }
     }
 
     private void walkTowardsTree (int x, int y){
         if (x == 0){
-
+            if (y == 2) {
+                nextMoves.add('c');
+                nextMoves.add('f');
+                nextMoves.add('c');
+            }
         } else if (x == 1){
-
+            if (y == 1) {
+                nextMoves.add('c');
+                nextMoves.add('f');
+                nextMoves.add('l');
+                nextMoves.add('c');
+            } else if (y == 3) {
+                nextMoves.add('c');
+                nextMoves.add('f');
+                nextMoves.add('r');
+                nextMoves.add('c');
+            }
         } else if (x == 2){
-
+            if (y == 0) {
+                nextMoves.add('c');
+                nextMoves.add('l');
+                nextMoves.add('f');
+                nextMoves.add('c');
+            } else if (y == 4) {
+                nextMoves.add('c');
+                nextMoves.add('r');
+                nextMoves.add('f');
+                nextMoves.add('c');
+            }
         } else if (x == 3) {
-
-        } else if (x == 4) {
-
+            if (y == 1) {
+                nextMoves.add('c');
+                nextMoves.add('l');
+                nextMoves.add('l');
+                nextMoves.add('r');
+                nextMoves.add('c');
+            } else if (y == 3) {
+                nextMoves.add('c');
+                nextMoves.add('l');
+                nextMoves.add('l');
+                nextMoves.add('f');
+                nextMoves.add('l');
+                nextMoves.add('c');
+            }
+        } else  if (x == 4){
+            if (y == 2){
+                nextMoves.add('c');
+                nextMoves.add('r');
+                nextMoves.add('r');
+                nextMoves.add('c');
+                nextMoves.add('c');
+            }
         }
     }
 
@@ -189,21 +252,18 @@ public class Agent {
     private void getItem (char[][] view){
         int itemPosX;
         int itemPosY;
-        if (!nextMoves.isEmpty() && nextMoves.peek() == 'f'){
-            nextMoves.poll();
-        }
         for (int i = 0; i < view.length; i++) {
             for (int j = 0; j < view.length; j++) {
                 if (view[i][j] == 'a' || view[i][j] == '$' || view[i][j] == 'd' || view[i][j] == 'k') {
                     itemPosX = i;
                     itemPosY = j;
-                    if (view[i][j] == 'a'){
+                    if (view[1][2] == 'a'){
                         axe = true;
-                    } else if (view[i][j] == '$'){
+                    } else if (view[1][2] == '$'){
                         gold = true;
-                    } else if (view[i][j] == 'd'){
+                    } else if (view[1][2] == 'd'){
                         dynamite = true;
-                    } else  if (view[i][j] == 'k'){
+                    } else  if (view[1][2] == 'k'){
                         key = true;
                     }
                     if ((2 - itemPosX) == 1 || (2 - itemPosX) == -1 || (2 - itemPosY) == 1 || (2 - itemPosY) == -1) {
@@ -211,14 +271,11 @@ public class Agent {
                             nextMoves.add('f');
                         } else if (itemPosX == 2 && itemPosY == 1) {
                             nextMoves.add('l');
-                            nextMoves.add('f');
                         } else if (itemPosX == 3 && itemPosY == 2) {
                             nextMoves.add('r');
-                            nextMoves.add('f');
                         } else if (itemPosX == 2 && itemPosY == 3) {
                             nextMoves.add('r');
                             nextMoves.add('r');
-                            nextMoves.add('f');
                         }
                     }
                 }
