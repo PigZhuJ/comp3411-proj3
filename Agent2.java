@@ -89,11 +89,11 @@ public class Agent2 {
 //            aStarSearch(new Cood(0,0));
         } else {
             // if you can find an item
-            if(scanItem(view)){
+            /*if(scanItem(view)){
                 getItem(view);
                 action = nextMoves.poll();
                 System.out.println("I see Items!");
-            } else {
+            } else {*/
                 // search the view for items that you can go to
                 Cood item = searchForItems(view);
                 boolean canGetAnItem = false;
@@ -148,7 +148,7 @@ public class Agent2 {
                         }
                     }
                 }
-            }
+            //}
         }
 
 //-----------------ACTIONS AFTER DETERMINING ACTION-----------------//
