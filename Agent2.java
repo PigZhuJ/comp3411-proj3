@@ -120,11 +120,15 @@ public class Agent2 {
                             // else if we're no longer touching a wall, turn the other way
                             //TODO need to make sure wood is false when back on land
                         } else if (view[2][1] == ' ' && !wood) {
-                            if (hugSide == 'l') {
+                            /*if (hugSide == 'l') {
                                 action = 'l';
                             } else if (hugSide == 'r') {
                                 action = 'r';
-                            }
+                            }*/
+                            action = 'l';
+                            nextMoves.add('f');
+                        } else if (view[2][3] == ' ' && !wood) {
+                            action = 'r';
                             nextMoves.add('f');
                         }
                         // else just start roaming until we hit an obstacle
