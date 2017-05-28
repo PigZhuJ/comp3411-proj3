@@ -53,6 +53,8 @@ public class Agent2 {
         // default action is to go forward
         char action = 'f';
 
+        getItem(view);
+
         // if there are a list of moves to travel, then continue with the steps
         if (!nextMoves.isEmpty()) {
             action = nextMoves.poll();
@@ -62,13 +64,15 @@ public class Agent2 {
             Cood item = searchForItems(view);
             boolean canGetAnItem = false;
             // try to get to the item
-            if (item != null) {
-                canGetAnItem = aStarSearch(item);
-            }
+//            if (item != null) {
+//                canGetAnItem = aStarSearch(item);
+//            }
             // if you can get to the item, then perform the preset actions to go to the item
             if (canGetAnItem) {
                 action = nextMoves.poll();
-            // if there is no item or you currently can't get to an item, do standard roaming
+                // if there is no item or you currently can't get to an item, do standard roaming
+            } else if (scanTree(view)){
+                cutTree(view);
             } else {
                 if (isHugging) {
                     // if we hit an obstacle, then turn
@@ -157,35 +161,58 @@ public class Agent2 {
             }
         }
         if (treeExist == true) {
-            if ((2 - treePosX) == 1 || (2 - treePosX) == -1 || (2 - treePosY) == 1 || (2 - treePosY) == -1) {
-                System.out.println("gonna cut");
-                if (treePosX == 1 && treePosY == 2) {
-                    nextMoves.add('c');
-                    wood = true;
-                } else if (treePosX == 2 && treePosY == 1) {
+            if (treePosX == 1) {
+                if (treePosY == 1) {
+                    nextMoves.add('f');
                     nextMoves.add('l');
+                } else if (treePosY == 2) {
                     nextMoves.add('c');
-                } else if (treePosX == 3 && treePosY == 2) {
+                } else if (treePosY == 3) {
+                    nextMoves.add('f');
                     nextMoves.add('r');
-                    nextMoves.add('c');
-                } else if (treePosX == 2 && treePosY == 3) {
-                    nextMoves.add('r');
-                    nextMoves.add('r');
-                    nextMoves.add('c');
                 }
-//            } else {
-//                System.out.print("nah");
-//                walkTowardsTree(treePosX, treePosY);
+            } else if (treePosX == 2) {
+                if (treePosY == 1) {
+                    nextMoves.add('l');
+                } else if (treePosY == 3) {
+                    nextMoves.add('r');
+                }
+            } else if (treePosX == 3) {
+                if (treePosY == 1) {
+                    nextMoves.add('l');
+                    nextMoves.add('f');
+                    nextMoves.add('l');
+                } else if (treePosY == 2) {
+                    nextMoves.add('r');
+                    nextMoves.add('r');
+                } else if (treePosY == 3) {
+                    nextMoves.add('r');
+                    nextMoves.add('f');
+                    nextMoves.add('r');
+                }
             }
         }
+    }
+
+    private boolean scanTree(char[][] view){
+        boolean treeExists = false;
+
+        for (int i = 1; i < view.length - 1; i++) {
+            for (int j = 1; j < view.length - 1; j++) {
+                if (view[i][j] == 'T'){
+                    treeExists = true;
+                }
+            }
+        }
+        return treeExists;
     }
 
     //put a set of move if item is right next to AI
     private void getItem(char[][] view) {
         int itemPosX;
         int itemPosY;
-        for (int i = 0; i < view.length; i++) {
-            for (int j = 0; j < view.length; j++) {
+        for (int i = 1; i < view.length-1; i++) {
+            for (int j = 1; j < view.length-1; j++) {
                 if (view[i][j] == 'a' || view[i][j] == '$' || view[i][j] == 'd' || view[i][j] == 'k') {
                     itemPosX = i;
                     itemPosY = j;
