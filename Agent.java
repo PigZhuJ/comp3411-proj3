@@ -51,15 +51,16 @@ public class Agent {
 
     public char get_action(char view[][]) {
 
-        /*TODO
-            - Not taking gold
-            - Hugging wall loop
-            - wood not changing to false after landing on land
-            - s1 can be solve if not hugging trees
-            - s2 not taking gold
-            - s3 wall hugging loop
-            - s4 A* star item loop
-            - s5 A* doesn't work for water
+        /*
+        Out AI starts off by stitching together the
+        view of the map based on it current position
+        to get the position of each cood in absolute.
+        Then by utilising wall hugging algorithm we look
+        for items to pick up. Then using wall hugging again
+        we find the gold and find the exit. There is a randomness
+        in our ai where if we were to go forward to water or
+        wilderness. It will do a coinflip to determine which direction
+        it will turn to.
          */
 //-----------------ACTIONS BEFORE DETERMINING ACTION-----------------//
 
@@ -76,89 +77,54 @@ public class Agent {
 
         // default action is to go forward
         char action = 'f';
-        //debug
-        listInventory();
-        System.out.println(nextMoves.toString());
 
         // if there are a list of moves to travel, then continue with the steps
         if (!nextMoves.isEmpty()) {
-            System.out.println("Already know where to go!");
             action = nextMoves.poll();
             // else try to find something to do
-        } else if (nextMoves.isEmpty() && gold) {
-            aStarSearch(new Cood(0, 0));
         } else {
             // if you can find an item
-//            if(scanItem(view)){
-//                getItem(view);
-//                action = nextMoves.poll();
-//                System.out.println("I see Items!");
-//            } else {
-            // search the view for items that you can go to
-            Cood item = searchForItems(view);
-            if (item != null) {
-                System.out.println("Cood is::" + item.getX() + ", " + item.getY() + " => " + map.get(item));
-            }
-            boolean canGetAnItem = false;
-            // try to get to the item
-            if (item != null && map.get(item) == '$') {
-                canGetAnItem = aStarSearch(item);
-                System.out.println("I'm using A* search");
-            }
-            // if you can get to the item, then perform the preset actions to go to the item
-            if (canGetAnItem) {
+            if (scanItem(view)) {
+                getItem(view);
                 action = nextMoves.poll();
-                // if there is no item or you currently can't get to an item, do standard roaming
-            } else if (scanTree(view) && axe) {
-                System.out.println("Tree Cutting");
-                cutTree(view);
-                action = nextMoves.poll();
-//                } else if (onWater){
-//                    aStarSearch(searchForItems(view));
             } else {
-                System.out.println("Exploring");
-                if (isHugging) {
-                    System.out.println("Im hugging");
-                    // if we hit an obstacle, then turn
-                    if ((view[1][2] == '~' && !wood) || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.' || view[1][2] == '-') {
-                        action = rotateAtAnObstacle(view);
-                        // else if we're no longer touching a wall, turn the other way
-                    } else if (view[2][1] == ' ' && !wood) {
-//                            if (hugSide == 'l') {
-//                                action = 'l';
-//                            } else if (hugSide == 'r') {
-//                                action = 'r';
-//                            }
-                        action = 'l';
-                        nextMoves.add('f');
-//                        } else if (view[2][3] == ' ' && !wood) {
-//                            action = 'l';
-//                            nextMoves.add('f');
-                    }
-                    // else just start roaming until we hit an obstacle
+                // search the view for items that you can go to
+                Cood item = searchForItems(view);
+                boolean canGetAnItem = false;
+                // try to get to the item
+                // if you can get to the item, then perform the preset actions to go to the item
+
+                if (canGetAnItem) {
+                    action = nextMoves.poll();
+                    // if there is no item or you currently can't get to an item, do standard roaming
+                } else if (scanTree(view) && axe) {
+                    cutTree(view);
+                    action = nextMoves.poll();
                 } else {
-                    System.out.println("I need something to hug");
-                    // if we hit an obstacle, start hugging obstacles
-                    if ((view[1][2] == '~' && !wood) || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.' || view[1][2] == '-') {
-                        action = rotateAtAnObstacle(view);
-//                            if (isAnObstacle(view[2][1]) || isAnObstacle(view[2][3])) {
-//                                isHugging = true;
-//                                if (action == 'l') {
-//                                    hugSide = action;
-//                                } else if (action == 'r') {
-//                                    hugSide = action;
-//                                }
-//                            }
-                        isHugging = true;
+                    if (isHugging) {
+                        // if we hit an obstacle, then turn
+                        if ((view[1][2] == '~') || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.' || view[1][2] == '-') {
+                            action = rotateAtAnObstacle(view);
+                            // else if we're no longer touching a wall, turn the other way
+                        } else if (view[2][1] == ' ') {
+                            action = 'l';
+                            nextMoves.add('f');
+                            // else just start roaming until we hit an obstacle
+                        }
+                    } else {
+                        // if we hit an obstacle, start hugging obstacles
+                        if ((view[1][2] == '~') || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.' || view[1][2] == '-') {
+                            action = rotateAtAnObstacle(view);
+                            isHugging = true;
+                        }
                     }
                 }
             }
-//            }
         }
 
 //-----------------ACTIONS AFTER DETERMINING ACTION-----------------//
         //This snippet is so that AI isn't an idiot and jump into the water or go into the forest
-        if (action == 'f' && (view[1][2] == '~' || view[1][2] == '.') && !wood) {
+        if (action == 'f' && (view[1][2] == '~' || view[1][2] == '.')) {
             double coinflip = Math.random() % 2;
             if (coinflip == 1) {
                 action = 'l';
@@ -170,7 +136,6 @@ public class Agent {
         // update the coordinate
         if (action == 'f') {
             if (view[1][2] == '$') {
-                aStarSearch(new Cood(0, 0));
                 gold = true;
             } else if (view[1][2] == 'a') {
                 axe = true;
@@ -184,15 +149,11 @@ public class Agent {
 
         //Water check
         if (action == 'f' && view[1][2] == '~') {
-            System.out.println("going for a swim!");
             onWater = true;
         } else if (action == 'f' && view[1][2] == ' ' && onWater) {
-            System.out.println("Back to land!");
             onWater = false;
             wood = false;
         }
-        System.out.println("*-------------------------------------ACTION_END-------------------------------*");
-        System.out.println("Action is:" + action);
         return action;
 
     }

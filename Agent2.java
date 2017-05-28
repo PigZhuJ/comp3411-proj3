@@ -101,7 +101,7 @@ public class Agent2 {
                 }
                 boolean canGetAnItem = false;
                 // try to get to the item
-                if (item != null && map.get(item) == '$') {
+                if (item != null) {
                     canGetAnItem = aStarSearch(item);
                     System.out.println("I'm using A* search");
                 }
