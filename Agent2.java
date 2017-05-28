@@ -106,10 +106,9 @@ public class Agent2 {
                     map.put(newCood, ' ');
                 }
             }
-            // DEBUG
-            print_map();
         }
-
+        // DEBUG
+        print_map();
     }
 
     private char[][] rotate_view(char view[][], int times) {
@@ -125,9 +124,6 @@ public class Agent2 {
             while (temp % 4 != 0) {
                 newView = clockwise(newView);
                 temp++;
-                // DEBUG
-                System.out.println("Rotation is: " + temp);
-                print_view(newView);
             }
             return newView;
         }
