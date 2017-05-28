@@ -16,7 +16,7 @@ public class Agent2 {
 
     // Player Attributes
     private Queue<Character> nextMoves = new LinkedList<>();
-    private ArrayList<Cood> prevCood = new ArrayList<>();
+    private ArrayList<Cood> prevPath = new ArrayList<>();
     private int direction;
     private int currX;
     private int currY;
@@ -35,6 +35,7 @@ public class Agent2 {
     public Agent2() {
         this.map = new HashMap<>();
         this.nextMoves = new LinkedList<>();
+        this.prevPath = new ArrayList<>();
         this.direction = 0;
         this.currX = 0;
         this.currY = 0;
@@ -63,19 +64,20 @@ public class Agent2 {
 //-----------------ACTIONS BEFORE DETERMINING ACTION-----------------//
 
         //Creates a list of previously explored cood
-        if (prevCood.isEmpty()){
-            Cood beenThere = new Cood(0,0);
-            prevCood.add(beenThere);
-        } else if(!prevCood.isEmpty() && prevCood.contains(new Cood(currX, currY)) ){
-            Cood beenThere = new Cood(currX, currY);
-            prevCood.add(beenThere);
+        Cood prev = new Cood(currX, currY);
+         if (!prevPath.isEmpty() && !prevPath.contains(prev)) {
+            prevPath.add(prev);
+        } else if (prevPath.isEmpty()) {
+            prevPath.add(new Cood(0, 0));
         }
 
         stitchMap(view);
         System.out.println("Curr Pos is:" + currX + ", " + currY);
+        Cood waterCheck = new Cood(currX, currY);
+        System.out.println(currX + ", " + currY + " Char is: (" + map.get(waterCheck) + ")");
 
-        // if you're going onto water, set onWater = true
-        if(map.get(new Cood(currX, currY)) == '~' && !onWater){
+        if (map.get(new Cood(currX, currY)) == '~' && !onWater) {
+            System.out.println("Wood is true");
             onWater = true;
             // else if you're going off water, set onWater = false and you lose the wood
         } else if (map.get(new Cood(currX, currY)) != '~' && onWater){
@@ -125,7 +127,7 @@ public class Agent2 {
                     if (isHugging) {
                         System.out.println("Im hugging");
                         // if we hit an obstacle, then turn
-                        if ((view[1][2] == '~' && !wood) || view[1][2] == '*' || (view[1][2] == 'T' && !axe) || view[1][2] == '.') {
+                        if ((view[1][2] == '~' && !wood) || view[1][2] == '*' || view[1][2] == 'T'  || view[1][2] == '.' || view[1][2] == '-') {
                             action = rotateAtAnObstacle(view);
                             // else if we're no longer touching a wall, turn the other way
                             //TODO need to make sure wood is false when back on land
@@ -141,7 +143,7 @@ public class Agent2 {
                     } else {
                         System.out.println("I need something to hug");
                         // if we hit an obstacle, start hugging obstacles
-                        if ((view[1][2] == '~' && !wood) || view[1][2] == '*' || (view[1][2] == 'T' && !axe) || view[1][2] == '.') {
+                        if ((view[1][2] == '~' && !wood) || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.' || view[1][2] == '-') {
                             action = rotateAtAnObstacle(view);
                             if (isAnObstacle(view[2][1]) || isAnObstacle(view[2][3])) {
                                 isHugging = true;
@@ -182,6 +184,10 @@ public class Agent2 {
             direction = (direction + 4 + 1) % 4;
         }
 
+        //Water check
+        if (action == 'f' && map.get(new Cood(currX, currY)) == '~') {
+            onWater = true;
+        }
         System.out.println("*-------------------------------------ACTION_END-------------------------------*");
         System.out.println("Action is:" + action);
         return action;
@@ -572,7 +578,11 @@ public class Agent2 {
                 if (view[j][i] != '\0') {
                     map.put(newCood, newView[i][j]);
                 } else {
-                    map.put(newCood, ' ');
+                    if (onWater == true) {
+                        map.put(newCood, '~');
+                    } else {
+                        map.put(newCood, ' ');
+                    }
                 }
             }
         }
