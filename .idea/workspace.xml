@@ -28,11 +28,32 @@
       <file leaf-file-name="Agent2.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Agent2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="292">
-              <caret line="48" column="24" lean-forward="true" selection-start-line="48" selection-start-column="24" selection-end-line="48" selection-end-column="24" />
+            <state relative-caret-position="357">
+              <caret line="141" column="0" lean-forward="true" selection-start-line="141" selection-start-column="0" selection-end-line="141" selection-end-column="0" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="imports" expanded="true" />
+                <element signature="method#get_action#0;class#Agent2#0" expanded="false" />
+                <element signature="method#updateCurrPosition#0;class#Agent2#0" expanded="false" />
+                <element signature="method#rotateAtAnObstacle#0;class#Agent2#0" expanded="false" />
+                <element signature="method#searchForItems#0;class#Agent2#0" expanded="false" />
+                <element signature="method#aStarSearch#0;class#Agent2#0" expanded="false" />
+                <element signature="method#generateSuccessors#0;class#Agent2#0" expanded="false" />
+                <element signature="method#buildNextMovesToReachItem#0;class#Agent2#0" expanded="false" />
+                <element signature="method#calculateProjection#0;class#Agent2#0" expanded="false" />
+                <element signature="method#cutTree#0;class#Agent2#0" expanded="false" />
+                <element signature="method#getItem#0;class#Agent2#0" expanded="false" />
+                <element signature="method#stitchMap#0;class#Agent2#0" expanded="false" />
+                <element signature="method#rotate_view#0;class#Agent2#0" expanded="false" />
+                <element signature="method#clockwise#0;class#Agent2#0" expanded="false" />
+                <element signature="method#createCood#0;class#Agent2#0" expanded="false" />
+                <element signature="method#print_map#0;class#Agent2#0" expanded="false" />
+                <element signature="method#getSmallx#0;class#Agent2#0" expanded="false" />
+                <element signature="method#getLargex#0;class#Agent2#0" expanded="false" />
+                <element signature="method#getSmally#0;class#Agent2#0" expanded="false" />
+                <element signature="method#getLargey#0;class#Agent2#0" expanded="false" />
+                <element signature="method#print_view#0;class#Agent2#0" expanded="false" />
+                <element signature="method#main#0;class#Agent2#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -436,7 +457,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="1" />
+      <option name="time" value="2" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -777,11 +798,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Agent2.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="48" column="24" lean-forward="true" selection-start-line="48" selection-start-column="24" selection-end-line="48" selection-end-column="24" />
+        <state relative-caret-position="357">
+          <caret line="141" column="0" lean-forward="true" selection-start-line="141" selection-start-column="0" selection-end-line="141" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
+            <element signature="method#get_action#0;class#Agent2#0" expanded="false" />
+            <element signature="method#updateCurrPosition#0;class#Agent2#0" expanded="false" />
+            <element signature="method#rotateAtAnObstacle#0;class#Agent2#0" expanded="false" />
+            <element signature="method#searchForItems#0;class#Agent2#0" expanded="false" />
+            <element signature="method#aStarSearch#0;class#Agent2#0" expanded="false" />
+            <element signature="method#generateSuccessors#0;class#Agent2#0" expanded="false" />
+            <element signature="method#buildNextMovesToReachItem#0;class#Agent2#0" expanded="false" />
+            <element signature="method#calculateProjection#0;class#Agent2#0" expanded="false" />
+            <element signature="method#cutTree#0;class#Agent2#0" expanded="false" />
+            <element signature="method#getItem#0;class#Agent2#0" expanded="false" />
+            <element signature="method#stitchMap#0;class#Agent2#0" expanded="false" />
+            <element signature="method#rotate_view#0;class#Agent2#0" expanded="false" />
+            <element signature="method#clockwise#0;class#Agent2#0" expanded="false" />
+            <element signature="method#createCood#0;class#Agent2#0" expanded="false" />
+            <element signature="method#print_map#0;class#Agent2#0" expanded="false" />
+            <element signature="method#getSmallx#0;class#Agent2#0" expanded="false" />
+            <element signature="method#getLargex#0;class#Agent2#0" expanded="false" />
+            <element signature="method#getSmally#0;class#Agent2#0" expanded="false" />
+            <element signature="method#getLargey#0;class#Agent2#0" expanded="false" />
+            <element signature="method#print_view#0;class#Agent2#0" expanded="false" />
+            <element signature="method#main#0;class#Agent2#0" expanded="false" />
           </folding>
         </state>
       </provider>

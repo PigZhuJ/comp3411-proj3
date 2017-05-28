@@ -140,7 +140,6 @@ public class Agent2 {
         return action;
     }
 
-    // All the search methods
     //Scan the view and return Cood for item
     private Cood searchForItems(char[][] view) {
         // for every y coordinate
@@ -343,6 +342,7 @@ public class Agent2 {
             }
         }
     }
+
 //--------------[DONE DO NOT TOUCH ANYMORE]----Map Stitching Algorithm-----------------------------//
 
     //Get the absolute cood of each character in the given view
@@ -503,8 +503,6 @@ public class Agent2 {
     }
 
     //--------------------------------------END--------------------------------------------------//
-
-    // NO LONGER OUR CODE
 
     void print_view( char view[][] )
     {
