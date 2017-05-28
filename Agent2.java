@@ -167,6 +167,8 @@ public class Agent2 {
             if (view[1][2] == '$') {
                 aStarSearch(new Cood(0,0));
                 gold = true;
+            } else if (view[1][2] == 'a') {
+                axe = true;
             }
             updateCurrPosition();
         } else if (action == 'l') {
