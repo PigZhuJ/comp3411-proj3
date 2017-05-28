@@ -13,6 +13,10 @@ public class Agent3 {
 
     // Map Related Fields
     private HashMap<Cood, Character> map;
+    private int minX;
+    private int minY;
+    private int maxX;
+    private int maxY;
 
     // Player Related Fields
     private int currX;
@@ -20,6 +24,8 @@ public class Agent3 {
     private int direction;
     private Queue<Character> nextMoves = new LinkedList<>();
     private boolean onWater;
+    private boolean isHuggingWall;
+    private char hugSide;
 
     // Player Inventory Fields
     private boolean wood;
@@ -30,15 +36,23 @@ public class Agent3 {
     public Agent3() {
         // Map Related Fields
         this.map = new HashMap<>();
+        this.minX = 0;
+        this.minY = 0;
+        this.maxX = 0;
+        this.maxY = 0;
         // Player Related Fields
         this.currX = 0;
         this.currY = 0;
         this.direction = 0;
         this.nextMoves = new LinkedList<>();
         this.onWater = false;
+        this.isHuggingWall = false;
+        this.hugSide = ' ';
         // Player Inventory Fields
         this.wood = false;
         this.gold = false;
+        this.axe = false;
+        this.key = false;
     }
 
     public char get_action( char view[][] ) {
@@ -69,6 +83,57 @@ public class Agent3 {
             // if you can get to the item, then perform the preset actions to go to the item
             if (canGetAnItem) {
                 action = nextMoves.poll();
+            } else {
+                System.out.println("Exploring");
+                // if the player is hugging the walls
+                if (isHuggingWall) {
+                    System.out.println("I'm hugging");
+                    // if we hit an obstacle, then turn
+                    if (isAnObstacle(view[1][2])) {
+                        action = rotateAtAnObstacle(view);
+                    // else if we don't have a wall to hug i.e.
+                    //   ^   *
+                    // *     *
+                    // * * * *
+                    // If the player is hugging the left
+                    } else if (hugSide == 'l') {
+                        // if the left of player is empty and is on land, rotate left
+                        // always look left first to continue hugging walls
+                        if (view[2][1] == ' ' && !onWater) {
+                            action = 'l';
+                        } else if (view[2][3] == ' ' && !onWater) {
+                            action = 'r';
+                        }
+                        nextMoves.add('f');
+                    // *   ^
+                    // *     *
+                    // * * * *
+                    // If the player is hugging the right
+                    } else if (hugSide == 'r') {
+                        // if the right of player is empty and is on land, rotate right
+                        // always look right first to continue hugging walls
+                        if (view[2][3] == ' ' && !onWater) {
+                            action = 'r';
+                        } else if (view[2][1] == ' ' && !onWater) {
+                            action = 'l';
+                        }
+                        nextMoves.add('f');
+                    }
+                // else do standard roaming
+                } else {
+                    System.out.println("I need something to hug");
+                    // if we hit an obstacle
+                    if (isAnObstacle(view[1][2])) {
+                        // rotate to avoid obstacles
+                        action = rotateAtAnObstacle(view);
+                        // if we are at a corner, start hugging that section of the block
+                        if (isAnObstacle(view[2][1]) || isAnObstacle(view[2][3])) {
+                            isHuggingWall = true;
+                            // determining which side of the player is going to be hugged
+                            hugSide = action;
+                        }
+                    }
+                }
             }
         }
 
@@ -78,6 +143,21 @@ public class Agent3 {
                 gold = true;
             }
             updateCurrPosition();
+            // no long hug walls if the player is entering new territory
+            if (currX < minX) {
+                minX = currX;
+                isHuggingWall = false;
+            } else if (currX > maxX) {
+                maxX = currX;
+                isHuggingWall = false;
+            } else if (currY < minY) {
+                minY = currY;
+                isHuggingWall = false;
+            } else if (currY > maxY) {
+                maxY = currY;
+                isHuggingWall = false;
+            }
+        // update the direction if turning
         } else if (action == 'l') {
             direction = (direction + 4 - 1) % 4;
         } else if (action == 'r') {
@@ -104,6 +184,19 @@ public class Agent3 {
     //Check if its an obstacle
     private boolean isAnObstacle(char c) {
         return ((c == '~' && !wood) || c == '*' || (c == 'T' && !axe) || c == '.' || (c == '-' && !key));
+    }
+
+    //When met with an obstacle rotate
+    private char rotateAtAnObstacle(char view[][]) {
+        char action;
+        if (isAnObstacle(view[2][1])) {
+            action = 'r';
+            if (view[2][3] != '~' && view[2][3] != '*' && view[2][3] != 'T' && view[2][3] != '.') nextMoves.add('f');
+        } else {
+            action = 'l';
+            nextMoves.add('f');
+        }
+        return action;
     }
 
 //-----------------ITEM SEARCHING-----------------------------------------//
