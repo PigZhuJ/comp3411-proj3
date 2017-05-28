@@ -63,12 +63,15 @@ public class Agent2 {
             boolean canGetAnItem = false;
             // try to get to the item
             if (item != null) {
-                canGetAnItem = aStarSearch(item);
+//                canGetAnItem = aStarSearch(item);
             }
             // if you can get to the item, then perform the preset actions to go to the item
             if (canGetAnItem) {
                 action = nextMoves.poll();
-            // if there is no item or you currently can't get to an item, do standard roaming
+                // if there is no item or you currently can't get to an item, do standard roaming
+            } else if (axe == true){
+                cutTree(view);
+                action = nextMoves.poll();
             } else {
                 if (isHugging) {
                     // if we hit an obstacle, then turn
