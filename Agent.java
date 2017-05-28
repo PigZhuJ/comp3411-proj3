@@ -1,5 +1,5 @@
 /*********************************************
- *  Agent.java 
+ *  Agent.java
  *  Sample Agent for Text-Based Adventure Game
  *  COMP3411 Artificial Intelligence
  *  UNSW Session 1, 2017
@@ -317,7 +317,7 @@ public class Agent {
         // initialize the closed list
         ArrayList<State> closed = new ArrayList<>();
         // put the starting node on the open list (you can leave its f at zero)
-        open.add(new State(new Cood(currX, currY),null, 0, 0));
+        open.add(new State(new Cood(currX, currY),null, 0, 0, true));
 
         // while the open list is not empty
         while(!open.isEmpty()) {
@@ -383,7 +383,7 @@ public class Agent {
             for (int y = 0; y < 3; y++) {
                 // make sure that the current player position is not recorded as a successor
                 if (!(x == 1 && y == 1)) {
-                    State newState = new State(createCood(x,y), currState, currState.getGx(), 0);
+                    State newState = new State(createCood(x,y), currState, currState.getGx(), 0, false);
                     successorQueue.add(newState);
                 }
             }
