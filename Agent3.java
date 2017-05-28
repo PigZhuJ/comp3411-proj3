@@ -43,6 +43,9 @@ public class Agent3 {
 
 //-----------------STEPS BEFORE DETERMINING PLAYER ACTION-----------------//
         stitchMap(view);
+        if (gold && nextMoves.isEmpty()) {
+            aStarSearch(new Cood(0, 0));
+        }
         // DEBUG STATEMENTS
         System.out.println("Curr Player Position is: (" + currX +"," + currY + ")");
         System.out.println(nextMoves.toString());
@@ -70,7 +73,6 @@ public class Agent3 {
 //-----------------STEPS AFTER DETERMINING PLAYER ACTION------------------//
         if (action == 'f') {
             if (view[1][2] == '$') {
-                aStarSearch(new Cood(0,0));
                 gold = true;
             }
             updateCurrPosition();
