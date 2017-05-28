@@ -77,7 +77,7 @@ public class Agent {
                 if (isHugging) {
 
                     // if we hit an obstacle, then turn
-                    if (view[1][2] == '~' || view[1][2] == '*' || view[1][2] == 'T') {
+                    if (view[1][2] == '~' || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.') {
                         action = rotateAtAnObstacle(view);
 
                     // else if we're no longer touching a wall, turn the other way
@@ -90,7 +90,7 @@ public class Agent {
                 } else {
 
                     // if we hit an obstacle, start hugging obstacles
-                    if (view[1][2] == '~' || view[1][2] == '*' || view[1][2] == 'T') {
+                    if (view[1][2] == '~' || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.') {
 
                         action = rotateAtAnObstacle(view);
                         isHugging = true;
@@ -139,9 +139,9 @@ public class Agent {
 
     private char rotateAtAnObstacle(char view[][]) {
         char action;
-        if (view[2][1] == '~' || view[2][1] == '*' || view[2][1] == 'T') {
+        if (view[2][1] == '~' || view[2][1] == '*' || view[2][1] == 'T' || view[2][1] == '.') {
             action = 'r';
-            if (view[2][3] != '~' && view[2][3] != '*' && view[2][3] != 'T') nextMoves.add('f');
+            if (view[2][3] != '~' && view[2][3] != '*' && view[2][3] != 'T' && view[2][3] != '.') nextMoves.add('f');
         } else {
             action = 'l';
             nextMoves.add('f');
