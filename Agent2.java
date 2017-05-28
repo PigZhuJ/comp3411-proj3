@@ -109,8 +109,13 @@ public class Agent2 {
                     } else {
                         // if we hit an obstacle, start hugging obstacles
                         if ((view[1][2] == '~' && !wood) || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.') {
-                            action = rotateAtAnObstacle(view);
-                            isHugging = true;
+                            if ((view[1][2] == '~' && !wood) || isAnObstacle(view[1][2])) {
+                                if (isAnObstacle(view[2][1]) || isAnObstacle(view[2][3])) {
+                                    isHugging = true;
+                                }
+                                action = rotateAtAnObstacle(view);
+                                //isHugging = true;
+                            }
                         }
                     }
                 }
@@ -144,6 +149,11 @@ public class Agent2 {
         System.out.println("*-------------------------------------ACTION_END-------------------------------*");
         System.out.println("Action is:" + action);
         return action;
+
+    }
+
+    private boolean isAnObstacle(char c) {
+        return (c == '*' || c == 'T' || c == '.');
     }
 
     //Update the absolute cood of the AI on the map

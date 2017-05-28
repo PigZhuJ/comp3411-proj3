@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b47f10aa-5ae1-4b03-8dc9-3336d9991595" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Agent2.java" afterPath="$PROJECT_DIR$/Agent2.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,8 +19,8 @@
       <file leaf-file-name="Agent.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Agent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="88" column="20" lean-forward="true" selection-start-line="88" selection-start-column="20" selection-end-line="88" selection-end-column="20" />
+            <state relative-caret-position="221">
+              <caret line="103" column="58" lean-forward="true" selection-start-line="103" selection-start-column="58" selection-end-line="103" selection-end-column="58" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="imports" expanded="true" />
@@ -31,20 +32,20 @@
       <file leaf-file-name="Agent2.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Agent2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="113" column="29" lean-forward="true" selection-start-line="110" selection-start-column="63" selection-end-line="113" selection-end-column="29" />
+            <state relative-caret-position="153">
+              <caret line="117" column="29" lean-forward="false" selection-start-line="117" selection-start-column="29" selection-end-line="117" selection-end-column="29" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="imports" expanded="true" />
-                <element signature="e#5359#5360#0" expanded="true" />
-                <element signature="e#5416#5417#0" expanded="true" />
-                <marker date="1495966542104" expanded="false" signature="25224:25786" ph="{...}" />
-                <marker date="1495966542104" expanded="false" signature="25835:26012" ph="{...}" />
-                <marker date="1495966542104" expanded="false" signature="26042:26222" ph="{...}" />
-                <marker date="1495966542104" expanded="false" signature="26252:26432" ph="{...}" />
-                <marker date="1495966542104" expanded="false" signature="26462:26642" ph="{...}" />
-                <marker date="1495966542104" expanded="false" signature="26786:27256" ph="{...}" />
-                <marker date="1495966542104" expanded="false" signature="27307:29070" ph="{...}" />
+                <element signature="e#5572#5573#0" expanded="true" />
+                <element signature="e#5629#5630#0" expanded="true" />
+                <marker date="1495967094000" expanded="false" signature="25437:25999" ph="{...}" />
+                <marker date="1495967094000" expanded="false" signature="26048:26225" ph="{...}" />
+                <marker date="1495967094000" expanded="false" signature="26255:26435" ph="{...}" />
+                <marker date="1495967094000" expanded="false" signature="26465:26645" ph="{...}" />
+                <marker date="1495967094000" expanded="false" signature="26675:26855" ph="{...}" />
+                <marker date="1495967094000" expanded="false" signature="26999:27469" ph="{...}" />
+                <marker date="1495967094000" expanded="false" signature="27520:29283" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -147,9 +148,9 @@
       <list>
         <option value="$PROJECT_DIR$/AgentTwo.java" />
         <option value="$PROJECT_DIR$/Coordinate.java" />
-        <option value="$PROJECT_DIR$/Agent.java" />
         <option value="$PROJECT_DIR$/State.java" />
         <option value="$PROJECT_DIR$/input2.txt" />
+        <option value="$PROJECT_DIR$/Agent.java" />
         <option value="$PROJECT_DIR$/Agent2.java" />
       </list>
     </option>
@@ -849,8 +850,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Agent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="88" column="20" lean-forward="true" selection-start-line="88" selection-start-column="20" selection-end-line="88" selection-end-column="20" />
+        <state relative-caret-position="221">
+          <caret line="103" column="58" lean-forward="true" selection-start-line="103" selection-start-column="58" selection-end-line="103" selection-end-column="58" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
@@ -860,20 +861,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Agent2.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="113" column="29" lean-forward="true" selection-start-line="110" selection-start-column="63" selection-end-line="113" selection-end-column="29" />
+        <state relative-caret-position="153">
+          <caret line="117" column="29" lean-forward="false" selection-start-line="117" selection-start-column="29" selection-end-line="117" selection-end-column="29" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#5359#5360#0" expanded="true" />
-            <element signature="e#5416#5417#0" expanded="true" />
-            <marker date="1495966542104" expanded="false" signature="25224:25786" ph="{...}" />
-            <marker date="1495966542104" expanded="false" signature="25835:26012" ph="{...}" />
-            <marker date="1495966542104" expanded="false" signature="26042:26222" ph="{...}" />
-            <marker date="1495966542104" expanded="false" signature="26252:26432" ph="{...}" />
-            <marker date="1495966542104" expanded="false" signature="26462:26642" ph="{...}" />
-            <marker date="1495966542104" expanded="false" signature="26786:27256" ph="{...}" />
-            <marker date="1495966542104" expanded="false" signature="27307:29070" ph="{...}" />
+            <element signature="e#5572#5573#0" expanded="true" />
+            <element signature="e#5629#5630#0" expanded="true" />
+            <marker date="1495967094000" expanded="false" signature="25437:25999" ph="{...}" />
+            <marker date="1495967094000" expanded="false" signature="26048:26225" ph="{...}" />
+            <marker date="1495967094000" expanded="false" signature="26255:26435" ph="{...}" />
+            <marker date="1495967094000" expanded="false" signature="26465:26645" ph="{...}" />
+            <marker date="1495967094000" expanded="false" signature="26675:26855" ph="{...}" />
+            <marker date="1495967094000" expanded="false" signature="26999:27469" ph="{...}" />
+            <marker date="1495967094000" expanded="false" signature="27520:29283" ph="{...}" />
           </folding>
         </state>
       </provider>
