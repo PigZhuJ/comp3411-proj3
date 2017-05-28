@@ -24,6 +24,8 @@ public class Agent3 {
     // Player Inventory Fields
     private boolean wood;
     private boolean gold;
+    private boolean axe;
+    private boolean key;
 
     public Agent3() {
         // Map Related Fields
@@ -97,6 +99,11 @@ public class Agent3 {
         } else {
             currX--;
         }
+    }
+
+    //Check if its an obstacle
+    private boolean isAnObstacle(char c) {
+        return ((c == '~' && !wood) || c == '*' || (c == 'T' && !axe) || c == '.' || (c == '-' && !key));
     }
 
 //-----------------ITEM SEARCHING-----------------------------------------//
@@ -233,14 +240,11 @@ public class Agent3 {
         System.out.println("The path to get to the item is: ");
         // retrieve all the coordinates that the player has to travel
         while(!currState.isStartingState()) {
-            System.out.print("(" + currState.getCurrCood().getX() + "," +currState.getCurrCood().getY() + "), ");
+            System.out.print("(" + currState.getCurrCood().getX() + "," +currState.getCurrCood().getY() + ") ");
             moveList.add(0, currState.getCurrCood());
             currState = currState.getPrevState();
         }
-        // add the last coordinate
-        //moveList.add(0, currState.getCurrCood());
-        //System.out.println("(" + currState.getCurrCood().getX() + "," +currState.getCurrCood().getY() + ").");
-        //System.out.println(moveList.toString());
+        System.out.println();
         Cood currPosition = new Cood(currX, currY);
         int currDirection = this.direction;
         // go through the moves
@@ -251,7 +255,8 @@ public class Agent3 {
             System.out.println("Testing if matched position is at: (" + projectedPosition.getX() + "," + projectedPosition.getY() + ")");
             while(!projectedPosition.equals(nextPosition)) {
                 Cood leftOfPlayer = calculateProjection(currPosition, (currDirection + 4 - 1)%4);
-                if (map.get(leftOfPlayer) == '~' || map.get(leftOfPlayer) == '*' || map.get(leftOfPlayer) == 'T' || map.get(leftOfPlayer) == '.') {
+                Cood rightOfPlayer = calculateProjection(currPosition, (currDirection + 1)%4);
+                if (isAnObstacle(map.get(leftOfPlayer)) || map.get(rightOfPlayer).equals(nextPosition)) {
                     nextMoves.add('r');
                     currDirection = (currDirection + 1)%4;
                 } else {
