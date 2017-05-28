@@ -44,22 +44,34 @@ public class Agent2 {
             action = nextMoves.poll();
         // else try to find something to do
         } else {
-            if (isHugging) {
-                // if we hit an obstacle, then turn
-                if (view[1][2] == '~' || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.') {
-                    action = rotateAtAnObstacle(view);
-
-                    // else if we're no longer touching a wall, turn the other way
-                } else if (view[2][1] == ' ') {
-                    action = 'l';
-                    nextMoves.add('f');
-                }
-                // else just start roaming until we hit an obstacle
+            // search the view for items that you can go to
+            Cood item = searchForItems(view);
+            boolean canGetAnItem = false;
+            // try to get to the item
+            if (item != null) {
+                canGetAnItem = aStarSearch(item);
+            }
+            // if you can get to the item, then perform the preset actions to go to the item
+            if (canGetAnItem) {
+                action = nextMoves.poll();
+            // if there is no item or you currently can't get to an item, do standard roaming
             } else {
-                // if we hit an obstacle, start hugging obstacles
-                if (view[1][2] == '~' || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.') {
-                    action = rotateAtAnObstacle(view);
-                    isHugging = true;
+                if (isHugging) {
+                    // if we hit an obstacle, then turn
+                    if (view[1][2] == '~' || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.') {
+                        action = rotateAtAnObstacle(view);
+                        // else if we're no longer touching a wall, turn the other way
+                    } else if (view[2][1] == ' ') {
+                        action = 'l';
+                        nextMoves.add('f');
+                    }
+                // else just start roaming until we hit an obstacle
+                } else {
+                    // if we hit an obstacle, start hugging obstacles
+                    if (view[1][2] == '~' || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.') {
+                        action = rotateAtAnObstacle(view);
+                        isHugging = true;
+                    }
                 }
             }
         }
@@ -73,7 +85,6 @@ public class Agent2 {
         } else if (action == 'r') {
             direction = (direction + 4 + 1) % 4;
         }
-
         return action;
 
     }
@@ -88,6 +99,135 @@ public class Agent2 {
             nextMoves.add('f');
         }
         return action;
+    }
+
+    // All the search methods
+    //Scan the view and return Cood for item
+    private Cood searchForItems(char[][] view) {
+        // for every y coordinate
+        for (int i = 0; i < 5; i++) {
+            // for every x coordinate
+            for (int j = 0; j < 5; j++) {
+                // if there is an item seen in the view, record the position of that
+                if(view[j][i] == '$' || view[j][i] == 'a' || view[j][i] == 'd' || view[j][i] == 'k') {
+                    Cood itemFound = createCood(i,j);
+                    // DEBUG
+                    //System.out.println("(" + itemFound.getX() + ", " + itemFound.getY() + ") => " + "(" + view[j][i] + ")");
+                    return itemFound;
+                }
+            }
+        }
+        return null;
+    }
+
+    private boolean aStarSearch(Cood destination) {
+
+        // initialize the open list
+        Queue<State> open = new PriorityQueue<>();
+        // initialize the closed list
+        ArrayList<State> closed = new ArrayList<>();
+        // put the starting node on the open list (you can leave its f at zero)
+        open.add(new State(new Cood(currX, currY),null, 0, 0));
+
+        // while the open list is not empty
+        while(!open.isEmpty()) {
+            // pop the node with the least f off the open list
+            State currState = open.poll();
+            // generate q's 8 successors and set their parents to q
+            Queue<State> successorQueue = generateSuccessors(currState);
+            // for each successor
+            while (!successorQueue.isEmpty()) {
+                State successor = successorQueue.poll();
+                // if successor is the goal, stop the search
+                if (successor.getCurrCood().equals(destination)) {
+                    buildNextMovesToReachItem(successor);
+                    return true;
+                }
+                // calculate g(x)
+                successor.calculateGx();
+                // calculate h(x)
+                successor.calculateHx(destination);
+                boolean skipNode = false;
+                // if a node with the same position as successor is in the OPEN list \
+                // which has a lower f than successor, skip this successor
+                for (State checkState : open) {
+                    if (checkState.getCurrCood().equals(successor.getCurrCood()) &&
+                            successor.calculateFx() > checkState.calculateFx()){
+                        skipNode = true;
+                    }
+                }
+                // if a node with the same position as successor is in the CLOSED list \
+                // which has a lower f than successor, skip this successor
+                for (State checkState : closed) {
+                    if (checkState.getCurrCood().equals(successor.getCurrCood()) &&
+                            successor.calculateFx() > checkState.calculateFx()){
+                        skipNode = true;
+                    }
+                }
+                // otherwise, add the node to the open list
+                if(!skipNode) {
+                    open.add(successor);
+                }
+            }
+            // push q on the closed list
+            closed.add(currState);
+        }
+        return false;
+    }
+
+    public LinkedList<State> generateSuccessors(State currState) {
+        LinkedList<State> successorQueue = new LinkedList<>();
+        for(int x = 0; x < 3; x++) {
+            for (int y = 0; y < 3; y++) {
+                // make sure that the current player position is not recorded as a successor
+                if (!(x == 1 && y == 1)) {
+                    State newState = new State(createCood(x,y), currState, currState.getGx(), 0);
+                    successorQueue.add(newState);
+                }
+            }
+        }
+        return successorQueue;
+    }
+
+    private void buildNextMovesToReachItem(State successor) {
+        LinkedList<Cood> moveList = new LinkedList<>();
+        State currState = successor;
+        // retrieve all the coordinates that the player has to travel
+        while(!currState.getPrevState().equals(null)) {
+            moveList.add(0, currState.getCurrCood());
+            currState = currState.getPrevState();
+        }
+        // add the last coordinate
+        //moveList.add(0, currState.getCurrCood());
+        Cood currPosition = new Cood(currX, currY);
+        int currDirection = this.direction;
+        // go through the moves
+        for (Cood nextPosition : moveList) {
+            Cood projectedPosition = calculateProjection(currPosition, currDirection);
+            while(!projectedPosition.equals(nextPosition)) {
+                currDirection++;
+                nextMoves.add('r');
+                projectedPosition = calculateProjection(currPosition, currDirection);
+            }
+            nextMoves.add('f');
+            currPosition = nextPosition;
+        }
+    }
+
+    private Cood calculateProjection(Cood currPosition, int currDirection) {
+        int projectedX = currPosition.getX();
+        int projectedY = currPosition.getY();
+        if (currDirection == 0) {
+            projectedY++;
+        } else if (currDirection == 1) {
+            projectedX--;
+        } else if (currDirection == 2) {
+            projectedY--;
+        } else {
+            projectedX++;
+        }
+        Cood newCood = new Cood(projectedX,projectedY);
+        return newCood;
     }
 
     public void stitchMap(char view[][]) {
