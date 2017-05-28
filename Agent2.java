@@ -150,7 +150,7 @@ public class Agent2 {
 
 //-----------------ACTIONS AFTER DETERMINING ACTION-----------------//
         //This snippet is so that AI isn't an idiot and jump into the water or go into the forest
-        if (action == 'f' && (view[1][2] == '~' || view[1][2] == '.' || (view[1][2] == 'T' && !axe)) && !wood) {
+        if (action == 'f' && (view[1][2] == '~' || view[1][2] == '.') && !wood) {
             double coinflip = Math.random() % 2;
             if (coinflip == 1) {
                 action = 'l';
