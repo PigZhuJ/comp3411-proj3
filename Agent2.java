@@ -81,10 +81,10 @@ public class Agent2 {
                 Cood item = searchForItems(view);
                 boolean canGetAnItem = false;
                 // try to get to the item
-//                if (item != null) {
-//                    canGetAnItem = aStarSearch(item);
-//                    System.out.println("I'm using A* search");
-//                }
+                if (item != null) {
+                    canGetAnItem = aStarSearch(item);
+                    System.out.println("I'm using A* search");
+                }
                 // if you can get to the item, then perform the preset actions to go to the item
                 if (canGetAnItem) {
                     action = nextMoves.poll();
