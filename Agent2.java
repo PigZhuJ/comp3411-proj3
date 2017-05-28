@@ -28,6 +28,8 @@ public class Agent2 {
     private boolean gold;
     private boolean wood;
 
+    private boolean onWater;
+
     public Agent2() {
         this.map = new HashMap<>();
         this.nextMoves = new LinkedList<>();
@@ -40,6 +42,7 @@ public class Agent2 {
         dynamite = false;
         gold = false;
         wood = false;
+        onWater = false;
     }
 
     public char get_action( char view[][] ) {
@@ -48,6 +51,12 @@ public class Agent2 {
 
         stitchMap(view);
 
+        if(map.get(new Cood(currX, currY)) == '~' && !onWater){
+            onWater = true;
+        } else if (map.get(new Cood(currX, currY)) != '~' && onWater){
+            onWater = false;
+            wood = false;
+        }
 //---------------------------DETERMINING ACTION-----------------//
 
         // default action is to go forward
@@ -72,9 +81,10 @@ public class Agent2 {
                 Cood item = searchForItems(view);
                 boolean canGetAnItem = false;
                 // try to get to the item
-                if (item != null) {
-                    canGetAnItem = aStarSearch(item);
-                }
+//                if (item != null) {
+//                    canGetAnItem = aStarSearch(item);
+//                    System.out.println("I'm using A* search");
+//                }
                 // if you can get to the item, then perform the preset actions to go to the item
                 if (canGetAnItem) {
                     action = nextMoves.poll();
@@ -124,7 +134,7 @@ public class Agent2 {
         // update the coordinate
         if (action == 'f') {
             if (view[1][2] == '$') {
-                aStarSearch(new Cood(0,0));
+//                aStarSearch(new Cood(0,0));
                 gold = true;
             }
             updateCurrPosition();
@@ -236,7 +246,7 @@ public class Agent2 {
         }
     }
 
-    //Scan
+    //Scan the if there exist a tree one block away incl diagonal
     private boolean scanTree(char[][] view){
         boolean treeExists = false;
 
@@ -309,6 +319,7 @@ public class Agent2 {
         }
     }
 
+    //Scan the if there exist an item one block away incl diagonal
     private boolean scanItem(char[][] view){
         boolean itemExists = false;
 
