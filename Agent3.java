@@ -207,10 +207,10 @@ public class Agent3 {
         char action;
         if (isAnObstacle(view[2][1])) {
             action = 'r';
-            //if (isAnObstacle(view[2][3])) nextMoves.add('f');
+            if (isAnObstacle(view[2][3])) nextMoves.add('f');
         } else {
             action = 'l';
-            //nextMoves.add('f');
+            nextMoves.add('f');
         }
         return action;
     }
