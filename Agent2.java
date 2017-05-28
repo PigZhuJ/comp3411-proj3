@@ -98,10 +98,10 @@ public class Agent2 {
                 Cood item = searchForItems(view);
                 boolean canGetAnItem = false;
                 // try to get to the item
-//                if (item != null) {
+                if (item != null) {
 //                    canGetAnItem = aStarSearch(item);
-//                    System.out.println("I'm using A* search");
-//                }
+                    System.out.println("I'm using A* search");
+                }
                 // if you can get to the item, then perform the preset actions to go to the item
                 if (canGetAnItem) {
                     action = nextMoves.poll();
@@ -110,6 +110,8 @@ public class Agent2 {
                     System.out.println("Tree Cutting");
                     cutTree(view);
                     action = nextMoves.poll();
+//                } else if (onWater){
+//                    aStarSearch(searchForItems(view));
                 } else {
                     System.out.println("Exploring");
                     if (isHugging) {
@@ -165,7 +167,7 @@ public class Agent2 {
         // update the coordinate
         if (action == 'f') {
             if (view[1][2] == '$') {
-                aStarSearch(new Cood(0,0));
+//                aStarSearch(new Cood(0,0));
                 gold = true;
             } else if (view[1][2] == 'a') {
                 axe = true;
