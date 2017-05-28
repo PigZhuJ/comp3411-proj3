@@ -28,32 +28,32 @@
       <file leaf-file-name="Agent2.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Agent2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="141" column="0" lean-forward="true" selection-start-line="141" selection-start-column="0" selection-end-line="141" selection-end-column="0" />
+            <state relative-caret-position="414">
+              <caret line="330" column="0" lean-forward="true" selection-start-line="330" selection-start-column="0" selection-end-line="330" selection-end-column="0" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="imports" expanded="true" />
                 <element signature="method#get_action#0;class#Agent2#0" expanded="false" />
                 <element signature="method#updateCurrPosition#0;class#Agent2#0" expanded="false" />
                 <element signature="method#rotateAtAnObstacle#0;class#Agent2#0" expanded="false" />
+                <element signature="method#cutTree#0;class#Agent2#0" expanded="false" />
+                <element signature="method#getItem#0;class#Agent2#0" expanded="false" />
                 <element signature="method#searchForItems#0;class#Agent2#0" expanded="false" />
                 <element signature="method#aStarSearch#0;class#Agent2#0" expanded="false" />
                 <element signature="method#generateSuccessors#0;class#Agent2#0" expanded="false" />
                 <element signature="method#buildNextMovesToReachItem#0;class#Agent2#0" expanded="false" />
                 <element signature="method#calculateProjection#0;class#Agent2#0" expanded="false" />
-                <element signature="method#cutTree#0;class#Agent2#0" expanded="false" />
-                <element signature="method#getItem#0;class#Agent2#0" expanded="false" />
-                <element signature="method#stitchMap#0;class#Agent2#0" expanded="false" />
-                <element signature="method#rotate_view#0;class#Agent2#0" expanded="false" />
-                <element signature="method#clockwise#0;class#Agent2#0" expanded="false" />
-                <element signature="method#createCood#0;class#Agent2#0" expanded="false" />
-                <element signature="method#print_map#0;class#Agent2#0" expanded="false" />
-                <element signature="method#getSmallx#0;class#Agent2#0" expanded="false" />
-                <element signature="method#getLargex#0;class#Agent2#0" expanded="false" />
-                <element signature="method#getSmally#0;class#Agent2#0" expanded="false" />
-                <element signature="method#getLargey#0;class#Agent2#0" expanded="false" />
-                <element signature="method#print_view#0;class#Agent2#0" expanded="false" />
-                <element signature="method#main#0;class#Agent2#0" expanded="false" />
+                <marker date="1495947637651" expanded="false" signature="13314:13952" ph="{...}" />
+                <marker date="1495947637651" expanded="false" signature="14013:14512" ph="{...}" />
+                <marker date="1495947637651" expanded="false" signature="14560:14903" ph="{...}" />
+                <marker date="1495947637651" expanded="false" signature="14946:15404" ph="{...}" />
+                <marker date="1495947637651" expanded="false" signature="15467:16504" ph="{...}" />
+                <marker date="1495947637651" expanded="false" signature="16553:16730" ph="{...}" />
+                <marker date="1495947637651" expanded="false" signature="16760:16940" ph="{...}" />
+                <marker date="1495947637651" expanded="false" signature="16970:17150" ph="{...}" />
+                <marker date="1495947637651" expanded="false" signature="17180:17360" ph="{...}" />
+                <marker date="1495947637651" expanded="false" signature="17504:17974" ph="{...}" />
+                <marker date="1495947637651" expanded="false" signature="18025:19788" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -798,32 +798,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Agent2.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="141" column="0" lean-forward="true" selection-start-line="141" selection-start-column="0" selection-end-line="141" selection-end-column="0" />
+        <state relative-caret-position="414">
+          <caret line="330" column="0" lean-forward="true" selection-start-line="330" selection-start-column="0" selection-end-line="330" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
             <element signature="method#get_action#0;class#Agent2#0" expanded="false" />
             <element signature="method#updateCurrPosition#0;class#Agent2#0" expanded="false" />
             <element signature="method#rotateAtAnObstacle#0;class#Agent2#0" expanded="false" />
+            <element signature="method#cutTree#0;class#Agent2#0" expanded="false" />
+            <element signature="method#getItem#0;class#Agent2#0" expanded="false" />
             <element signature="method#searchForItems#0;class#Agent2#0" expanded="false" />
             <element signature="method#aStarSearch#0;class#Agent2#0" expanded="false" />
             <element signature="method#generateSuccessors#0;class#Agent2#0" expanded="false" />
             <element signature="method#buildNextMovesToReachItem#0;class#Agent2#0" expanded="false" />
             <element signature="method#calculateProjection#0;class#Agent2#0" expanded="false" />
-            <element signature="method#cutTree#0;class#Agent2#0" expanded="false" />
-            <element signature="method#getItem#0;class#Agent2#0" expanded="false" />
-            <element signature="method#stitchMap#0;class#Agent2#0" expanded="false" />
-            <element signature="method#rotate_view#0;class#Agent2#0" expanded="false" />
-            <element signature="method#clockwise#0;class#Agent2#0" expanded="false" />
-            <element signature="method#createCood#0;class#Agent2#0" expanded="false" />
-            <element signature="method#print_map#0;class#Agent2#0" expanded="false" />
-            <element signature="method#getSmallx#0;class#Agent2#0" expanded="false" />
-            <element signature="method#getLargex#0;class#Agent2#0" expanded="false" />
-            <element signature="method#getSmally#0;class#Agent2#0" expanded="false" />
-            <element signature="method#getLargey#0;class#Agent2#0" expanded="false" />
-            <element signature="method#print_view#0;class#Agent2#0" expanded="false" />
-            <element signature="method#main#0;class#Agent2#0" expanded="false" />
+            <marker date="1495947637651" expanded="false" signature="13314:13952" ph="{...}" />
+            <marker date="1495947637651" expanded="false" signature="14013:14512" ph="{...}" />
+            <marker date="1495947637651" expanded="false" signature="14560:14903" ph="{...}" />
+            <marker date="1495947637651" expanded="false" signature="14946:15404" ph="{...}" />
+            <marker date="1495947637651" expanded="false" signature="15467:16504" ph="{...}" />
+            <marker date="1495947637651" expanded="false" signature="16553:16730" ph="{...}" />
+            <marker date="1495947637651" expanded="false" signature="16760:16940" ph="{...}" />
+            <marker date="1495947637651" expanded="false" signature="16970:17150" ph="{...}" />
+            <marker date="1495947637651" expanded="false" signature="17180:17360" ph="{...}" />
+            <marker date="1495947637651" expanded="false" signature="17504:17974" ph="{...}" />
+            <marker date="1495947637651" expanded="false" signature="18025:19788" ph="{...}" />
           </folding>
         </state>
       </provider>
