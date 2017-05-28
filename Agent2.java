@@ -55,12 +55,14 @@ public class Agent2 {
 
         if(scanItem(view)){
             getItem(view);
-            //debug
-            listInventory();
         }
+        //debug
+        listInventory();
+        System.out.println(nextMoves.toString());
 
         // if there are a list of moves to travel, then continue with the steps
         if (!nextMoves.isEmpty()) {
+            System.out.println("Already Know where to go!");
             action = nextMoves.poll();
         // else try to find something to do
         } else {
@@ -76,11 +78,14 @@ public class Agent2 {
                 action = nextMoves.poll();
                 // if there is no item or you currently can't get to an item, do standard roaming
             } else if (scanTree(view) && axe){
+                System.out.println("Tree Cutting");
                 cutTree(view);
+                action = nextMoves.poll();
             } else {
+                System.out.println("Exploring");
                 if (isHugging) {
                     // if we hit an obstacle, then turn
-                    if (view[1][2] == '~' || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.') {
+                    if ((view[1][2] == '~' && !wood) || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.') {
                         action = rotateAtAnObstacle(view);
                         // else if we're no longer touching a wall, turn the other way
                     } else if (view[2][1] == ' ') {
@@ -90,7 +95,7 @@ public class Agent2 {
                 // else just start roaming until we hit an obstacle
                 } else {
                     // if we hit an obstacle, start hugging obstacles
-                    if (view[1][2] == '~' || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.') {
+                    if ((view[1][2] == '~' && !wood) || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.') {
                         action = rotateAtAnObstacle(view);
                         isHugging = true;
                     }
@@ -100,7 +105,7 @@ public class Agent2 {
 
 //-----------------ACTIONS AFTER DETERMINING ACTION-----------------//
         //This snippet is so that AI isn't an idiot and jump into the water or go into the forest
-        if (action == 'f' && (view[1][2] == '~' || view[1][2] == '.')) {
+        if (action == 'f' && (view[1][2] == '~' || view[1][2] == '.') && !wood) {
             double coinflip = Math.random() % 2;
             if (coinflip == 1) {
                 action = 'l';
@@ -117,6 +122,9 @@ public class Agent2 {
         } else if (action == 'r') {
             direction = (direction + 4 + 1) % 4;
         }
+
+        System.out.println("*-------------------------------------ACTION_END-------------------------------*");
+        System.out.println("Action is:" + action);
         return action;
     }
 
@@ -136,10 +144,10 @@ public class Agent2 {
     //debugger
     private void listInventory(){
         System.out.println("axe: " + axe);
-        System.out.println("gold: " +gold);
-        System.out.println("wood: " +wood);
-        System.out.println("key: " +key);
-        System.out.println("dynamite: " +dynamite);
+        System.out.println("gold: " + gold);
+        System.out.println("wood: " + wood);
+        System.out.println("key: " + key);
+        System.out.println("dynamite: " + dynamite);
     }
 
 
@@ -170,9 +178,13 @@ public class Agent2 {
                     treePosX = i;
                     treePosY = j;
                     treeExist = true;
-                    System.out.println("True...");
                 }
             }
+        }
+        if (view[1][2] == 'T'){
+            System.out.println("True");
+            treePosX = 1;
+            treePosY = 2;
         }
         if (treeExist == true) {
             if (treePosX == 1) {
@@ -181,6 +193,7 @@ public class Agent2 {
                     nextMoves.add('l');
                 } else if (treePosY == 2) {
                     nextMoves.add('c');
+                    wood = true;
                 } else if (treePosY == 3) {
                     nextMoves.add('f');
                     nextMoves.add('r');
@@ -224,13 +237,27 @@ public class Agent2 {
 
     //put a set of move if item is right next to AI
     private void getItem(char[][] view) {
-        int itemPosX;
-        int itemPosY;
+        int itemPosX = 0;
+        int itemPosY = 0;
+        boolean itemExists = false;
+
         for (int i = 1; i < view.length-1; i++) {
             for (int j = 1; j < view.length-1; j++) {
                 if (view[i][j] == 'a' || view[i][j] == '$' || view[i][j] == 'd' || view[i][j] == 'k') {
                     itemPosX = i;
                     itemPosY = j;
+                    itemExists = true;
+                }
+            }
+        }
+
+        if (itemExists){
+            if (itemPosX == 1) {
+                if (itemPosY == 1) {
+                    nextMoves.add('f');
+                    nextMoves.add('l');
+                } else if (itemPosY == 2) {
+                    nextMoves.add('f');
                     if (view[1][2] == 'a') {
                         axe = true;
                     } else if (view[1][2] == '$') {
@@ -240,18 +267,28 @@ public class Agent2 {
                     } else if (view[1][2] == 'k') {
                         key = true;
                     }
-                    if ((2 - itemPosX) == 1 || (2 - itemPosX) == -1 || (2 - itemPosY) == 1 || (2 - itemPosY) == -1) {
-                        if (itemPosX == 1 && itemPosY == 2) {
-                            nextMoves.add('f');
-                        } else if (itemPosX == 2 && itemPosY == 1) {
-                            nextMoves.add('l');
-                        } else if (itemPosX == 3 && itemPosY == 2) {
-                            nextMoves.add('r');
-                        } else if (itemPosX == 2 && itemPosY == 3) {
-                            nextMoves.add('r');
-                            nextMoves.add('r');
-                        }
-                    }
+                } else if (itemPosY == 3) {
+                    nextMoves.add('f');
+                    nextMoves.add('r');
+                }
+            } else if (itemPosX == 2) {
+                if (itemPosY == 1) {
+                    nextMoves.add('l');
+                } else if (itemPosY == 3) {
+                    nextMoves.add('r');
+                }
+            } else if (itemPosX == 3) {
+                if (itemPosY == 1) {
+                    nextMoves.add('l');
+                    nextMoves.add('f');
+                    nextMoves.add('l');
+                } else if (itemPosY == 2) {
+                    nextMoves.add('r');
+                    nextMoves.add('r');
+                } else if (itemPosY == 3) {
+                    nextMoves.add('r');
+                    nextMoves.add('f');
+                    nextMoves.add('r');
                 }
             }
         }
@@ -262,7 +299,7 @@ public class Agent2 {
 
         for (int i = 1; i < view.length - 1; i++) {
             for (int j = 1; j < view.length - 1; j++) {
-                if (view[i][j] == 'T') {
+                if (view[i][j] == 'a' || view[i][j] == '$' || view[i][j] == 'd' || view[i][j] == 'k' ) {
                     itemExists = true;
                 }
             }
@@ -512,7 +549,6 @@ public class Agent2 {
         } else if (xl <= yl){
             largest = yl;
         }
-
         System.out.println("----------------------");
         for (int i = smallest; i < largest + 1; i++) {
             System.out.print("| ");
