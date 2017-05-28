@@ -72,18 +72,6 @@ public class Agent2 {
         }
 
         stitchMap(view);
-        System.out.println("Curr Pos is:" + currX + ", " + currY);
-        Cood waterCheck = new Cood(currX, currY);
-        System.out.println(currX + ", " + currY + " Char is: (" + map.get(waterCheck) + ")");
-
-        if (map.get(new Cood(currX, currY)) == '~' && !onWater) {
-            System.out.println("Wood is true");
-            onWater = true;
-            // else if you're going off water, set onWater = false and you lose the wood
-        } else if (map.get(new Cood(currX, currY)) != '~' && onWater){
-            onWater = false;
-            wood = false;
-        }
 //---------------------------DETERMINING ACTION-----------------//
 
         // default action is to go forward
@@ -97,8 +85,8 @@ public class Agent2 {
             System.out.println("Already know where to go!");
             action = nextMoves.poll();
             // else try to find something to do
-        } else if (nextMoves.isEmpty() && gold){
-            aStarSearch(new Cood(0,0));
+//        } else if (nextMoves.isEmpty() && gold){
+//            aStarSearch(new Cood(0,0));
         } else {
             // if you can find an item
             if(scanItem(view)){
@@ -110,10 +98,10 @@ public class Agent2 {
                 Cood item = searchForItems(view);
                 boolean canGetAnItem = false;
                 // try to get to the item
-                if (item != null) {
-                    canGetAnItem = aStarSearch(item);
-                    System.out.println("I'm using A* search");
-                }
+//                if (item != null) {
+//                    canGetAnItem = aStarSearch(item);
+//                    System.out.println("I'm using A* search");
+//                }
                 // if you can get to the item, then perform the preset actions to go to the item
                 if (canGetAnItem) {
                     action = nextMoves.poll();
@@ -127,7 +115,7 @@ public class Agent2 {
                     if (isHugging) {
                         System.out.println("Im hugging");
                         // if we hit an obstacle, then turn
-                        if ((view[1][2] == '~' && !wood) || view[1][2] == '*' || view[1][2] == 'T'  || view[1][2] == '.' || view[1][2] == '-') {
+                        if ((view[1][2] == '~' && !wood) || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.' || view[1][2] == '-') {
                             action = rotateAtAnObstacle(view);
                             // else if we're no longer touching a wall, turn the other way
                             //TODO need to make sure wood is false when back on land
@@ -178,7 +166,7 @@ public class Agent2 {
         // update the coordinate
         if (action == 'f') {
             if (view[1][2] == '$') {
-                aStarSearch(new Cood(0,0));
+//                aStarSearch(new Cood(0,0));
                 gold = true;
             }
             updateCurrPosition();
@@ -189,8 +177,13 @@ public class Agent2 {
         }
 
         //Water check
-        if (action == 'f' && map.get(new Cood(currX, currY)) == '~') {
+        if (action == 'f' && view[1][2] == '~') {
+            System.out.println("going for a swim!");
             onWater = true;
+        } else if (action == 'f' && view[1][2] == ' ' && onWater == true){
+            System.out.println("Back to land!");
+            onWater = false;
+            wood = false;
         }
         System.out.println("*-------------------------------------ACTION_END-------------------------------*");
         System.out.println("Action is:" + action);
@@ -223,6 +216,7 @@ public class Agent2 {
         System.out.println("wood: " + wood);
         System.out.println("key: " + key);
         System.out.println("dynamite: " + dynamite);
+        System.out.println("On water: " + onWater);
     }
 
 
