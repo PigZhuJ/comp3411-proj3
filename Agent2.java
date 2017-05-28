@@ -87,7 +87,7 @@ public class Agent2 {
                     System.out.println("Exploring");
                     if (isHugging) {
                         // if we hit an obstacle, then turn
-                        if ((view[1][2] == '~' && !wood) || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.') {
+                        if ((view[1][2] == '~' && !wood) || isAnObstacle(view[1][2])) {
                             action = rotateAtAnObstacle(view);
                             // else if we're no longer touching a wall, turn the other way
                             //TODO need to make sure wood is false when back on land
@@ -98,9 +98,12 @@ public class Agent2 {
                         // else just start roaming until we hit an obstacle
                     } else {
                         // if we hit an obstacle, start hugging obstacles
-                        if ((view[1][2] == '~' && !wood) || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.') {
+                        if ((view[1][2] == '~' && !wood) || isAnObstacle(view[1][2])) {
+                            if (isAnObstacle(view[2][1]) || isAnObstacle(view[2][3])) {
+                                isHugging = true;
+                            }
                             action = rotateAtAnObstacle(view);
-                            isHugging = true;
+                            //isHugging = true;
                         }
                     }
                 }
@@ -134,6 +137,10 @@ public class Agent2 {
         System.out.println("*-------------------------------------ACTION_END-------------------------------*");
         System.out.println("Action is:" + action);
         return action;
+    }
+
+    private boolean isAnObstacle(char c) {
+        return (c == '*' || c == 'T' || c == '.');
     }
 
     //Update the absolute cood of the AI on the map
