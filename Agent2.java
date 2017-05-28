@@ -72,9 +72,10 @@ public class Agent2 {
         stitchMap(view);
         System.out.println("Curr Pos is:" + currX + ", " + currY);
 
-        //Check if current cood is on water or land
+        // if you're going onto water, set onWater = true
         if(map.get(new Cood(currX, currY)) == '~' && !onWater){
             onWater = true;
+        // else if you're going off water, set onWater = false and you lose the wood
         } else if (map.get(new Cood(currX, currY)) != '~' && onWater){
             onWater = false;
             wood = false;
@@ -83,21 +84,21 @@ public class Agent2 {
 
         // default action is to go forward
         char action = 'f';
-
         //debug
         listInventory();
         System.out.println(nextMoves.toString());
 
         // if there are a list of moves to travel, then continue with the steps
         if (!nextMoves.isEmpty()) {
-            System.out.println("Already Know where to go!");
+            System.out.println("Already know where to go!");
             action = nextMoves.poll();
             // else try to find something to do
         } else if (nextMoves.isEmpty() && gold){
             aStarSearch(new Cood(0,0));
         } else {
+            // if you can find an item
             if(scanItem(view)){
-              getItem(view);
+                getItem(view);
                 action = nextMoves.poll();
                 System.out.println("I see Items!");
             } else {
@@ -112,7 +113,7 @@ public class Agent2 {
                 // if you can get to the item, then perform the preset actions to go to the item
                 if (canGetAnItem) {
                     action = nextMoves.poll();
-                    // if there is no item or you currently can't get to an item, do standard roaming
+                // if there is no item or you currently can't get to an item, do standard roaming
                 } else if (scanTree(view) && axe) {
                     System.out.println("Tree Cutting");
                     cutTree(view);
