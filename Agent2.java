@@ -89,16 +89,19 @@ public class Agent2 {
             aStarSearch(new Cood(0,0));
         } else {
             // if you can find an item
-            /*if(scanItem(view)){
-                getItem(view);
-                action = nextMoves.poll();
-                System.out.println("I see Items!");
-            } else {*/
+//            if(scanItem(view)){
+//                getItem(view);
+//                action = nextMoves.poll();
+//                System.out.println("I see Items!");
+//            } else {
                 // search the view for items that you can go to
                 Cood item = searchForItems(view);
+                if (item != null){
+                    System.out.println("Cood is::" + item.getX() + ", " + item.getY() + " => " + map.get(item));
+                }
                 boolean canGetAnItem = false;
                 // try to get to the item
-                if (item != null) {
+                if (item != null && map.get(item) == '$') {
                     canGetAnItem = aStarSearch(item);
                     System.out.println("I'm using A* search");
                 }
@@ -150,7 +153,7 @@ public class Agent2 {
                         }
                     }
                 }
-            //}
+//            }
         }
 
 //-----------------ACTIONS AFTER DETERMINING ACTION-----------------//
@@ -167,7 +170,7 @@ public class Agent2 {
         // update the coordinate
         if (action == 'f') {
             if (view[1][2] == '$') {
-//                aStarSearch(new Cood(0,0));
+                aStarSearch(new Cood(0,0));
                 gold = true;
             } else if (view[1][2] == 'a') {
                 axe = true;
@@ -387,7 +390,7 @@ public class Agent2 {
             // for every x coordinate
             for (int j = 0; j < 5; j++) {
                 // if there is an item seen in the view, record the position of that
-                if(view[j][i] == '$' || view[j][i] == 'a' || view[j][i] == 'd' || view[j][i] == 'k') {
+                if(view[i][j] == '$' || view[i][j] == 'a' || view[i][j] == 'd' || view[i][j] == 'k') {
                     Cood itemFound = createCood(i,j);
                     // DEBUG
                     //System.out.println("(" + itemFound.getX() + ", " + itemFound.getY() + ") => " + "(" + view[j][i] + ")");
