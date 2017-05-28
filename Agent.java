@@ -38,8 +38,8 @@ public class Agent {
         if (!prevMove.isEmpty()) {
             System.out.println("Prev Move is: " + prevMove.get(prevMove.size() - 1));
         }
-        System.out.println("Current Pos: " + currX + ", " + currY);
-        System.out.println("direction is: " + direction);
+        System.out.println("Prev Current Pos: " + currX + ", " + currY);
+        System.out.println("Prev direction is: " + direction);
 
         // stitch the map given the view
 //        if (prevMove.get(prevMove.size()-1) == 'f' || moves == 0){
