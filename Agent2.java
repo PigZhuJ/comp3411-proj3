@@ -21,6 +21,7 @@ public class Agent2 {
     private int currX;
     private int currY;
     private boolean isHugging;
+    private char hugSide;
 
     //Inventory
     private boolean axe;
@@ -44,6 +45,7 @@ public class Agent2 {
         gold = false;
         wood = false;
         onWater = false;
+        hugSide = ' ';
     }
 
     public char get_action( char view[][] ) {
@@ -128,7 +130,11 @@ public class Agent2 {
                             // else if we're no longer touching a wall, turn the other way
                             //TODO need to make sure wood is false when back on land
                         } else if (view[2][1] == ' ' && !wood) {
-                            action = 'l';
+                            if (hugSide == 'l') {
+                                action = 'l';
+                            } else if (hugSide == 'r') {
+                                action = 'r';
+                            }
                             nextMoves.add('f');
                         }
                         // else just start roaming until we hit an obstacle
@@ -136,13 +142,16 @@ public class Agent2 {
                         System.out.println("I need something to hug");
                         // if we hit an obstacle, start hugging obstacles
                         if ((view[1][2] == '~' && !wood) || view[1][2] == '*' || (view[1][2] == 'T' && !axe) || view[1][2] == '.') {
-                            if ((view[1][2] == '~' && !wood) || isAnObstacle(view[1][2])) {
-                                if (isAnObstacle(view[2][1]) || isAnObstacle(view[2][3])) {
-                                    isHugging = true;
+                            action = rotateAtAnObstacle(view);
+                            if (isAnObstacle(view[2][1]) || isAnObstacle(view[2][3])) {
+                                isHugging = true;
+                                if (action == 'l') {
+                                    hugSide = action;
+                                } else if (action == 'r') {
+                                    hugSide = action;
                                 }
-                                action = rotateAtAnObstacle(view);
-                                //isHugging = true;
                             }
+                            //isHugging = true;
                         }
                     }
                 }
