@@ -16,6 +16,7 @@ public class Agent2 {
 
     // Player Attributes
     private Queue<Character> nextMoves = new LinkedList<>();
+    private ArrayList<Cood> prevCood = new ArrayList<>();
     private int direction;
     private int currX;
     private int currY;
@@ -47,9 +48,29 @@ public class Agent2 {
 
     public char get_action( char view[][] ) {
 
+        /*TODO
+            - Not taking gold
+            - Hugging wall loop
+            - wood not changing to false after landing on land
+            - s1 can be solve if not hugging trees
+            - s2 not taking gold
+            - s3 wall hugging loop
+            - s4 A* star item loop
+            - s5 A* doesn't work for water
+         */
 //-----------------ACTIONS BEFORE DETERMINING ACTION-----------------//
 
+        //Creates a list of previously explored cood
+        if (prevCood.isEmpty()){
+            Cood beenThere = new Cood(0,0);
+            prevCood.add(beenThere);
+        } else if(!prevCood.isEmpty() && prevCood.contains(new Cood(currX, currY)) ){
+            Cood beenThere = new Cood(currX, currY);
+            prevCood.add(beenThere);
+        }
+
         stitchMap(view);
+        System.out.println("Curr Pos is:" + currX + ", " + currY);
 
         // if you're going onto water, set onWater = true
         if(map.get(new Cood(currX, currY)) == '~' && !onWater){
@@ -72,6 +93,8 @@ public class Agent2 {
             System.out.println("Already know where to go!");
             action = nextMoves.poll();
             // else try to find something to do
+        } else if (nextMoves.isEmpty() && gold){
+            aStarSearch(new Cood(0,0));
         } else {
             // if you can find an item
             if(scanItem(view)){
@@ -98,8 +121,9 @@ public class Agent2 {
                 } else {
                     System.out.println("Exploring");
                     if (isHugging) {
+                        System.out.println("Im hugging");
                         // if we hit an obstacle, then turn
-                        if ((view[1][2] == '~' && !wood) || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.') {
+                        if ((view[1][2] == '~' && !wood) || view[1][2] == '*' || (view[1][2] == 'T' && !axe) || view[1][2] == '.') {
                             action = rotateAtAnObstacle(view);
                             // else if we're no longer touching a wall, turn the other way
                             //TODO need to make sure wood is false when back on land
@@ -109,8 +133,9 @@ public class Agent2 {
                         }
                         // else just start roaming until we hit an obstacle
                     } else {
+                        System.out.println("I need something to hug");
                         // if we hit an obstacle, start hugging obstacles
-                        if ((view[1][2] == '~' && !wood) || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.') {
+                        if ((view[1][2] == '~' && !wood) || view[1][2] == '*' || (view[1][2] == 'T' && !axe) || view[1][2] == '.') {
                             if ((view[1][2] == '~' && !wood) || isAnObstacle(view[1][2])) {
                                 if (isAnObstacle(view[2][1]) || isAnObstacle(view[2][3])) {
                                     isHugging = true;
@@ -120,13 +145,13 @@ public class Agent2 {
                             }
                         }
                     }
-                //}
+                }
             }
         }
 
 //-----------------ACTIONS AFTER DETERMINING ACTION-----------------//
         //This snippet is so that AI isn't an idiot and jump into the water or go into the forest
-        if (action == 'f' && (view[1][2] == '~' || view[1][2] == '.') && !wood) {
+        if (action == 'f' && (view[1][2] == '~' || view[1][2] == '.' || (view[1][2] == 'T' && !axe)) && !wood) {
             double coinflip = Math.random() % 2;
             if (coinflip == 1) {
                 action = 'l';
@@ -138,7 +163,7 @@ public class Agent2 {
         // update the coordinate
         if (action == 'f') {
             if (view[1][2] == '$') {
-//                aStarSearch(new Cood(0,0));
+                aStarSearch(new Cood(0,0));
                 gold = true;
             }
             updateCurrPosition();
@@ -154,6 +179,7 @@ public class Agent2 {
 
     }
 
+    //Check if its an obstacle
     private boolean isAnObstacle(char c) {
         return (c == '*' || c == 'T' || c == '.');
     }
@@ -216,7 +242,7 @@ public class Agent2 {
             treePosX = 1;
             treePosY = 2;
         }
-        if (treeExist == true) {
+        if (treeExist) {
             if (treePosX == 1) {
                 if (treePosY == 1) {
                     nextMoves.add('f');
