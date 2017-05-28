@@ -9,7 +9,7 @@ import java.util.*;
 import java.io.*;
 import java.net.*;
 
-public class Agent {
+public class Agent2 {
 
     // Map Attributes
     private HashMap<Cood, Character> map;
@@ -21,7 +21,7 @@ public class Agent {
     private int currY;
     private boolean isHugging;
 
-    public Agent() {
+    public Agent2() {
         this.map = new HashMap<>();
         this.nextMoves = new LinkedList<>();
         this.direction = 0;
@@ -291,7 +291,7 @@ public class Agent {
         InputStream in  = null;
         OutputStream out= null;
         Socket socket   = null;
-        Agent  agent    = new Agent();
+        Agent2  agent    = new Agent2();
         char   view[][] = new char[5][5];
         char   action   = 'F';
         int port;
