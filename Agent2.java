@@ -85,8 +85,8 @@ public class Agent2 {
             System.out.println("Already know where to go!");
             action = nextMoves.poll();
             // else try to find something to do
-//        } else if (nextMoves.isEmpty() && gold){
-//            aStarSearch(new Cood(0,0));
+        } else if (nextMoves.isEmpty() && gold){
+            aStarSearch(new Cood(0,0));
         } else {
             // if you can find an item
             /*if(scanItem(view)){
@@ -119,16 +119,16 @@ public class Agent2 {
                             action = rotateAtAnObstacle(view);
                             // else if we're no longer touching a wall, turn the other way
                         } else if (view[2][1] == ' ' && !wood) {
-                            /*if (hugSide == 'l') {
-                                action = 'l';
-                            } else if (hugSide == 'r') {
-                                action = 'r';
-                            }*/
+//                            if (hugSide == 'l') {
+//                                action = 'l';
+//                            } else if (hugSide == 'r') {
+//                                action = 'r';
+//                            }
                             action = 'l';
                             nextMoves.add('f');
-                        } else if (view[2][3] == ' ' && !wood) {
-                            action = 'r';
-                            nextMoves.add('f');
+//                        } else if (view[2][3] == ' ' && !wood) {
+//                            action = 'l';
+//                            nextMoves.add('f');
                         }
                         // else just start roaming until we hit an obstacle
                     } else {
@@ -136,15 +136,15 @@ public class Agent2 {
                         // if we hit an obstacle, start hugging obstacles
                         if ((view[1][2] == '~' && !wood) || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.' || view[1][2] == '-') {
                             action = rotateAtAnObstacle(view);
-                            if (isAnObstacle(view[2][1]) || isAnObstacle(view[2][3])) {
-                                isHugging = true;
-                                if (action == 'l') {
-                                    hugSide = action;
-                                } else if (action == 'r') {
-                                    hugSide = action;
-                                }
-                            }
-                            //isHugging = true;
+//                            if (isAnObstacle(view[2][1]) || isAnObstacle(view[2][3])) {
+//                                isHugging = true;
+//                                if (action == 'l') {
+//                                    hugSide = action;
+//                                } else if (action == 'r') {
+//                                    hugSide = action;
+//                                }
+//                            }
+                            isHugging = true;
                         }
                     }
                 }
@@ -179,7 +179,7 @@ public class Agent2 {
         if (action == 'f' && view[1][2] == '~') {
             System.out.println("going for a swim!");
             onWater = true;
-        } else if (action == 'f' && view[1][2] == ' ' && !onWater){
+        } else if (action == 'f' && view[1][2] == ' ' && onWater){
             System.out.println("Back to land!");
             onWater = false;
             wood = false;
