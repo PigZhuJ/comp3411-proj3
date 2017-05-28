@@ -43,6 +43,7 @@ public class Agent3 {
 
 //-----------------STEPS BEFORE DETERMINING PLAYER ACTION-----------------//
         stitchMap(view);
+        System.out.println("Curr Player Position is: (" + currX +"," + currY + ")");
 
 //-----------------DETERMINING PLAYER ACTION------------------------------//
         char action = 'f';
