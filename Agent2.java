@@ -26,8 +26,6 @@ public class Agent2 {
     private int currY;
     private boolean isHugging;
     private char hugSide;
-    private Cood item;
-    private boolean onWater;
 
     //Inventory
     private boolean axe;
@@ -36,8 +34,7 @@ public class Agent2 {
     private boolean gold;
     private boolean wood;
 
-    private boolean asFlag;
-
+    private boolean onWater;
 
     public Agent2() {
         this.map = new HashMap<>();
@@ -54,8 +51,6 @@ public class Agent2 {
         wood = false;
         onWater = false;
         hugSide = ' ';
-        this.item = null;
-        asFlag = false;
     }
 
     public char get_action( char view[][] ) {
@@ -74,7 +69,7 @@ public class Agent2 {
 
         //Creates a list of previously explored cood
         Cood prev = new Cood(currX, currY);
-         if (!prevPath.isEmpty() && !prevPath.contains(prev)) {
+        if (!prevPath.isEmpty() && !prevPath.contains(prev)) {
             prevPath.add(prev);
         } else if (prevPath.isEmpty()) {
             prevPath.add(new Cood(0, 0));
@@ -88,55 +83,33 @@ public class Agent2 {
         //debug
         listInventory();
         System.out.println(nextMoves.toString());
-        System.out.println(asFlag);
-        Cood item = searchForItems(view);
+
         // if there are a list of moves to travel, then continue with the steps
-        if (!nextMoves.isEmpty() || asFlag) {
+        if (!nextMoves.isEmpty()) {
             System.out.println("Already know where to go!");
             action = nextMoves.poll();
-            if (nextMoves.isEmpty()){
-                asFlag = false;
-            }
             // else try to find something to do
-//        } else if (nextMoves.isEmpty() && gold){
-//            aStarSearch(new Cood(0,0));
+        } else if (nextMoves.isEmpty() && gold){
+            aStarSearch(new Cood(0,0));
         } else {
-//            nextMoves.clear();
-            // if you can find an item
-//            if(scanItem(view)){
-//                getItem(view);
-//                action = nextMoves.poll();
-//                System.out.println("I see Items!");
-//            } else {
-            // search the view for items that you can go to
+            Cood item = searchForItems(view);
             if (item != null){
                 System.out.println("Cood is::" + item.getX() + ", " + item.getY() + " => " + map.get(item));
-                Cood item = searchForItems(view);
-                if (item != null){
-                    System.out.println("Cood is::" + item.getX() + ", " + item.getY() + " => " + map.get(item));
-                }
-                boolean canGetAnItem = false;
-                // try to get to the item
-                if (scanItem(view)){
-                    getItem(view);
-                } else if (item != null && map.get(item) == '$' && !asFlag) {
-                    System.out.println("A * Searching...");
-                    canGetAnItem = aStarSearch(item);
-                    asFlag = true;
-                    System.out.println("I'm using A* search");
-                }
-                // if you can get to the item, then perform the preset actions to go to the item
-                if (canGetAnItem) {
-                    action = nextMoves.poll();
-                    // if there is no item or you currently can't get to an item, do standard roaming
-                }else if(scanItem(view)){
-                    getItem(view);
-                    action = nextMoves.poll();
-                    System.out.println("I see Items!");
-                } else if (scanTree(view) && axe) {
-                    System.out.println("Tree Cutting");
-                    cutTree(view);
-                    action = nextMoves.poll();
+            }
+            boolean canGetAnItem = false;
+            // try to get to the item
+            if (item != null) {
+                canGetAnItem = aStarSearch(item);
+                System.out.println("I'm using A* search");
+            }
+            // if you can get to the item, then perform the preset actions to go to the item
+            if (canGetAnItem) {
+                action = nextMoves.poll();
+                // if there is no item or you currently can't get to an item, do standard roaming
+            } else if (scanTree(view) && axe) {
+                System.out.println("Tree Cutting");
+                cutTree(view);
+                action = nextMoves.poll();
 //                } else if (onWater){
 //                    aStarSearch(searchForItems(view));
             } else {
@@ -146,11 +119,11 @@ public class Agent2 {
                     // if we hit an obstacle, then turn
                     if (isAnObstacle(view[1][2])) {
                         action = rotateAtAnObstacle(view);
-                    // else if we don't have a wall to hug i.e.
-                    //   ^   *
-                    // *     *
-                    // * * * *
-                    // This one is for the left of the player
+                        // else if we don't have a wall to hug i.e.
+                        //   ^   *
+                        // *     *
+                        // * * * *
+                        // This one is for the left of the player
                     } else if (hugSide == 'l') {
                         if (view[2][1] == ' ' && !wood) {
                             action = 'l';
@@ -158,10 +131,10 @@ public class Agent2 {
                             action = 'r';
                         }
                         nextMoves.add('f');
-                    // *   ^
-                    // *     *
-                    // * * * *
-                    // This one is for the right of the player
+                        // *   ^
+                        // *     *
+                        // * * * *
+                        // This one is for the right of the player
                     } else if (hugSide == 'r') {
                         if (view[2][3] == ' ' && !wood) {
                             action = 'r';
@@ -170,7 +143,7 @@ public class Agent2 {
                         }
                         nextMoves.add('f');
                     }
-                // else just start roaming until we hit an obstacle
+                    // else just start roaming until we hit an obstacle
                 } else {
                     System.out.println("I need something to hug");
                     // if we hit an obstacle
@@ -206,7 +179,7 @@ public class Agent2 {
         // update the coordinate
         if (action == 'f') {
             if (view[1][2] == '$') {
-//                aStarSearch(new Cood(0,0));
+                aStarSearch(new Cood(0,0));
                 gold = true;
             } else if (view[1][2] == 'a') {
                 axe = true;
@@ -429,7 +402,7 @@ public class Agent2 {
                 if(view[i][j] == '$' || view[i][j] == 'a' || view[i][j] == 'd' || view[i][j] == 'k') {
                     Cood itemFound = createCood(i,j);
                     // DEBUG
-                    System.out.println("(" + itemFound.getX() + ", " + itemFound.getY() + ") => " + "(" + view[j][i] + ")");
+                    //System.out.println("(" + itemFound.getX() + ", " + itemFound.getY() + ") => " + "(" + view[j][i] + ")");
                     return itemFound;
                 }
             }
