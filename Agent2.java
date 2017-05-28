@@ -72,9 +72,10 @@ public class Agent2 {
                 Cood item = searchForItems(view);
                 boolean canGetAnItem = false;
                 // try to get to the item
-                if (item != null) {
-                    canGetAnItem = aStarSearch(item);
-                }
+//                if (item != null) {
+//                    canGetAnItem = aStarSearch(item);
+//                    System.out.println("I'm using A* search");
+//                }
                 // if you can get to the item, then perform the preset actions to go to the item
                 if (canGetAnItem) {
                     action = nextMoves.poll();
@@ -87,18 +88,18 @@ public class Agent2 {
                     System.out.println("Exploring");
                     if (isHugging) {
                         // if we hit an obstacle, then turn
-                        if ((view[1][2] == '~' && !wood) || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.') {
+                        if ((view[1][2] == '~' /*&& !wood*/) || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.') {
                             action = rotateAtAnObstacle(view);
                             // else if we're no longer touching a wall, turn the other way
                             //TODO need to make sure wood is false when back on land
-                        } else if (view[2][1] == ' ' && !wood) {
+                        } else if (view[2][1] == ' '/* && !wood*/) {
                             action = 'l';
                             nextMoves.add('f');
                         }
                         // else just start roaming until we hit an obstacle
                     } else {
                         // if we hit an obstacle, start hugging obstacles
-                        if ((view[1][2] == '~' && !wood) || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.') {
+                        if ((view[1][2] == '~' /*&& !wood*/) || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.') {
                             action = rotateAtAnObstacle(view);
                             isHugging = true;
                         }
@@ -109,7 +110,7 @@ public class Agent2 {
 
 //-----------------ACTIONS AFTER DETERMINING ACTION-----------------//
         //This snippet is so that AI isn't an idiot and jump into the water or go into the forest
-        if (action == 'f' && (view[1][2] == '~' || view[1][2] == '.') && !wood) {
+        if (action == 'f' && (view[1][2] == '~' || view[1][2] == '.') /*&& !wood*/) {
             double coinflip = Math.random() % 2;
             if (coinflip == 1) {
                 action = 'l';
@@ -229,7 +230,7 @@ public class Agent2 {
         }
     }
 
-    //Scan
+    //Scan the if there exist a tree one block away incl diagonal
     private boolean scanTree(char[][] view){
         boolean treeExists = false;
 
@@ -302,6 +303,7 @@ public class Agent2 {
         }
     }
 
+    //Scan the if there exist an item one block away incl diagonal
     private boolean scanItem(char[][] view){
         boolean itemExists = false;
 
