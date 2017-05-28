@@ -342,6 +342,8 @@ public class Agent2 {
         // while the open list is not empty
         while(!open.isEmpty()) {
             // pop the node with the least f off the open list
+            System.out.println(open.toString());
+            System.out.println(closed.toString());
             State currState = open.poll();
             System.out.println("Current State is at: (" + currState.getCurrCood().getX() + "," + currState.getCurrCood().getY() + ") & Fx = " + currState.calculateFx());
             // generate q's 8 successors and set their parents to q
@@ -359,14 +361,14 @@ public class Agent2 {
                 successor.calculateGx();
                 // calculate h(x)
                 successor.calculateHx(destination);
-                System.out.println("Checking successor: (" + successor.getCurrCood().getX() + "," + successor.getCurrCood().getY() + ") & Fx = " + successor.calculateFx());
+                System.out.println("Checking successor: (" + successor.getCurrCood().getX() + "," + successor.getCurrCood().getY() + ") & Gx = " + successor.getGx() + " & Hx = " + successor.getHx() + " & Fx = " + successor.calculateFx());
                 boolean skipNode = false;
                 // if a node with the same position as successor is in the OPEN list \
                 // which has a lower f than successor, skip this successor
                 for (State checkState : open) {
                     if (checkState.getCurrCood().equals(successor.getCurrCood()) &&
                             successor.calculateFx() > checkState.calculateFx()){
-                        System.out.println("Denied successor in open list: (" + successor.getCurrCood().getX() + "," + successor.getCurrCood().getY() + ") & Fx = " + successor.calculateFx());
+                        System.out.println("Denied successor in open list: (" + successor.getCurrCood().getX() + "," + successor.getCurrCood().getY() + ")");
                         skipNode = true;
                     }
                 }
@@ -375,13 +377,18 @@ public class Agent2 {
                 for (State checkState : closed) {
                     if (checkState.getCurrCood().equals(successor.getCurrCood()) &&
                             successor.calculateFx() > checkState.calculateFx()){
-                        System.out.println("Denied successor in closed list: (" + successor.getCurrCood().getX() + "," + successor.getCurrCood().getY() + ") & Fx = " + successor.calculateFx());
+                        System.out.println("Denied successor in closed list: (" + successor.getCurrCood().getX() + "," + successor.getCurrCood().getY() + ")");
                         skipNode = true;
                     }
                 }
+                // if that tile cannot be traversed on, skip this successor
+                if(map.get(successor.getCurrCood()) == '~' || map.get(successor.getCurrCood()) == '*' || map.get(successor.getCurrCood()) == 'T' || map.get(successor.getCurrCood()) == '.') {
+                    System.out.println("Denied successor because cannot go on this tile: (" + successor.getCurrCood().getX() + "," + successor.getCurrCood().getY() + ") & Tile is " + map.get(successor.getCurrCood()));
+                    skipNode = true;
+                }
                 // otherwise, add the node to the open list
                 if(!skipNode) {
-                    System.out.println("Added a successor: (" + successor.getCurrCood().getX() + "," + successor.getCurrCood().getY() + ") & Fx = " + successor.calculateFx());
+                    System.out.println("Added a successor: (" + successor.getCurrCood().getX() + "," + successor.getCurrCood().getY() + ")");
                     open.add(successor);
                 }
             }
@@ -400,6 +407,7 @@ public class Agent2 {
                     State newState = new State(createCood(x+1,y+1), currState, currState.getGx(), 0, false);
                     System.out.println("Created successor: (" + newState.getCurrCood().getX() + "," + newState.getCurrCood().getY() + ") & Fx = " + newState.calculateFx());
                     System.out.println("Connected to successor: (" + currState.getCurrCood().getX() + "," + currState.getCurrCood().getY() + ") & Fx = " + currState.calculateFx());
+                    System.out.println("Successor has tile " + map.get(newState.getCurrCood()));
                     successorQueue.add(newState);
                 }
             }
