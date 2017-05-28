@@ -242,7 +242,7 @@ public class Agent2 {
         // initialize the closed list
         ArrayList<State> closed = new ArrayList<>();
         // put the starting node on the open list (you can leave its f at zero)
-        open.add(new State(new Cood(currX, currY),null, 0, 0));
+        open.add(new State(new Cood(currX, currY),null, 0, 0, true));
 
         // while the open list is not empty
         while(!open.isEmpty()) {
@@ -296,7 +296,7 @@ public class Agent2 {
             for (int y = 0; y < 3; y++) {
                 // make sure that the current player position is not recorded as a successor
                 if (!(x == 1 && y == 1)) {
-                    State newState = new State(createCood(x,y), currState, currState.getGx(), 0);
+                    State newState = new State(createCood(x,y), currState, currState.getGx(), 0, false);
                     successorQueue.add(newState);
                 }
             }
@@ -308,12 +308,12 @@ public class Agent2 {
         LinkedList<Cood> moveList = new LinkedList<>();
         State currState = successor;
         // retrieve all the coordinates that the player has to travel
-        while(!currState.getPrevState().equals(null)) {
+        while(!currState.isStartingState()) {
             moveList.add(0, currState.getCurrCood());
             currState = currState.getPrevState();
         }
         // add the last coordinate
-        //moveList.add(0, currState.getCurrCood());
+        moveList.add(0, currState.getCurrCood());
         Cood currPosition = new Cood(currX, currY);
         int currDirection = this.direction;
         // go through the moves
