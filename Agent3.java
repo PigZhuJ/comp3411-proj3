@@ -23,6 +23,7 @@ public class Agent3 {
 
     // Player Inventory Fields
     private boolean wood;
+    private boolean gold;
 
     public Agent3() {
         // Map Related Fields
@@ -35,6 +36,7 @@ public class Agent3 {
         this.onWater = false;
         // Player Inventory Fields
         this.wood = false;
+        this.gold = false;
     }
 
     public char get_action( char view[][] ) {
@@ -65,6 +67,10 @@ public class Agent3 {
 
 //-----------------STEPS AFTER DETERMINING PLAYER ACTION------------------//
         if (action == 'f') {
+            if (view[1][2] == '$') {
+                aStarSearch(new Cood(0,0));
+                gold = true;
+            }
             updateCurrPosition();
         }
 
