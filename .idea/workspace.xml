@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b47f10aa-5ae1-4b03-8dc9-3336d9991595" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Agent2.java" afterPath="$PROJECT_DIR$/Agent2.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,101 +29,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Agent2.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Agent2.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Agent2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
-              <caret line="495" column="46" lean-forward="true" selection-start-line="495" selection-start-column="46" selection-end-line="495" selection-end-column="46" />
+            <state relative-caret-position="261">
+              <caret line="140" column="25" lean-forward="true" selection-start-line="140" selection-start-column="25" selection-end-line="140" selection-end-column="25" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="imports" expanded="true" />
-                <element signature="e#7400#7401#0" expanded="true" />
-                <element signature="e#7457#7458#0" expanded="true" />
-                <marker date="1495977506727" expanded="false" signature="28153:28715" ph="{...}" />
-                <marker date="1495977506727" expanded="false" signature="28764:28941" ph="{...}" />
-                <marker date="1495977506727" expanded="false" signature="28971:29151" ph="{...}" />
-                <marker date="1495977506727" expanded="false" signature="29181:29361" ph="{...}" />
-                <marker date="1495977506727" expanded="false" signature="29391:29571" ph="{...}" />
-                <marker date="1495977506727" expanded="false" signature="29715:30185" ph="{...}" />
-                <marker date="1495977506727" expanded="false" signature="30236:31999" ph="{...}" />
+                <marker date="1495984724198" expanded="false" signature="28184:28746" ph="{...}" />
+                <marker date="1495984724198" expanded="false" signature="28795:28972" ph="{...}" />
+                <marker date="1495984724198" expanded="false" signature="29002:29182" ph="{...}" />
+                <marker date="1495984724198" expanded="false" signature="29212:29392" ph="{...}" />
+                <marker date="1495984724198" expanded="false" signature="29422:29602" ph="{...}" />
+                <marker date="1495984724198" expanded="false" signature="29746:30216" ph="{...}" />
+                <marker date="1495984724198" expanded="false" signature="30267:32030" ph="{...}" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="s5.in" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/s5.in">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="s4.in" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/s4.in">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="input.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/input.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="2" lean-forward="false" selection-start-line="4" selection-start-column="2" selection-end-line="4" selection-end-column="2" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="input2.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/input2.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="s3.in" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/s3.in">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="State.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/State.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="46" column="8" lean-forward="false" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="31" />
-              <folding>
-                <element signature="e#768#769#0" expanded="true" />
-                <element signature="e#804#805#0" expanded="true" />
-                <element signature="e#1000#1001#0" expanded="true" />
-                <element signature="e#1037#1038#0" expanded="true" />
-                <element signature="e#1077#1078#0" expanded="true" />
-                <element signature="e#1115#1116#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Cood.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Cood.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-204">
-              <caret line="3" column="13" lean-forward="false" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -810,21 +732,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/State.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="46" column="8" lean-forward="false" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="31" />
-          <folding>
-            <element signature="e#768#769#0" expanded="true" />
-            <element signature="e#804#805#0" expanded="true" />
-            <element signature="e#1000#1001#0" expanded="true" />
-            <element signature="e#1037#1038#0" expanded="true" />
-            <element signature="e#1077#1078#0" expanded="true" />
-            <element signature="e#1115#1116#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/input.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -868,31 +775,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Agent2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="495" column="46" lean-forward="true" selection-start-line="495" selection-start-column="46" selection-end-line="495" selection-end-column="46" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="imports" expanded="true" />
-            <element signature="e#7400#7401#0" expanded="true" />
-            <element signature="e#7457#7458#0" expanded="true" />
-            <marker date="1495977506727" expanded="false" signature="28153:28715" ph="{...}" />
-            <marker date="1495977506727" expanded="false" signature="28764:28941" ph="{...}" />
-            <marker date="1495977506727" expanded="false" signature="28971:29151" ph="{...}" />
-            <marker date="1495977506727" expanded="false" signature="29181:29361" ph="{...}" />
-            <marker date="1495977506727" expanded="false" signature="29391:29571" ph="{...}" />
-            <marker date="1495977506727" expanded="false" signature="29715:30185" ph="{...}" />
-            <marker date="1495977506727" expanded="false" signature="30236:31999" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/s4.in">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/State.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="46" column="8" lean-forward="false" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="31" />
+          <folding>
+            <element signature="e#768#769#0" expanded="true" />
+            <element signature="e#804#805#0" expanded="true" />
+            <element signature="e#1000#1001#0" expanded="true" />
+            <element signature="e#1037#1038#0" expanded="true" />
+            <element signature="e#1077#1078#0" expanded="true" />
+            <element signature="e#1115#1116#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Agent2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="140" column="25" lean-forward="true" selection-start-line="140" selection-start-column="25" selection-end-line="140" selection-end-column="25" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <marker date="1495984724198" expanded="false" signature="28184:28746" ph="{...}" />
+            <marker date="1495984724198" expanded="false" signature="28795:28972" ph="{...}" />
+            <marker date="1495984724198" expanded="false" signature="29002:29182" ph="{...}" />
+            <marker date="1495984724198" expanded="false" signature="29212:29392" ph="{...}" />
+            <marker date="1495984724198" expanded="false" signature="29422:29602" ph="{...}" />
+            <marker date="1495984724198" expanded="false" signature="29746:30216" ph="{...}" />
+            <marker date="1495984724198" expanded="false" signature="30267:32030" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
