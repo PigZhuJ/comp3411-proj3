@@ -447,9 +447,9 @@ public class Agent2 {
             currState = currState.getPrevState();
         }
         // add the last coordinate
-        moveList.add(0, currState.getCurrCood());
-        System.out.println("(" + currState.getCurrCood().getX() + "," +currState.getCurrCood().getY() + ").");
-        System.out.println(moveList.toString());
+        //moveList.add(0, currState.getCurrCood());
+        //System.out.println("(" + currState.getCurrCood().getX() + "," +currState.getCurrCood().getY() + ").");
+        //System.out.println(moveList.toString());
         Cood currPosition = new Cood(currX, currY);
         int currDirection = this.direction;
         // go through the moves
