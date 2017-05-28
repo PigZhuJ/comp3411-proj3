@@ -96,9 +96,6 @@ public class Agent3 {
                     // if we hit an obstacle, then turn
                     if (isAnObstacle(view[1][2])) {
                         action = rotateAtAnObstacle(view);
-                    // go forward if you can
-                    } else if (view[1][2] == ' ') {
-                        action = 'f';
                     // else if we don't have a wall to hug i.e.
                     //   ^   *
                     // *     *
@@ -107,12 +104,15 @@ public class Agent3 {
                     } else if (hugSide == 'l') {
                         // if the left of player is empty and is on land, rotate left
                         // always look left first to continue hugging walls
-                        if (view[2][1] == ' ' && !onWater) {
+                        // go forward if you can
+                        if (view[1][2] == ' ' && isAnObstacle(view[2][1])) {
+                            action = 'f';
+                        } else if (view[2][1] == ' ' && !onWater) {
                             action = 'l';
                         } else if (view[2][3] == ' ' && !onWater) {
                             action = 'r';
                         }
-                        nextMoves.add('f');
+                        //nextMoves.add('f');
                     // *   ^
                     // *     *
                     // * * * *
@@ -120,12 +120,14 @@ public class Agent3 {
                     } else if (hugSide == 'r') {
                         // if the right of player is empty and is on land, rotate right
                         // always look right first to continue hugging walls
-                        if (view[2][3] == ' ' && !onWater) {
+                        if (view[1][2] == ' ' && isAnObstacle(view[2][3])) {
+                            action = 'f';
+                        } else if (view[2][3] == ' ' && !onWater) {
                             action = 'r';
                         } else if (view[2][1] == ' ' && !onWater) {
                             action = 'l';
                         }
-                        nextMoves.add('f');
+                        //nextMoves.add('f');
                     }
                 // else do standard roaming
                 } else {
@@ -210,10 +212,10 @@ public class Agent3 {
         char action;
         if (isAnObstacle(view[2][1])) {
             action = 'r';
-            if (isAnObstacle(view[2][3])) nextMoves.add('f');
+            //if (isAnObstacle(view[2][3])) nextMoves.add('f');
         } else {
             action = 'l';
-            nextMoves.add('f');
+            //nextMoves.add('f');
         }
         return action;
     }
