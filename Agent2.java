@@ -19,6 +19,7 @@ public class Agent {
     private int direction;
     private int currX;
     private int currY;
+    private boolean isHugging;
 
     public Agent() {
         this.map = new HashMap<>();
@@ -26,6 +27,7 @@ public class Agent {
         this.direction = 0;
         this.currX = 0;
         this.currY = 0;
+        this.isHugging = false;
     }
 
     public char get_action( char view[][] ) {
@@ -42,8 +44,23 @@ public class Agent {
             action = nextMoves.poll();
         // else try to find something to do
         } else {
-            if (view[1][2] == '~' || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.') {
-                action = 'r';
+            if (isHugging) {
+                // if we hit an obstacle, then turn
+                if (view[1][2] == '~' || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.') {
+                    action = rotateAtAnObstacle(view);
+
+                    // else if we're no longer touching a wall, turn the other way
+                } else if (view[2][1] == ' ') {
+                    action = 'l';
+                    nextMoves.add('f');
+                }
+                // else just start roaming until we hit an obstacle
+            } else {
+                // if we hit an obstacle, start hugging obstacles
+                if (view[1][2] == '~' || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.') {
+                    action = rotateAtAnObstacle(view);
+                    isHugging = true;
+                }
             }
         }
 
@@ -59,6 +76,18 @@ public class Agent {
 
         return action;
 
+    }
+
+    private char rotateAtAnObstacle(char view[][]) {
+        char action;
+        if (view[2][1] == '~' || view[2][1] == '*' || view[2][1] == 'T' || view[2][1] == '.') {
+            action = 'r';
+            if (view[2][3] != '~' && view[2][3] != '*' && view[2][3] != 'T' && view[2][3] != '.') nextMoves.add('f');
+        } else {
+            action = 'l';
+            nextMoves.add('f');
+        }
+        return action;
     }
 
     public void stitchMap(char view[][]) {
