@@ -464,8 +464,14 @@ public class Agent2 {
             System.out.println("Next position is at: (" + nextPosition.getX() + "," + nextPosition.getY() + ")");
             Cood projectedPosition = calculateProjection(currPosition, currDirection);
             while(!projectedPosition.equals(nextPosition)) {
-                currDirection = (currDirection + 1)%4;
-                nextMoves.add('r');
+                Cood leftOfPlayer = calculateProjection(currPosition, (currDirection + 4 - 1)%4);
+                if (map.get(leftOfPlayer) == '~' || map.get(leftOfPlayer) == '*' || map.get(leftOfPlayer) == 'T' || map.get(leftOfPlayer) == '.') {
+                    nextMoves.add('r');
+                    currDirection = (currDirection + 1)%4;
+                } else {
+                    nextMoves.add('l');
+                    currDirection = (currDirection + 4 - 1)%4;
+                }
                 projectedPosition = calculateProjection(currPosition, currDirection);
                 System.out.println("CurrDirection is at: " + currDirection);
                 System.out.println("Testing if matched position is at: (" + projectedPosition.getX() + "," + projectedPosition.getY() + ")");
