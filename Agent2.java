@@ -92,22 +92,24 @@ public class Agent2 {
         } else if (nextMoves.isEmpty() && gold){
             aStarSearch(new Cood(0,0));
         } else {
-            // search the view for items that you can go to
-            Cood item = searchForItems(view);
-            boolean canGetAnItem = false;
-            // try to get to the item
-            if (item != null) {
-                canGetAnItem = aStarSearch(item);
-                System.out.println("I'm using A* search");
-            }
-            // if you can get to the item, then perform the preset actions to go to the item
-            if (canGetAnItem) {
-                action = nextMoves.poll();
-                // if there is no item or you currently can't get to an item, do standard roaming
-            } else if (scanTree(view) && axe) {
-                System.out.println("Tree Cutting");
-                cutTree(view);
-                action = nextMoves.poll();
+                Cood item = searchForItems(view);
+                if (item != null){
+                    System.out.println("Cood is::" + item.getX() + ", " + item.getY() + " => " + map.get(item));
+                }
+                boolean canGetAnItem = false;
+                // try to get to the item
+                if (item != null) {
+                    canGetAnItem = aStarSearch(item);
+                    System.out.println("I'm using A* search");
+                }
+                // if you can get to the item, then perform the preset actions to go to the item
+                if (canGetAnItem) {
+                    action = nextMoves.poll();
+                    // if there is no item or you currently can't get to an item, do standard roaming
+                } else if (scanTree(view) && axe) {
+                    System.out.println("Tree Cutting");
+                    cutTree(view);
+                    action = nextMoves.poll();
 //                } else if (onWater){
 //                    aStarSearch(searchForItems(view));
             } else {
@@ -397,7 +399,7 @@ public class Agent2 {
             // for every x coordinate
             for (int j = 0; j < 5; j++) {
                 // if there is an item seen in the view, record the position of that
-                if(view[j][i] == '$' || view[j][i] == 'a' || view[j][i] == 'd' || view[j][i] == 'k') {
+                if(view[i][j] == '$' || view[i][j] == 'a' || view[i][j] == 'd' || view[i][j] == 'k') {
                     Cood itemFound = createCood(i,j);
                     // DEBUG
                     //System.out.println("(" + itemFound.getX() + ", " + itemFound.getY() + ") => " + "(" + view[j][i] + ")");
