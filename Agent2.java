@@ -455,8 +455,10 @@ public class Agent2 {
                 }
                 // if that tile cannot be traversed on, skip this successor
                 if(map.get(successor.getCurrCood()) == '~' || map.get(successor.getCurrCood()) == '*' || map.get(successor.getCurrCood()) == 'T' || map.get(successor.getCurrCood()) == '.') {
-                    System.out.println("Denied successor because cannot go on this tile: (" + successor.getCurrCood().getX() + "," + successor.getCurrCood().getY() + ") & Tile is " + map.get(successor.getCurrCood()));
-                    skipNode = true;
+                    if (!(map.get(successor.getCurrCood()) == '~' && (wood || onWater))) {
+                        System.out.println("Denied successor because cannot go on this tile: (" + successor.getCurrCood().getX() + "," + successor.getCurrCood().getY() + ") & Tile is " + map.get(successor.getCurrCood()));
+                        skipNode = true;
+                    }
                 }
                 // otherwise, add the node to the open list
                 if(!skipNode) {
