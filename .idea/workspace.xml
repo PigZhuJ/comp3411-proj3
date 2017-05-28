@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b47f10aa-5ae1-4b03-8dc9-3336d9991595" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Agent2.java" afterPath="$PROJECT_DIR$/Agent2.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -18,9 +19,12 @@
       <file leaf-file-name="Agent.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Agent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1207">
-              <caret line="88" column="20" lean-forward="true" selection-start-line="85" selection-start-column="12" selection-end-line="88" selection-end-column="20" />
-              <folding />
+            <state relative-caret-position="1326">
+              <caret line="88" column="20" lean-forward="true" selection-start-line="88" selection-start-column="20" selection-end-line="88" selection-end-column="20" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -28,30 +32,46 @@
       <file leaf-file-name="Agent2.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Agent2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1485">
-              <caret line="327" column="53" lean-forward="false" selection-start-line="327" selection-start-column="53" selection-end-line="327" selection-end-column="53" />
+            <state relative-caret-position="210">
+              <caret line="348" column="110" lean-forward="true" selection-start-line="348" selection-start-column="110" selection-end-line="348" selection-end-column="110" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="imports" expanded="true" />
                 <element signature="method#get_action#0;class#Agent2#0" expanded="false" />
-                <element signature="method#updateCurrPosition#0;class#Agent2#0" expanded="false" />
-                <element signature="method#rotateAtAnObstacle#0;class#Agent2#0" expanded="false" />
-                <element signature="method#cutTree#0;class#Agent2#0" expanded="false" />
-                <element signature="method#getItem#0;class#Agent2#0" expanded="false" />
-                <element signature="method#searchForItems#0;class#Agent2#0" expanded="false" />
-                <element signature="method#calculateProjection#0;class#Agent2#0" expanded="false" />
-                <marker date="1495950717762" expanded="false" signature="14130:14768" ph="{...}" />
-                <marker date="1495950717762" expanded="false" signature="14829:15328" ph="{...}" />
-                <marker date="1495950717762" expanded="false" signature="15376:15719" ph="{...}" />
-                <marker date="1495950717762" expanded="false" signature="15762:16220" ph="{...}" />
-                <marker date="1495950717762" expanded="false" signature="16283:17320" ph="{...}" />
-                <marker date="1495950717762" expanded="false" signature="17369:17546" ph="{...}" />
-                <marker date="1495950717762" expanded="false" signature="17576:17756" ph="{...}" />
-                <marker date="1495950717762" expanded="false" signature="17786:17966" ph="{...}" />
-                <marker date="1495950717762" expanded="false" signature="17996:18176" ph="{...}" />
-                <marker date="1495950717762" expanded="false" signature="18320:18790" ph="{...}" />
-                <marker date="1495950717762" expanded="false" signature="18841:20604" ph="{...}" />
+                <marker date="1495951640086" expanded="false" signature="8329:8987" ph="{...}" />
+                <marker date="1495951640086" expanded="false" signature="14442:14868" ph="{...}" />
+                <marker date="1495951640086" expanded="false" signature="15161:15799" ph="{...}" />
+                <marker date="1495951640086" expanded="false" signature="15860:16359" ph="{...}" />
+                <marker date="1495951640086" expanded="false" signature="16407:16750" ph="{...}" />
+                <marker date="1495951640086" expanded="false" signature="16793:17251" ph="{...}" />
+                <marker date="1495951640086" expanded="false" signature="17314:18351" ph="{...}" />
+                <marker date="1495951640086" expanded="false" signature="18400:18577" ph="{...}" />
+                <marker date="1495951640086" expanded="false" signature="18607:18787" ph="{...}" />
+                <marker date="1495951640086" expanded="false" signature="18817:18997" ph="{...}" />
+                <marker date="1495951640086" expanded="false" signature="19027:19207" ph="{...}" />
+                <marker date="1495951640086" expanded="false" signature="19351:19821" ph="{...}" />
+                <marker date="1495951640086" expanded="false" signature="19872:21635" ph="{...}" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="input.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/input.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" column="2" lean-forward="false" selection-start-line="4" selection-start-column="2" selection-end-line="4" selection-end-column="2" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="input2.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/input2.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -146,6 +166,7 @@
         <option value="$PROJECT_DIR$/Agent.java" />
         <option value="$PROJECT_DIR$/State.java" />
         <option value="$PROJECT_DIR$/Agent2.java" />
+        <option value="$PROJECT_DIR$/input2.txt" />
       </list>
     </option>
   </component>
@@ -191,6 +212,11 @@
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="debugger.hotswap" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Andrew\workspace\comp3411-proj3" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -473,7 +499,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2771">
           <caret line="170" column="5" lean-forward="false" selection-start-line="170" selection-start-column="5" selection-end-line="170" selection-end-column="5" />
-          <folding />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -496,7 +525,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2873">
           <caret line="169" column="5" lean-forward="true" selection-start-line="169" selection-start-column="5" selection-end-line="169" selection-end-column="5" />
-          <folding />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -519,7 +551,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -651,7 +686,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="20" column="62" lean-forward="false" selection-start-line="20" selection-start-column="62" selection-end-line="20" selection-end-column="62" />
-          <folding />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -659,7 +697,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2771">
           <caret line="170" column="5" lean-forward="false" selection-start-line="170" selection-start-column="5" selection-end-line="170" selection-end-column="5" />
-          <folding />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -682,7 +723,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2873">
           <caret line="169" column="5" lean-forward="true" selection-start-line="169" selection-start-column="5" selection-end-line="169" selection-end-column="5" />
-          <folding />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -705,7 +749,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -729,13 +776,6 @@
         <state relative-caret-position="0">
           <caret line="0" column="12" lean-forward="true" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="12" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/input.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -784,14 +824,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Agent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1207">
-          <caret line="88" column="20" lean-forward="true" selection-start-line="85" selection-start-column="12" selection-end-line="88" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Cood.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-204">
@@ -815,31 +847,54 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/input.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="2" lean-forward="false" selection-start-line="4" selection-start-column="2" selection-end-line="4" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/input2.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Agent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1326">
+          <caret line="88" column="20" lean-forward="true" selection-start-line="88" selection-start-column="20" selection-end-line="88" selection-end-column="20" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Agent2.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1485">
-          <caret line="327" column="53" lean-forward="false" selection-start-line="327" selection-start-column="53" selection-end-line="327" selection-end-column="53" />
+        <state relative-caret-position="210">
+          <caret line="348" column="110" lean-forward="true" selection-start-line="348" selection-start-column="110" selection-end-line="348" selection-end-column="110" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
             <element signature="method#get_action#0;class#Agent2#0" expanded="false" />
-            <element signature="method#updateCurrPosition#0;class#Agent2#0" expanded="false" />
-            <element signature="method#rotateAtAnObstacle#0;class#Agent2#0" expanded="false" />
-            <element signature="method#cutTree#0;class#Agent2#0" expanded="false" />
-            <element signature="method#getItem#0;class#Agent2#0" expanded="false" />
-            <element signature="method#searchForItems#0;class#Agent2#0" expanded="false" />
-            <element signature="method#calculateProjection#0;class#Agent2#0" expanded="false" />
-            <marker date="1495950717762" expanded="false" signature="14130:14768" ph="{...}" />
-            <marker date="1495950717762" expanded="false" signature="14829:15328" ph="{...}" />
-            <marker date="1495950717762" expanded="false" signature="15376:15719" ph="{...}" />
-            <marker date="1495950717762" expanded="false" signature="15762:16220" ph="{...}" />
-            <marker date="1495950717762" expanded="false" signature="16283:17320" ph="{...}" />
-            <marker date="1495950717762" expanded="false" signature="17369:17546" ph="{...}" />
-            <marker date="1495950717762" expanded="false" signature="17576:17756" ph="{...}" />
-            <marker date="1495950717762" expanded="false" signature="17786:17966" ph="{...}" />
-            <marker date="1495950717762" expanded="false" signature="17996:18176" ph="{...}" />
-            <marker date="1495950717762" expanded="false" signature="18320:18790" ph="{...}" />
-            <marker date="1495950717762" expanded="false" signature="18841:20604" ph="{...}" />
+            <marker date="1495951640086" expanded="false" signature="8329:8987" ph="{...}" />
+            <marker date="1495951640086" expanded="false" signature="14442:14868" ph="{...}" />
+            <marker date="1495951640086" expanded="false" signature="15161:15799" ph="{...}" />
+            <marker date="1495951640086" expanded="false" signature="15860:16359" ph="{...}" />
+            <marker date="1495951640086" expanded="false" signature="16407:16750" ph="{...}" />
+            <marker date="1495951640086" expanded="false" signature="16793:17251" ph="{...}" />
+            <marker date="1495951640086" expanded="false" signature="17314:18351" ph="{...}" />
+            <marker date="1495951640086" expanded="false" signature="18400:18577" ph="{...}" />
+            <marker date="1495951640086" expanded="false" signature="18607:18787" ph="{...}" />
+            <marker date="1495951640086" expanded="false" signature="18817:18997" ph="{...}" />
+            <marker date="1495951640086" expanded="false" signature="19027:19207" ph="{...}" />
+            <marker date="1495951640086" expanded="false" signature="19351:19821" ph="{...}" />
+            <marker date="1495951640086" expanded="false" signature="19872:21635" ph="{...}" />
           </folding>
         </state>
       </provider>

@@ -290,6 +290,7 @@ public class Agent2 {
                 successor.calculateGx();
                 // calculate h(x)
                 successor.calculateHx(destination);
+                System.out.println("Checking successor: (" + successor.getCurrCood().getX() + "," + successor.getCurrCood().getY() + ") & Fx = " + successor.calculateFx());
                 boolean skipNode = false;
                 // if a node with the same position as successor is in the OPEN list \
                 // which has a lower f than successor, skip this successor
@@ -309,6 +310,7 @@ public class Agent2 {
                 }
                 // otherwise, add the node to the open list
                 if(!skipNode) {
+                    System.out.println("Added a successor: (" + successor.getCurrCood().getX() + "," + successor.getCurrCood().getY() + ") & Fx = " + successor.calculateFx());
                     open.add(successor);
                 }
             }
@@ -349,14 +351,14 @@ public class Agent2 {
         int currDirection = this.direction;
         // go through the moves
         for (Cood nextPosition : moveList) {
-            System.out.println("Next position is at: (" + nextPosition.getX() + "," + nextPosition.getY());
+            System.out.println("Next position is at: (" + nextPosition.getX() + "," + nextPosition.getY() + ")");
             Cood projectedPosition = calculateProjection(currPosition, currDirection);
             while(!projectedPosition.equals(nextPosition)) {
                 currDirection = (currDirection + 1)%4;
                 nextMoves.add('r');
                 projectedPosition = calculateProjection(currPosition, currDirection);
-                System.out.println("CurrDirection is at: (" + nextPosition.getX() + "," + nextPosition.getY());
-                System.out.println("Testing if matched position is at: (" + projectedPosition.getX() + "," + projectedPosition.getY());
+                System.out.println("CurrDirection is at: (" + nextPosition.getX() + "," + nextPosition.getY() + ")");
+                System.out.println("Testing if matched position is at: (" + projectedPosition.getX() + "," + projectedPosition.getY() + ")");
             }
             nextMoves.add('f');
             currPosition = nextPosition;
