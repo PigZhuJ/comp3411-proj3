@@ -13,6 +13,10 @@ public class Agent2 {
 
     // Map Attributes
     private HashMap<Cood, Character> map;
+    private int minX;
+    private int minY;
+    private int maxX;
+    private int maxY;
 
     // Player Attributes
     private Queue<Character> nextMoves = new LinkedList<>();
@@ -107,6 +111,9 @@ public class Agent2 {
             // search the view for items that you can go to
             if (item != null){
                 System.out.println("Cood is::" + item.getX() + ", " + item.getY() + " => " + map.get(item));
+                Cood item = searchForItems(view);
+                if (item != null){
+                    System.out.println("Cood is::" + item.getX() + ", " + item.getY() + " => " + map.get(item));
                 }
                 boolean canGetAnItem = false;
                 // try to get to the item
@@ -132,45 +139,57 @@ public class Agent2 {
                     action = nextMoves.poll();
 //                } else if (onWater){
 //                    aStarSearch(searchForItems(view));
-                } else {
-                    System.out.println("Exploring");
-                    if (isHugging) {
-                        System.out.println("Im hugging");
-                        // if we hit an obstacle, then turn
-                        if ((view[1][2] == '~' && !wood) || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.' || view[1][2] == '-') {
-                            action = rotateAtAnObstacle(view);
-                            // else if we're no longer touching a wall, turn the other way
-                        } else if (view[2][1] == ' ' && !wood) {
-//                            if (hugSide == 'l') {
-//                                action = 'l';
-//                            } else if (hugSide == 'r') {
-//                                action = 'r';
-//                            }
+            } else {
+                System.out.println("Exploring");
+                if (isHugging) {
+                    System.out.println("I'm hugging");
+                    // if we hit an obstacle, then turn
+                    if (isAnObstacle(view[1][2])) {
+                        action = rotateAtAnObstacle(view);
+                    // else if we don't have a wall to hug i.e.
+                    //   ^   *
+                    // *     *
+                    // * * * *
+                    // This one is for the left of the player
+                    } else if (hugSide == 'l') {
+                        if (view[2][1] == ' ' && !wood) {
                             action = 'l';
-                            nextMoves.add('f');
-//                        } else if (view[2][3] == ' ' && !wood) {
-//                            action = 'l';
-//                            nextMoves.add('f');
+                        } else if (view[2][3] == ' ' && !wood) {
+                            action = 'r';
                         }
-                        // else just start roaming until we hit an obstacle
-                    } else {
-                        System.out.println("I need something to hug");
-                        // if we hit an obstacle, start hugging obstacles
-                        if ((view[1][2] == '~' && !wood) || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.' || view[1][2] == '-') {
-                            action = rotateAtAnObstacle(view);
-//                            if (isAnObstacle(view[2][1]) || isAnObstacle(view[2][3])) {
-//                                isHugging = true;
-//                                if (action == 'l') {
-//                                    hugSide = action;
-//                                } else if (action == 'r') {
-//                                    hugSide = action;
-//                                }
-//                            }
+                        nextMoves.add('f');
+                    // *   ^
+                    // *     *
+                    // * * * *
+                    // This one is for the right of the player
+                    } else if (hugSide == 'r') {
+                        if (view[2][3] == ' ' && !wood) {
+                            action = 'r';
+                        } else if (view[2][1] == ' ' && !wood) {
+                            action = 'l';
+                        }
+                        nextMoves.add('f');
+                    }
+                // else just start roaming until we hit an obstacle
+                } else {
+                    System.out.println("I need something to hug");
+                    // if we hit an obstacle
+                    if (isAnObstacle(view[1][2])) {
+                        // rotate to avoid obstacles
+                        action = rotateAtAnObstacle(view);
+                        // if we are at a corner, start hugging that section of the block
+                        if (isAnObstacle(view[2][1]) || isAnObstacle(view[2][3])) {
                             isHugging = true;
+                            // determining which side of the player is going to be hugged
+                            if (action == 'l') {
+                                hugSide = action;
+                            } else if (action == 'r') {
+                                hugSide = action;
+                            }
                         }
                     }
                 }
-//            }
+            }
         }
 
 //-----------------ACTIONS AFTER DETERMINING ACTION-----------------//
@@ -216,7 +235,7 @@ public class Agent2 {
 
     //Check if its an obstacle
     private boolean isAnObstacle(char c) {
-        return (c == '*' || c == 'T' || c == '.');
+        return ((c == '~' && !wood) || c == '*' || (c == 'T' && !axe) || c == '.' || (c == '-' && !key));
     }
 
     //Update the absolute cood of the AI on the map
@@ -248,7 +267,7 @@ public class Agent2 {
     //When met with an obstacle rotate
     private char rotateAtAnObstacle(char view[][]) {
         char action;
-        if (view[2][1] == '~' || view[2][1] == '*' || view[2][1] == 'T' || view[2][1] == '.') {
+        if (isAnObstacle(view[2][1])) {
             action = 'r';
             if (view[2][3] != '~' && view[2][3] != '*' && view[2][3] != 'T' && view[2][3] != '.') nextMoves.add('f');
         } else {
