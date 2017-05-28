@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b47f10aa-5ae1-4b03-8dc9-3336d9991595" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/input2.txt" afterPath="$PROJECT_DIR$/input2.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Agent3.java" afterPath="$PROJECT_DIR$/Agent3.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -50,11 +50,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Agent3.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Agent3.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Agent3.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="122" column="71" lean-forward="false" selection-start-line="122" selection-start-column="71" selection-end-line="122" selection-end-column="71" />
+            <state relative-caret-position="272">
+              <caret line="187" column="58" lean-forward="false" selection-start-line="187" selection-start-column="58" selection-end-line="187" selection-end-column="58" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="imports" expanded="true" />
@@ -63,7 +63,6 @@
                 <element signature="method#searchForItems#0;class#Agent3#0" expanded="false" />
                 <element signature="method#aStarSearch#0;class#Agent3#0" expanded="false" />
                 <element signature="method#generateSuccessors#0;class#Agent3#0" expanded="false" />
-                <element signature="method#buildNextMovesToReachItem#0;class#Agent3#0" expanded="false" />
                 <element signature="method#calculateProjection#0;class#Agent3#0" expanded="false" />
                 <element signature="method#stitchMap#0;class#Agent3#0" expanded="false" />
                 <element signature="method#rotate_view#0;class#Agent3#0" expanded="false" />
@@ -81,11 +80,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="input2.txt" pinned="false" current-in-tab="true">
+      <file leaf-file-name="input2.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/input2.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="6" lean-forward="false" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
+            <state relative-caret-position="0">
+              <caret line="0" column="8" lean-forward="true" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -124,8 +123,8 @@
         <option value="$PROJECT_DIR$/State.java" />
         <option value="$PROJECT_DIR$/Agent.java" />
         <option value="$PROJECT_DIR$/Agent2.java" />
-        <option value="$PROJECT_DIR$/Agent3.java" />
         <option value="$PROJECT_DIR$/input2.txt" />
+        <option value="$PROJECT_DIR$/Agent3.java" />
       </list>
     </option>
   </component>
@@ -449,7 +448,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="3" />
+      <option name="time" value="4" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -857,6 +856,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/input2.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="8" lean-forward="true" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Agent2.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="397">
@@ -877,8 +884,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Agent3.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="122" column="71" lean-forward="false" selection-start-line="122" selection-start-column="71" selection-end-line="122" selection-end-column="71" />
+        <state relative-caret-position="272">
+          <caret line="187" column="58" lean-forward="false" selection-start-line="187" selection-start-column="58" selection-end-line="187" selection-end-column="58" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
@@ -887,7 +894,6 @@
             <element signature="method#searchForItems#0;class#Agent3#0" expanded="false" />
             <element signature="method#aStarSearch#0;class#Agent3#0" expanded="false" />
             <element signature="method#generateSuccessors#0;class#Agent3#0" expanded="false" />
-            <element signature="method#buildNextMovesToReachItem#0;class#Agent3#0" expanded="false" />
             <element signature="method#calculateProjection#0;class#Agent3#0" expanded="false" />
             <element signature="method#stitchMap#0;class#Agent3#0" expanded="false" />
             <element signature="method#rotate_view#0;class#Agent3#0" expanded="false" />
@@ -901,14 +907,6 @@
             <element signature="method#print_view#0;class#Agent3#0" expanded="false" />
             <element signature="method#main#0;class#Agent3#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/input2.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="6" lean-forward="false" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>

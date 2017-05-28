@@ -185,6 +185,7 @@ public class Agent3 {
             System.exit(0);
         }
 
+        System.out.println("The next move is: " + action);
         return action;
 
     }
@@ -384,6 +385,7 @@ public class Agent3 {
             nextMoves.add('f');
             currPosition = nextPosition;
         }
+        System.out.println("The actions to get to the item is: " + nextMoves.toString());
     }
 
     private Cood calculateProjection(Cood currPosition, int currDirection) {
