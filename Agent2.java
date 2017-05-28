@@ -53,51 +53,54 @@ public class Agent2 {
         // default action is to go forward
         char action = 'f';
 
-        if(scanItem(view)){
-            getItem(view);
-        }
         //debug
         listInventory();
         System.out.println(nextMoves.toString());
 
-        // if there are a list of moves to travel, then continue with the steps
-        if (!nextMoves.isEmpty()) {
-            System.out.println("Already Know where to go!");
+        if(scanItem(view)){
+            getItem(view);
             action = nextMoves.poll();
-        // else try to find something to do
+            System.out.println("I see Items!");
         } else {
-            // search the view for items that you can go to
-            Cood item = searchForItems(view);
-            boolean canGetAnItem = false;
-            // try to get to the item
-//            if (item != null) {
-//                canGetAnItem = aStarSearch(item);
-//            }
-            // if you can get to the item, then perform the preset actions to go to the item
-            if (canGetAnItem) {
+            // if there are a list of moves to travel, then continue with the steps
+            if (!nextMoves.isEmpty()) {
+                System.out.println("Already Know where to go!");
                 action = nextMoves.poll();
-                // if there is no item or you currently can't get to an item, do standard roaming
-            } else if (scanTree(view) && axe){
-                System.out.println("Tree Cutting");
-                cutTree(view);
-                action = nextMoves.poll();
+            // else try to find something to do
             } else {
-                System.out.println("Exploring");
-                if (isHugging) {
-                    // if we hit an obstacle, then turn
-                    if ((view[1][2] == '~' && !wood) || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.') {
-                        action = rotateAtAnObstacle(view);
-                        // else if we're no longer touching a wall, turn the other way
-                    } else if (view[2][1] == ' ') {
-                        action = 'l';
-                        nextMoves.add('f');
-                    }
-                // else just start roaming until we hit an obstacle
+                // search the view for items that you can go to
+                Cood item = searchForItems(view);
+                boolean canGetAnItem = false;
+                // try to get to the item
+                if (item != null) {
+                    canGetAnItem = aStarSearch(item);
+                }
+                // if you can get to the item, then perform the preset actions to go to the item
+                if (canGetAnItem) {
+                    action = nextMoves.poll();
+                    // if there is no item or you currently can't get to an item, do standard roaming
+                } else if (scanTree(view) && axe) {
+                    System.out.println("Tree Cutting");
+                    cutTree(view);
+                    action = nextMoves.poll();
                 } else {
-                    // if we hit an obstacle, start hugging obstacles
-                    if ((view[1][2] == '~' && !wood) || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.') {
-                        action = rotateAtAnObstacle(view);
-                        isHugging = true;
+                    System.out.println("Exploring");
+                    if (isHugging) {
+                        // if we hit an obstacle, then turn
+                        if ((view[1][2] == '~' && !wood) || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.') {
+                            action = rotateAtAnObstacle(view);
+                            // else if we're no longer touching a wall, turn the other way
+                        } else if (view[2][1] == ' ') {
+                            action = 'l';
+                            nextMoves.add('f');
+                        }
+                        // else just start roaming until we hit an obstacle
+                    } else {
+                        // if we hit an obstacle, start hugging obstacles
+                        if ((view[1][2] == '~' && !wood) || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.') {
+                            action = rotateAtAnObstacle(view);
+                            isHugging = true;
+                        }
                     }
                 }
             }
