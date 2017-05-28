@@ -394,7 +394,7 @@ public class Agent2 {
             for (int y = 0; y < 3; y++) {
                 // make sure that the current player position is not recorded as a successor
                 if ((x == 1 && y == 0) || (x == 0 && y == 1) || (x == 2 && y == 1) || (x == 1 && y == 2)) {
-                    State newState = new State(createCood(x,y), currState, currState.getGx(), 0, false);
+                    State newState = new State(createCood(x+1,y+1), currState, currState.getGx(), 0, false);
                     System.out.println("Created successor: (" + newState.getCurrCood().getX() + "," + newState.getCurrCood().getY() + ") & Fx = " + newState.calculateFx());
                     System.out.println("Connected to successor: (" + currState.getCurrCood().getX() + "," + currState.getCurrCood().getY() + ") & Fx = " + currState.calculateFx());
                     successorQueue.add(newState);
