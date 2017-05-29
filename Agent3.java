@@ -108,6 +108,8 @@ public class Agent3 {
                         // go forward if you can
                         if (view[1][2] == ' ' && isAnObstacle(view[2][1])) {
                             action = 'f';
+                        } else if (isAnObstacle(view[1][1]) && !onWater) {
+                            action = 'f';
                         } else if (view[2][1] == ' ' && !onWater) {
                             action = 'l';
                         } else if (view[2][3] == ' ' && !onWater) {
@@ -122,6 +124,8 @@ public class Agent3 {
                         // if the right of player is empty and is on land, rotate right
                         // always look right first to continue hugging walls
                         if (view[1][2] == ' ' && isAnObstacle(view[2][3])) {
+                            action = 'f';
+                        } else if (isAnObstacle(view[1][3]) && !onWater) {
                             action = 'f';
                         } else if (view[2][3] == ' ' && !onWater) {
                             action = 'r';
