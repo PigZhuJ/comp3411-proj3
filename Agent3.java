@@ -144,7 +144,7 @@ public class Agent3 {
                         // if we are at a corner, start hugging that section of the block
                         if (isAnObstacle(view[2][1]) || isAnObstacle(view[2][3])) {
                             isHuggingWall = true;
-                            // determining which side of the player is going to be hugged
+                            // determining which side of the player is going to hug
                             if (action == 'l') {
                                 hugSide = 'r';
                             } else if (action == 'r') {
