@@ -32,6 +32,7 @@ public class Agent3 {
     private boolean gold;
     private boolean axe;
     private boolean key;
+    private int dynamite;
 
     // DEBUG
     private int moves;
@@ -56,6 +57,7 @@ public class Agent3 {
         this.gold = false;
         this.axe = false;
         this.key = false;
+        this.dynamite = 0;
         // DEBUG
         this.moves = 0;
     }
@@ -80,14 +82,19 @@ public class Agent3 {
             action = nextMoves.poll();
             // else try to find something to do
         } else {
-            boolean canGetAnItem = false;
+            boolean canGetItem = searchForItems(view);
+            boolean canCutTree = false;
             // search for an item to get to in the view
-            Cood item = searchForItems(view);
-            if (item != null) {
-                canGetAnItem = aStarSearch(item);
+            Cood nearbyTree = scanTree(view);
+
+            if (nearbyTree != null && axe && !canGetItem) {
+                System.out.println("Tree Cutting");
+                if (aStarSearch(nearbyTree)) {
+                    canCutTree = true;
+                }
             }
-            // if you can get to the item, then perform the preset actions to go to the item
-            if (canGetAnItem) {
+
+            if (canGetItem || canCutTree) {
                 action = nextMoves.poll();
             } else {
                 System.out.println("Exploring");
@@ -95,27 +102,39 @@ public class Agent3 {
                 if (isHuggingWall) {
                     System.out.println("I'm hugging");
                     // if we hit an obstacle, then turn
-                    if (isAnObstacle(view[1][2])) {
+                    /*if (isAnObstacle(view[1][2])) {
                         action = rotateAtAnObstacle(view);
                     // else if we don't have a wall to hug i.e.
                     //   ^   *
                     // *     *
                     // * * * *
                     // If the player is hugging the left
-                    } else if (hugSide == 'l') {
+                    } else */if (hugSide == 'l') {
                         // if the left of player is empty and is on land, rotate left
                         // always look left first to continue hugging walls
                         // go forward if you can
-                        if (view[1][2] == ' ' && isAnObstacle(view[2][1])) {
+                        if (isAnObstacle(view[3][1], dynamite) && view[2][1] == ' ') {
+                            action = 'l';
+                            nextMoves.add('f');
+                        } else if (isAnObstacle(view[2][1], dynamite) && isAnObstacle(view[1][2], dynamite)) {
+                            action = 'r';
+                        } else if (isAnObstacle(view[2][3], dynamite) && isAnObstacle(view[1][2], dynamite)) {
+                            action = 'l';
+                        } else if (view[1][2] == ' ' && isAnObstacle(view[2][1], dynamite)) {
                             action = 'f';
-                        } else if (isAnObstacle(view[1][1]) && !onWater) {
+                        }
+                        /*if (view[1][2] == ' ' && isAnObstacle(view[2][1])) {
+                            action = 'f';
+                        } else if (isAnObstacle(view[1][1]) && isAnObstacle(view[3][2]) && !onWater) {
                             action = 'f';
                         } else if (view[2][1] == ' ' && !onWater) {
                             action = 'l';
+                            nextMoves.add('f');
                         } else if (view[2][3] == ' ' && !onWater) {
                             action = 'r';
+                            nextMoves.add('f');
                         }
-                        //nextMoves.add('f');
+                        //nextMoves.add('f');*/
                     // *   ^
                     // *     *
                     // * * * *
@@ -123,26 +142,38 @@ public class Agent3 {
                     } else if (hugSide == 'r') {
                         // if the right of player is empty and is on land, rotate right
                         // always look right first to continue hugging walls
-                        if (view[1][2] == ' ' && isAnObstacle(view[2][3])) {
+                        if (isAnObstacle(view[3][3], dynamite) && view[2][3] == ' ') {
+                            action = 'r';
+                            nextMoves.add('f');
+                        } else if (isAnObstacle(view[2][3], dynamite) && isAnObstacle(view[1][2], dynamite)) {
+                            action = 'l';
+                        } else if (isAnObstacle(view[2][1], dynamite) && isAnObstacle(view[1][2], dynamite)) {
+                            action = 'r';
+                        } else if (view[1][2] == ' ' && isAnObstacle(view[2][3], dynamite)) {
                             action = 'f';
-                        } else if (isAnObstacle(view[1][3]) && !onWater) {
+                        }
+                        /*if (view[1][2] == ' ' && isAnObstacle(view[2][3])) {
+                            action = 'f';
+                        } else if (isAnObstacle(view[1][3]) && isAnObstacle(view[3][2]) && !onWater) {
                             action = 'f';
                         } else if (view[2][3] == ' ' && !onWater) {
                             action = 'r';
+                            nextMoves.add('f');
                         } else if (view[2][1] == ' ' && !onWater) {
                             action = 'l';
+                            nextMoves.add('f');
                         }
-                        //nextMoves.add('f');
+                        //nextMoves.add('f');*/
                     }
                 // else do standard roaming
                 } else {
                     System.out.println("I need something to hug");
                     // if we hit an obstacle
-                    if (isAnObstacle(view[1][2])) {
+                    if (isAnObstacle(view[1][2], dynamite)) {
                         // rotate to avoid obstacles
                         action = rotateAtAnObstacle(view);
                         // if we are at a corner, start hugging that section of the block
-                        if (isAnObstacle(view[2][1]) || isAnObstacle(view[2][3])) {
+                        if (isAnObstacle(view[2][1], dynamite) || isAnObstacle(view[2][3], dynamite)) {
                             isHuggingWall = true;
                             // determining which side of the player is going to hug
                             if (action == 'l') {
@@ -174,7 +205,7 @@ public class Agent3 {
             }
         }
 
-        if (action == 'f' && view[1][2] == '.' && (view[1][2] == '~' && !wood)) {
+        /*if (action == 'f' && view[1][2] == '.' && (view[1][2] == '~' && !wood)) {
             System.out.println("Oh shit!");
             double coinFlip = Math.random() % 2;
             if (coinFlip == 0) {
@@ -182,7 +213,7 @@ public class Agent3 {
             } else {
                 action = 'r';
             }
-        }
+        }*/
 //-----------------STEPS AFTER DETERMINING PLAYER ACTION------------------//
         if (action == 'f') {
             if (view[1][2] == '$') {
@@ -192,6 +223,12 @@ public class Agent3 {
                         map.put(i, ' ');
                     }
                 }
+            } else if (view[1][2] == 'a') {
+                axe = true;
+            } else if (view[1][2] == 'd') {
+                dynamite++;
+                System.out.print(dynamite);
+                System.exit(0);
             }
             if (view[1][2] != '*' || view[1][2] != 'T' || view[1][2] != '-') {
                 updateCurrPosition();
@@ -217,10 +254,12 @@ public class Agent3 {
             direction = (direction + 4 - 1) % 4;
         } else if (action == 'r') {
             direction = (direction + 4 + 1) % 4;
+        } else if (action == 'b') {
+            dynamite--;
         }
 
         // DEBUG
-        if (moves < 500) {
+        if (moves < 1000) {
             moves++;
         } else {
             System.exit(0);
@@ -253,170 +292,46 @@ public class Agent3 {
     }
 
     //Check if its an obstacle
-    private boolean isAnObstacle(char c) {
-        return ((c == '~' && !wood) || c == '*' || (c == 'T' && !axe) || c == '.' || (c == '-' && !key));
+    private boolean isAnObstacle(char c, int dynamites) {
+        //System.out.println(c + " " + dynamites + " " + (c == '*' && dynamites > 0));
+        return ((c == '~' && !wood) || (c == '*' && dynamites == 0) || (c == 'T' && !axe) || c == '.' || (c == '-' && !key));
     }
 
     //When met with an obstacle rotate
     private char rotateAtAnObstacle(char view[][]) {
         char action;
-        if (view[2][1] == '~' || view[2][1] == '*' || view[2][1] == 'T' || view[2][1] == '.') {
+        if (isAnObstacle(view[2][1], dynamite)) {
             action = 'r';
-            if (view[2][3] != '~' && view[2][3] != '*' && view[2][3] != 'T' && view[2][3] != '.') nextMoves.add('f');
+            //if (view[2][3] != '~' && view[2][3] != '*' && view[2][3] != 'T' && view[2][3] != '.') nextMoves.add('f');
         } else {
             action = 'l';
-            nextMoves.add('f');
+            //nextMoves.add('f');
         }
         return action;
     }
 
-
-    //put a set of move if tree is right next to AI
-    private void cutTree(char[][] view) {
-        int treePosX = 0;
-        int treePosY = 0;
-        boolean treeExist = false;
-
-        for (int i = 1; i < view.length - 1; i++) {
-            for (int j = 1; j < view.length - 1; j++) {
-                if (view[i][j] == 'T') {
-                    treePosX = i;
-                    treePosY = j;
-                    treeExist = true;
-                }
-            }
-        }
-        if (view[1][2] == 'T') {
-            System.out.println("True");
-            treePosX = 1;
-            treePosY = 2;
-        }
-        if (treeExist) {
-            if (treePosX == 1) {
-                if (treePosY == 1) {
-                    nextMoves.add('f');
-                    nextMoves.add('l');
-                } else if (treePosY == 2) {
-                    nextMoves.add('c');
-                    wood = true;
-                } else if (treePosY == 3) {
-                    nextMoves.add('f');
-                    nextMoves.add('r');
-                }
-            } else if (treePosX == 2) {
-                if (treePosY == 1) {
-                    nextMoves.add('l');
-                } else if (treePosY == 3) {
-                    nextMoves.add('r');
-                }
-            } else if (treePosX == 3) {
-                if (treePosY == 1) {
-                    nextMoves.add('l');
-                    nextMoves.add('f');
-                    nextMoves.add('l');
-                } else if (treePosY == 2) {
-                    nextMoves.add('r');
-                    nextMoves.add('r');
-                } else if (treePosY == 3) {
-                    nextMoves.add('r');
-                    nextMoves.add('f');
-                    nextMoves.add('r');
-                }
-            }
-        }
-    }
-
     //Scan the if there exist a tree one block away incl diagonal
-    private boolean scanTree(char[][] view) {
-        boolean treeExists = false;
+    private Cood scanTree(char[][] view) {
 
         for (int i = 1; i < view.length - 1; i++) {
             for (int j = 1; j < view.length - 1; j++) {
-                if (view[i][j] == 'T') {
-                    treeExists = true;
+                if (view[j][i] == 'T') {
+                    Cood tempCood = convertCoordinateToAbs(i,j);
+                    return createCood(tempCood.getX(),tempCood.getY());
                 }
             }
         }
-        return treeExists;
-    }
-
-    //put a set of move if item is right next to AI
-    private void getItem(char[][] view) {
-        int itemPosX = 0;
-        int itemPosY = 0;
-        boolean itemExists = false;
-
-        for (int i = 1; i < view.length - 1; i++) {
-            for (int j = 1; j < view.length - 1; j++) {
-                if (view[i][j] == 'a' || view[i][j] == '$' || view[i][j] == 'd' || view[i][j] == 'k') {
-                    itemPosX = i;
-                    itemPosY = j;
-                    itemExists = true;
-                }
-            }
-        }
-
-        if (itemExists) {
-            if (itemPosX == 1) {
-                if (itemPosY == 1) {
-                    nextMoves.add('f');
-                    nextMoves.add('l');
-                } else if (itemPosY == 2) {
-                    nextMoves.add('f');
-                    if (view[1][2] == 'a') {
-                        axe = true;
-                    } else if (view[1][2] == '$') {
-                        gold = true;
-//                    } else if (view[1][2] == 'd') {
-//                        dynamite = true;
-                    } else if (view[1][2] == 'k') {
-                        key = true;
-                    }
-                } else if (itemPosY == 3) {
-                    nextMoves.add('f');
-                    nextMoves.add('r');
-                }
-            } else if (itemPosX == 2) {
-                if (itemPosY == 1) {
-                    nextMoves.add('l');
-                } else if (itemPosY == 3) {
-                    nextMoves.add('r');
-                }
-            } else if (itemPosX == 3) {
-                if (itemPosY == 1) {
-                    nextMoves.add('l');
-                    nextMoves.add('f');
-                    nextMoves.add('l');
-                } else if (itemPosY == 2) {
-                    nextMoves.add('r');
-                    nextMoves.add('r');
-                } else if (itemPosY == 3) {
-                    nextMoves.add('r');
-                    nextMoves.add('f');
-                    nextMoves.add('r');
-                }
-            }
-        }
-    }
-
-    //Scan the if there exist an item one block away incl diagonal
-    private boolean scanItem(char[][] view) {
-        boolean itemExists = false;
-
-        for (int i = 1; i < view.length - 1; i++) {
-            for (int j = 1; j < view.length - 1; j++) {
-                if (view[i][j] == 'a' || view[i][j] == '$' || view[i][j] == 'd' || view[i][j] == 'k') {
-                    itemExists = true;
-                }
-            }
-        }
-        return itemExists;
+        return null;
     }
 
 //-----------------ITEM SEARCHING-----------------------------------------//
 
     //Scan the view and return Cood for item
-    private Cood searchForItems(char[][] view) {
+    private boolean searchForItems(char[][] view) {
+        Cood moneyCood = null;
+        Cood axeCood = null;
+        Cood dynamiteCood = null;
+        Cood keyCood = null;
         // for every y coordinate
         for (int i = 0; i < 5; i++) {
             // for every x coordinate
@@ -424,14 +339,42 @@ public class Agent3 {
                 // if there is an item seen in the view, record the position of that
                 if(view[j][i] == '$' || view[j][i] == 'a' || view[j][i] == 'd' || view[j][i] == 'k') {
                     Cood tempCood = convertCoordinateToAbs(i,j);
-                    Cood itemFound = createCood(tempCood.getX(),tempCood.getY());
-                    // DEBUG
-                    System.out.println("(" + itemFound.getX() + ", " + itemFound.getY() + ") => " + "(" + view[j][i] + ")");
-                    return itemFound;
+                    if (view[j][i] == '$') {
+                        moneyCood = createCood(tempCood.getX(),tempCood.getY());
+                    } else if (view[j][i] == 'a') {
+                        axeCood = createCood(tempCood.getX(),tempCood.getY());
+                    } else if (view[j][i] == 'd') {
+                        dynamiteCood = createCood(tempCood.getX(),tempCood.getY());
+                    } else if (view[j][i] == 'k') {
+                        keyCood = createCood(tempCood.getX(),tempCood.getY());
+                    }
                 }
             }
         }
-        return null;
+        if (moneyCood != null) {
+            if(aStarSearch(moneyCood)) {
+                return true;
+            }
+        }
+        if (keyCood != null) {
+            if (aStarSearch(keyCood)) {
+                return true;
+            }
+        }
+        if (axeCood != null) {
+            if(aStarSearch(axeCood)) {
+                return true;
+            }
+        }
+        if (dynamiteCood != null) {
+            if(aStarSearch(dynamiteCood)) {
+                return true;
+            }
+        }
+        return false;
+        // DEBUG
+        //System.out.println("(" + itemFound.getX() + ", " + itemFound.getY() + ") => " + "(" + view[j][i] + ")");
+
     }
 
     private Cood convertCoordinateToAbs(int i, int j) {
@@ -455,6 +398,7 @@ public class Agent3 {
         ArrayList<State> closed = new ArrayList<>();
         // put the starting node on the open list (you can leave its f at zero)
         open.add(new State(new Cood(currX, currY),null, 0, 0, true));
+        int tempDynamite = dynamite;
 
         // while the open list is not empty
         while(!open.isEmpty()) {
@@ -500,9 +444,11 @@ public class Agent3 {
                     }
                 }
                 // if that tile cannot be traversed on, skip this successor
-                if(map.get(successor.getCurrCood()) == '~' || map.get(successor.getCurrCood()) == '*' || map.get(successor.getCurrCood()) == 'T' || map.get(successor.getCurrCood()) == '.') {
-                    if (!(map.get(successor.getCurrCood()) == '~' && (wood || onWater))) {
-                        System.out.println("Denied successor because cannot go on this tile: (" + successor.getCurrCood().getX() + "," + successor.getCurrCood().getY() + ") & Tile is " + map.get(successor.getCurrCood()));
+                if(isAnObstacle(map.get(successor.getCurrCood()), tempDynamite)) {
+                    System.out.println("Denied successor because cannot go on this tile: (" + successor.getCurrCood().getX() + "," + successor.getCurrCood().getY() + ") & Tile is " + map.get(successor.getCurrCood()) + " & Dynamite is " + tempDynamite);
+                    if (map.get(successor.getCurrCood()) == '*' && tempDynamite > 0) {
+                        tempDynamite--;
+                    } else {
                         skipNode = true;
                     }
                 }
@@ -577,7 +523,7 @@ public class Agent3 {
             while(!projectedPosition.equals(nextPosition)) {
                 Cood leftOfPlayer = calculateProjection(currPosition, (currDirection + 4 - 1)%4);
                 Cood rightOfPlayer = calculateProjection(currPosition, (currDirection + 1)%4);
-                if (isAnObstacle(map.get(leftOfPlayer)) || nextPosition.equals(rightOfPlayer)) {
+                if (isAnObstacle(map.get(leftOfPlayer),dynamite) || nextPosition.equals(rightOfPlayer)) {
                     nextMoves.add('r');
                     currDirection = (currDirection + 1)%4;
                 } else {
@@ -587,6 +533,13 @@ public class Agent3 {
                 projectedPosition = calculateProjection(currPosition, currDirection);
                 System.out.println("CurrDirection is at: " + currDirection);
                 System.out.println("Testing if matched position is at: (" + projectedPosition.getX() + "," + projectedPosition.getY() + ")");
+            }
+            if (map.get(nextPosition) == 'T') {
+                nextMoves.add('c');
+            } else if (map.get(nextPosition) == '-') {
+                nextMoves.add('u');
+            } else if (map.get(nextPosition) == '*') {
+                nextMoves.add('b');
             }
             nextMoves.add('f');
             currPosition = nextPosition;
@@ -606,8 +559,7 @@ public class Agent3 {
         } else {
             projectedX--;
         }
-        Cood newCood = new Cood(projectedX,projectedY);
-        return newCood;
+        return new Cood(projectedX,projectedY);
     }
 
 //-----------------MAP STITCHING ALGORITHM--------------------------------//
@@ -681,7 +633,7 @@ public class Agent3 {
         if (y == 0) {
             newY = newY + 2 + currY;
         } else if (y == 1) {
-            newY = newY + 0 + currY;
+            newY = newY + currY;
         } else if (y == 2) {
             newY = newY - 2 + currY;
         } else if (y == 3) {
@@ -718,9 +670,9 @@ public class Agent3 {
             largest = yl;
         }
 
-        System.out.print("    ");
+        System.out.print("   ");
         for (int i = smallest; i < largest + 1; i++) {
-            String edge = String.format("%1$2s", i);
+            String edge = String.format("%1$3s", i);
             System.out.print(edge);
         }
         System.out.println();
@@ -731,9 +683,9 @@ public class Agent3 {
             for (int j = smallest; j < largest + 1; j++) {
                 Cood accCo = new Cood(j, i);
                 if (map.get(accCo) != null){
-                    System.out.print(map.get(accCo) + " ");
+                    System.out.print(map.get(accCo) + "  ");
                 } else {
-                    System.out.print("x ");
+                    System.out.print("x  ");
                 }
             }
             System.out.println("|");
