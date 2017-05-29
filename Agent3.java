@@ -136,10 +136,10 @@ public class Agent3 {
                             nextMoves.add('f');
                         }
                         //nextMoves.add('f');*/
-                    // *   ^
-                    // *     *
-                    // * * * *
-                    // If the player is hugging the right
+                        // *   ^
+                        // *     *
+                        // * * * *
+                        // If the player is hugging the right
                     } else if (hugSide == 'r') {
                         // if the right of player is empty and is on land, rotate right
                         // always look right first to continue hugging walls
@@ -167,7 +167,7 @@ public class Agent3 {
                         }
                         //nextMoves.add('f');*/
                     }
-                // else do standard roaming
+                    // else do standard roaming
                 } else {
                     System.out.println("I need something to hug");
                     // if we hit an obstacle

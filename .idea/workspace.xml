@@ -2,11 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b47f10aa-5ae1-4b03-8dc9-3336d9991595" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Agent.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Agent2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Cood.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Raft.class" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Agent3.class" afterPath="$PROJECT_DIR$/Agent3.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Agent.java" afterPath="$PROJECT_DIR$/Agent.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Agent3.java" afterPath="$PROJECT_DIR$/Agent3.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data.txt" afterPath="$PROJECT_DIR$/data.txt" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,20 +22,20 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Agent.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Agent.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Agent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="87" column="17" lean-forward="true" selection-start-line="87" selection-start-column="17" selection-end-line="87" selection-end-column="17" />
+            <state relative-caret-position="1241">
+              <caret line="141" column="20" lean-forward="false" selection-start-line="141" selection-start-column="20" selection-end-line="141" selection-end-column="20" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="imports" expanded="true" />
-                <element signature="method#getSmallx#0;class#Agent#0" expanded="false" />
-                <element signature="method#getLargex#0;class#Agent#0" expanded="false" />
-                <element signature="method#getSmally#0;class#Agent#0" expanded="false" />
-                <element signature="method#getLargey#0;class#Agent#0" expanded="false" />
-                <element signature="method#print_view#0;class#Agent#0" expanded="false" />
-                <element signature="method#main#0;class#Agent#0" expanded="false" />
+                <marker date="1496043199428" expanded="false" signature="40555:40732" ph="{...}" />
+                <marker date="1496043199428" expanded="false" signature="40762:40942" ph="{...}" />
+                <marker date="1496043199428" expanded="false" signature="40972:41152" ph="{...}" />
+                <marker date="1496043199428" expanded="false" signature="41182:41362" ph="{...}" />
+                <marker date="1496043199428" expanded="false" signature="41483:41953" ph="{...}" />
+                <marker date="1496043199428" expanded="false" signature="42004:43767" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -81,20 +84,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Agent3.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Agent3.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Agent3.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="367">
-              <caret line="78" column="55" lean-forward="true" selection-start-line="78" selection-start-column="55" selection-end-line="78" selection-end-column="55" />
+            <state relative-caret-position="765">
+              <caret line="829" column="0" lean-forward="true" selection-start-line="829" selection-start-column="0" selection-end-line="829" selection-end-column="0" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="imports" expanded="true" />
-                <marker date="1496042143878" expanded="false" signature="29763:29940" ph="{...}" />
-                <marker date="1496042143878" expanded="false" signature="29970:30150" ph="{...}" />
-                <marker date="1496042143878" expanded="false" signature="30180:30360" ph="{...}" />
-                <marker date="1496042143878" expanded="false" signature="30390:30570" ph="{...}" />
-                <marker date="1496042143878" expanded="false" signature="30691:31161" ph="{...}" />
-                <marker date="1496042143878" expanded="false" signature="31212:32975" ph="{...}" />
+                <marker date="1496043244755" expanded="false" signature="29783:29960" ph="{...}" />
+                <marker date="1496043244755" expanded="false" signature="29990:30170" ph="{...}" />
+                <marker date="1496043244755" expanded="false" signature="30200:30380" ph="{...}" />
+                <marker date="1496043244755" expanded="false" signature="30410:30590" ph="{...}" />
+                <marker date="1496043244755" expanded="false" signature="30711:31181" ph="{...}" />
+                <marker date="1496043244755" expanded="false" signature="31232:32995" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -144,8 +147,8 @@
         <option value="$PROJECT_DIR$/Agent2.java" />
         <option value="$PROJECT_DIR$/input2.txt" />
         <option value="$PROJECT_DIR$/input.txt" />
-        <option value="$PROJECT_DIR$/Agent3.java" />
         <option value="$PROJECT_DIR$/Agent.java" />
+        <option value="$PROJECT_DIR$/Agent3.java" />
       </list>
     </option>
   </component>
@@ -481,12 +484,12 @@
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="method#getSmallx#0;class#Agent#0" expanded="false" />
-            <element signature="method#getLargex#0;class#Agent#0" expanded="false" />
-            <element signature="method#getSmally#0;class#Agent#0" expanded="false" />
-            <element signature="method#getLargey#0;class#Agent#0" expanded="false" />
-            <element signature="method#print_view#0;class#Agent#0" expanded="false" />
-            <element signature="method#main#0;class#Agent#0" expanded="false" />
+            <marker date="1496043199428" expanded="false" signature="40555:40732" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="40762:40942" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="40972:41152" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="41182:41362" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="41483:41953" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="42004:43767" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -513,12 +516,12 @@
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="method#getSmallx#0;class#Agent#0" expanded="false" />
-            <element signature="method#getLargex#0;class#Agent#0" expanded="false" />
-            <element signature="method#getSmally#0;class#Agent#0" expanded="false" />
-            <element signature="method#getLargey#0;class#Agent#0" expanded="false" />
-            <element signature="method#print_view#0;class#Agent#0" expanded="false" />
-            <element signature="method#main#0;class#Agent#0" expanded="false" />
+            <marker date="1496043199428" expanded="false" signature="40555:40732" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="40762:40942" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="40972:41152" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="41182:41362" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="41483:41953" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="42004:43767" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -545,12 +548,12 @@
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="method#getSmallx#0;class#Agent#0" expanded="false" />
-            <element signature="method#getLargex#0;class#Agent#0" expanded="false" />
-            <element signature="method#getSmally#0;class#Agent#0" expanded="false" />
-            <element signature="method#getLargey#0;class#Agent#0" expanded="false" />
-            <element signature="method#print_view#0;class#Agent#0" expanded="false" />
-            <element signature="method#main#0;class#Agent#0" expanded="false" />
+            <marker date="1496043199428" expanded="false" signature="40555:40732" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="40762:40942" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="40972:41152" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="41182:41362" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="41483:41953" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="42004:43767" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -670,12 +673,12 @@
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="method#getSmallx#0;class#Agent#0" expanded="false" />
-            <element signature="method#getLargex#0;class#Agent#0" expanded="false" />
-            <element signature="method#getSmally#0;class#Agent#0" expanded="false" />
-            <element signature="method#getLargey#0;class#Agent#0" expanded="false" />
-            <element signature="method#print_view#0;class#Agent#0" expanded="false" />
-            <element signature="method#main#0;class#Agent#0" expanded="false" />
+            <marker date="1496043199428" expanded="false" signature="40555:40732" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="40762:40942" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="40972:41152" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="41182:41362" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="41483:41953" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="42004:43767" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -687,12 +690,12 @@
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="method#getSmallx#0;class#Agent#0" expanded="false" />
-            <element signature="method#getLargex#0;class#Agent#0" expanded="false" />
-            <element signature="method#getSmally#0;class#Agent#0" expanded="false" />
-            <element signature="method#getLargey#0;class#Agent#0" expanded="false" />
-            <element signature="method#print_view#0;class#Agent#0" expanded="false" />
-            <element signature="method#main#0;class#Agent#0" expanded="false" />
+            <marker date="1496043199428" expanded="false" signature="40555:40732" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="40762:40942" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="40972:41152" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="41182:41362" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="41483:41953" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="42004:43767" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -719,12 +722,12 @@
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="method#getSmallx#0;class#Agent#0" expanded="false" />
-            <element signature="method#getLargex#0;class#Agent#0" expanded="false" />
-            <element signature="method#getSmally#0;class#Agent#0" expanded="false" />
-            <element signature="method#getLargey#0;class#Agent#0" expanded="false" />
-            <element signature="method#print_view#0;class#Agent#0" expanded="false" />
-            <element signature="method#main#0;class#Agent#0" expanded="false" />
+            <marker date="1496043199428" expanded="false" signature="40555:40732" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="40762:40942" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="40972:41152" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="41182:41362" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="41483:41953" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="42004:43767" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -751,12 +754,12 @@
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="method#getSmallx#0;class#Agent#0" expanded="false" />
-            <element signature="method#getLargex#0;class#Agent#0" expanded="false" />
-            <element signature="method#getSmally#0;class#Agent#0" expanded="false" />
-            <element signature="method#getLargey#0;class#Agent#0" expanded="false" />
-            <element signature="method#print_view#0;class#Agent#0" expanded="false" />
-            <element signature="method#main#0;class#Agent#0" expanded="false" />
+            <marker date="1496043199428" expanded="false" signature="40555:40732" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="40762:40942" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="40972:41152" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="41182:41362" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="41483:41953" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="42004:43767" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -914,36 +917,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Agent3.java">
+    <entry file="file://$PROJECT_DIR$/Agent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="78" column="55" lean-forward="true" selection-start-line="78" selection-start-column="55" selection-end-line="78" selection-end-column="55" />
+        <state relative-caret-position="1241">
+          <caret line="141" column="20" lean-forward="false" selection-start-line="141" selection-start-column="20" selection-end-line="141" selection-end-column="20" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
-            <marker date="1496042143878" expanded="false" signature="29763:29940" ph="{...}" />
-            <marker date="1496042143878" expanded="false" signature="29970:30150" ph="{...}" />
-            <marker date="1496042143878" expanded="false" signature="30180:30360" ph="{...}" />
-            <marker date="1496042143878" expanded="false" signature="30390:30570" ph="{...}" />
-            <marker date="1496042143878" expanded="false" signature="30691:31161" ph="{...}" />
-            <marker date="1496042143878" expanded="false" signature="31212:32975" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="40555:40732" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="40762:40942" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="40972:41152" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="41182:41362" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="41483:41953" ph="{...}" />
+            <marker date="1496043199428" expanded="false" signature="42004:43767" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Agent.java">
+    <entry file="file://$PROJECT_DIR$/Agent3.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="87" column="17" lean-forward="true" selection-start-line="87" selection-start-column="17" selection-end-line="87" selection-end-column="17" />
+        <state relative-caret-position="765">
+          <caret line="829" column="0" lean-forward="true" selection-start-line="829" selection-start-column="0" selection-end-line="829" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="method#getSmallx#0;class#Agent#0" expanded="false" />
-            <element signature="method#getLargex#0;class#Agent#0" expanded="false" />
-            <element signature="method#getSmally#0;class#Agent#0" expanded="false" />
-            <element signature="method#getLargey#0;class#Agent#0" expanded="false" />
-            <element signature="method#print_view#0;class#Agent#0" expanded="false" />
-            <element signature="method#main#0;class#Agent#0" expanded="false" />
+            <marker date="1496043244755" expanded="false" signature="29783:29960" ph="{...}" />
+            <marker date="1496043244755" expanded="false" signature="29990:30170" ph="{...}" />
+            <marker date="1496043244755" expanded="false" signature="30200:30380" ph="{...}" />
+            <marker date="1496043244755" expanded="false" signature="30410:30590" ph="{...}" />
+            <marker date="1496043244755" expanded="false" signature="30711:31181" ph="{...}" />
+            <marker date="1496043244755" expanded="false" signature="31232:32995" ph="{...}" />
           </folding>
         </state>
       </provider>
