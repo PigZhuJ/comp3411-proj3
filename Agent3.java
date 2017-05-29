@@ -523,7 +523,7 @@ public class Agent3 {
     private void buildNextMovesToReachItem(State successor) {
         LinkedList<Cood> moveList = new LinkedList<>();
         State currState = successor;
-        System.out.println("The path to get to the item is: ");
+//        System.out.println("The path to get to the item is: ");
         // retrieve all the coordinates that the player has to travel
         while(!currState.isStartingState()) {
             System.out.print("(" + currState.getCurrCood().getX() + "," +currState.getCurrCood().getY() + ") ");
@@ -535,10 +535,10 @@ public class Agent3 {
         int currDirection = this.direction;
         // go through the moves
         for (Cood nextPosition : moveList) {
-            System.out.println("Next position is at: (" + nextPosition.getX() + "," + nextPosition.getY() + ")");
+//            System.out.println("Next position is at: (" + nextPosition.getX() + "," + nextPosition.getY() + ")");
             Cood projectedPosition = calculateProjection(currPosition, currDirection);
-            System.out.println("CurrDirection is at: " + currDirection);
-            System.out.println("Testing if matched position is at: (" + projectedPosition.getX() + "," + projectedPosition.getY() + ")");
+//            System.out.println("CurrDirection is at: " + currDirection);
+//            System.out.println("Testing if matched position is at: (" + projectedPosition.getX() + "," + projectedPosition.getY() + ")");
             while(!projectedPosition.equals(nextPosition)) {
                 Cood leftOfPlayer = calculateProjection(currPosition, (currDirection + 4 - 1)%4);
                 Cood rightOfPlayer = calculateProjection(currPosition, (currDirection + 1)%4);
