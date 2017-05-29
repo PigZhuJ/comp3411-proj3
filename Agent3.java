@@ -111,28 +111,30 @@ public class Agent3 {
                         // if the left of player is empty and is on land, rotate left
                         // always look left first to continue hugging walls
                         // go forward if you can
-                        if (isAnObstacle(view[3][1], dynamite) && view[2][1] == ' ') {
+                        if (isAnObstacle(view[3][1], dynamite, false) && view[2][1] == ' ') {
                             action = 'l';
                             nextMoves.add('f');
-                        } else if (isAnObstacle(view[2][1], dynamite) && isAnObstacle(view[1][2], dynamite)) {
+                        } else if (isAnObstacle(view[2][1], dynamite, false) && isAnObstacle(view[1][2], dynamite, false)) {
                             action = 'r';
-                        } else if (isAnObstacle(view[2][3], dynamite) && isAnObstacle(view[1][2], dynamite)) {
+                        } else if (isAnObstacle(view[2][3], dynamite, false) && isAnObstacle(view[1][2], dynamite, false)) {
                             action = 'l';
-                        } else if (view[1][2] == ' ' && isAnObstacle(view[2][1], dynamite)) {
+                            nextMoves.add('f');
+                        } else if (view[1][2] == ' ' && isAnObstacle(view[2][1], dynamite, false)) {
                             action = 'f';
                         }
                     // If the player is hugging the right
                     } else if (hugSide == 'r') {
                         // if the right of player is empty and is on land, rotate right
                         // always look right first to continue hugging walls
-                        if (isAnObstacle(view[3][3], dynamite) && view[2][3] == ' ') {
+                        if (isAnObstacle(view[3][3], dynamite, true) && view[2][3] == ' ') {
                             action = 'r';
                             nextMoves.add('f');
-                        } else if (isAnObstacle(view[2][3], dynamite) && isAnObstacle(view[1][2], dynamite)) {
+                        } else if (isAnObstacle(view[2][3], dynamite, false) && isAnObstacle(view[1][2], dynamite, false)) {
                             action = 'l';
-                        } else if (isAnObstacle(view[2][1], dynamite) && isAnObstacle(view[1][2], dynamite)) {
+                        } else if (isAnObstacle(view[2][1], dynamite, false) && isAnObstacle(view[1][2], dynamite, false)) {
                             action = 'r';
-                        } else if (view[1][2] == ' ' && isAnObstacle(view[2][3], dynamite)) {
+                            nextMoves.add('f');
+                        } else if (view[1][2] == ' ' && isAnObstacle(view[2][3], dynamite, false)) {
                             action = 'f';
                         }
                     }
@@ -141,11 +143,11 @@ public class Agent3 {
                     //DEBUG
                     System.out.println("I need something to hug");
                     // if we hit an obstacle
-                    if (isAnObstacle(view[1][2], dynamite)) {
+                    if (isAnObstacle(view[1][2], dynamite, false)) {
                         // rotate to avoid obstacles
                         action = rotateAtAnObstacle(view);
                         // if we are at a corner, start hugging that section of the block
-                        if (isAnObstacle(view[2][1], dynamite) || isAnObstacle(view[2][3], dynamite)) {
+                        if (isAnObstacle(view[2][1], dynamite, false) || isAnObstacle(view[2][3], dynamite, false)) {
                             isHuggingWall = true;
                             // determining which side of the player is going to hug
                             if (action == 'l') {
@@ -240,6 +242,7 @@ public class Agent3 {
         System.out.println("gold: " + gold);
         System.out.println("wood: " + wood);
         System.out.println("key: " + key);
+        System.out.println("dynamite: " + dynamite);
         System.out.println("On water: " + onWater);
     }
 
@@ -257,16 +260,19 @@ public class Agent3 {
     }
 
     //Check if its an obstacle
-    private boolean isAnObstacle(char c, int dynamites) {
-        //DEBUG
-//        System.out.println(c + " " + dynamites + " " + (c == '*' && dynamites > 0));
-        return ((c == '~' && !wood) || (c == '*' && dynamites == 0) || (c == 'T' && !axe) || c == '.' || (c == '-' && !key));
-    }
+    private boolean isAnObstacle(char c, int dynamites, boolean isSearch) {
+        if (isSearch) {
+            return ((c == '~' && !wood) || (c == '*' && dynamites == 0) || (c == 'T' && !axe) || c == '.' || (c == '-' && !key));
+        } else {
+            return ((c == '~' && !wood) || (c == '*') || (c == 'T' && !axe) || c == '.' || (c == '-' && !key));
+        }
+        //System.out.println(c + " " + dynamites + " " + (c == '*' && dynamites > 0));
+
 
     //When met with an obstacle rotate
     private char rotateAtAnObstacle(char view[][]) {
         char action;
-        if (isAnObstacle(view[2][1], dynamite)) {
+        if (isAnObstacle(view[2][1], dynamite, false)) {
             action = 'r';
         } else {
             action = 'l';
@@ -360,6 +366,7 @@ public class Agent3 {
         // put the starting node on the open list (you can leave its f at zero)
         open.add(new State(new Cood(currX, currY),null, 0, 0, true));
         int tempDynamite = dynamite;
+//        System.out.println("Destination is: " + map.get(destination));
 
         // while the open list is not empty
         while(!open.isEmpty()) {
@@ -498,7 +505,7 @@ public class Agent3 {
             while(!projectedPosition.equals(nextPosition)) {
                 Cood leftOfPlayer = calculateProjection(currPosition, (currDirection + 4 - 1)%4);
                 Cood rightOfPlayer = calculateProjection(currPosition, (currDirection + 1)%4);
-                if (isAnObstacle(map.get(leftOfPlayer),dynamite) || nextPosition.equals(rightOfPlayer)) {
+                if (isAnObstacle(map.get(leftOfPlayer),dynamite,false) || nextPosition.equals(rightOfPlayer)) {
                     nextMoves.add('r');
                     currDirection = (currDirection + 1)%4;
                 } else {
