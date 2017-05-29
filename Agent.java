@@ -1,13 +1,37 @@
 /*********************************************
  *  Agent.java
- *  Sample Agent for Text-Based Adventure Game
+ *  Agent for Text-Based Adventure Game
  *  COMP3411 Artificial Intelligence
  *  UNSW Session 1, 2017
+ *  By Andrew Ha and George Chieng
  */
 
 import java.util.*;
 import java.io.*;
 import java.net.*;
+
+    /*
+    Briefly describe how your program works, including any algorithms and data structures employed, and explain any design decisions you made along the way.
+    Our program first starts off by stitching together a map given the view.
+    To do this, we rotate the view until it is upright (according to the orientation of the player when starting the game).
+    This is then stiched by updating a hash map which given a coordinate, it returns the property of that square.
+    We decided to use a coordinate class in order to access the values of the hashmap more easier.
+    We initially started off by using a 2d array. However, we came to a constraint where we couldn't predict how big the map is, resulting in array out of bounds error.
+    The program then proceeds to the phase where it decides the next action.
+    We use a decision tree to determine this, with many if statements depending on the situation.
+    We first determine whether there is an item nearby. If there is an item, we use an A* search to try to get to the item (or tree), given the available resources.
+    When we get to the item, we have variables which record whether we have have the item or have used it up.
+    In the A* search we use the Manhattan heuristic to determine the fastest route to the destination.
+    When the A* search finishes, we then convert the path of coordinates to moves which the player takes.
+    We implemented a queue which holds these moves and execute the moves before doing other actions.
+    If the searches fail, we then start to wander around.
+    We first thought about hugging the wall forever. However, this doesn't work for all cases.
+    The solution we implemented is a modified version of the hug.
+    The player first wanders randomly until it reaches a corner.
+    It then assumes that the corner is the boundary of the map and start hugging.
+    Once the AI realises that there is space beyond that corner, it will start roaming randomly again.
+    We finally account for any changes to the player when doing a move (like fixing the direction when rotating or updating variables when going to an item)
+    */
 
 public class Agent {
 
@@ -72,7 +96,7 @@ public class Agent {
         // if there are a list of moves to travel, then continue with the steps
         if (!nextMoves.isEmpty()) {
             action = nextMoves.poll();
-        // else try to find something to do
+            // else try to find something to do
         } else {
             // try to find a way to a visible item
             boolean canGetItem = searchForItems(view);
@@ -91,75 +115,43 @@ public class Agent {
             if (canGetItem || canCutTree) {
                 action = nextMoves.poll();
             } else {
-                System.out.println("Exploring");
                 // if the player is hugging the walls
                 if (isHuggingWall) {
-                    System.out.println("I'm hugging");
-                    // if we hit an obstacle, then turn
-                    /*if (isAnObstacle(view[1][2])) {
-                        action = rotateAtAnObstacle(view);
-                    // else if we don't have a wall to hug i.e.
-                    //   ^   *
-                    // *     *
-                    // * * * *
-                    // If the player is hugging the left
-                    } else */if (hugSide == 'l') {
-                        // if the left of player is empty and is on land, rotate left
-                        // always look left first to continue hugging walls
-                        // go forward if you can
+                    // if the player is hugging the left walls
+                    if (hugSide == 'l') {
+                        // if the player was previously hugging a wall and reached an inner corner, rotate left and go forward
                         if (isAnObstacle(view[3][1], dynamite, false) && view[2][1] == ' ') {
                             action = 'l';
                             nextMoves.add('f');
+                            // if the player reaches a corner which forces the player to go right, rotate right
                         } else if (isAnObstacle(view[2][1], dynamite, false) && isAnObstacle(view[1][2], dynamite, false)) {
                             action = 'r';
+                            // if the player reaches a corner which forces the player to go left, rotate left and go forward
                         } else if (isAnObstacle(view[2][3], dynamite, false) && isAnObstacle(view[1][2], dynamite, false)) {
                             action = 'l';
                             nextMoves.add('f');
+                            // if the player is hugging the left hand side of the wall, keep going forward
                         } else if (view[1][2] == ' ' && isAnObstacle(view[2][1], dynamite, false)) {
                             action = 'f';
                         }
-                        /*if (view[1][2] == ' ' && isAnObstacle(view[2][1])) {
-                            action = 'f';
-                        } else if (isAnObstacle(view[1][1]) && isAnObstacle(view[3][2]) && !onWater) {
-                            action = 'f';
-                        } else if (view[2][1] == ' ' && !onWater) {
-                            action = 'l';
-                            nextMoves.add('f');
-                        } else if (view[2][3] == ' ' && !onWater) {
-                            action = 'r';
-                            nextMoves.add('f');
-                        }
-                        //nextMoves.add('f');*/
-                        // *   ^
-                        // *     *
-                        // * * * *
+
                         // If the player is hugging the right
                     } else if (hugSide == 'r') {
-                        // if the right of player is empty and is on land, rotate right
-                        // always look right first to continue hugging walls
+                        // if the player was previously hugging a wall and reached an inner corner, rotate left and go forward
                         if (isAnObstacle(view[3][3], dynamite, true) && view[2][3] == ' ') {
                             action = 'r';
                             nextMoves.add('f');
+                            // if the player reaches a corner which forces the player to go left, rotate left
                         } else if (isAnObstacle(view[2][3], dynamite, false) && isAnObstacle(view[1][2], dynamite, false)) {
                             action = 'l';
+                            // if the player reaches a corner which forces the player to go right, rotate right and go forward
                         } else if (isAnObstacle(view[2][1], dynamite, false) && isAnObstacle(view[1][2], dynamite, false)) {
                             action = 'r';
                             nextMoves.add('f');
+                            // if the player is hugging the left hand side of the wall, keep going forward
                         } else if (view[1][2] == ' ' && isAnObstacle(view[2][3], dynamite, false)) {
                             action = 'f';
                         }
-                        /*if (view[1][2] == ' ' && isAnObstacle(view[2][3])) {
-                            action = 'f';
-                        } else if (isAnObstacle(view[1][3]) && isAnObstacle(view[3][2]) && !onWater) {
-                            action = 'f';
-                        } else if (view[2][3] == ' ' && !onWater) {
-                            action = 'r';
-                            nextMoves.add('f');
-                        } else if (view[2][1] == ' ' && !onWater) {
-                            action = 'l';
-                            nextMoves.add('f');
-                        }
-                        //nextMoves.add('f');*/
                     }
                     // else do standard roaming
                 } else {
@@ -180,57 +172,34 @@ public class Agent {
                         }
                     }
                 }
-                // if we hit an obstacle
-                /*if (isHuggingWall) {
-                    // if we hit an obstacle, then turn
-                    if ((view[1][2] == '~') || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.' || view[1][2] == '-') {
-                        action = rotateAtAnObstacle(view);
-                        // else if we're no longer touching a wall, turn the other way
-                    } else if (view[2][1] == ' ') {
-                        action = 'l';
-                        nextMoves.add('f');
-                        // else just start roaming until we hit an obstacle
-                    }
-                } else {
-                    // if we hit an obstacle, start hugging obstacles
-                    if ((view[1][2] == '~') || view[1][2] == '*' || view[1][2] == 'T' || view[1][2] == '.' || view[1][2] == '-') {
-                        action = rotateAtAnObstacle(view);
-                        isHuggingWall = true;
-                    }
-                }*/
             }
         }
 
-        /*if (action == 'f' && view[1][2] == '.' && (view[1][2] == '~' && !wood)) {
-            System.out.println("Oh shit!");
-            double coinFlip = Math.random() % 2;
-            if (coinFlip == 0) {
-                action = 'l';
-            } else {
-                action = 'r';
-            }
-        }*/
 //-----------------STEPS AFTER DETERMINING PLAYER ACTION------------------//
+        // if the player's next action is to move forward
         if (action == 'f') {
+            // if the square in front is the money
             if (view[1][2] == '$') {
+                // update the boolean to true
                 gold = true;
+                // update the hash so the map no longer has the money icon
                 for (Cood i : map.keySet()) {
                     if (map.get(i) == '$') {
                         map.put(i, ' ');
+                        break;
                     }
                 }
+                // if the square in front is an axe, set boolean to true
             } else if (view[1][2] == 'a') {
                 axe = true;
+                // if the square in front is dynamite, increase the amount of dynamite by 1
             } else if (view[1][2] == 'd') {
                 dynamite++;
-                //System.out.print(dynamite);
-                //System.exit(0);
+                // if the square in front is a key, set boolean to true
+            } else if (view[1][2] == 'k') {
+                key = true;
             }
-            if (view[1][2] != '*' || view[1][2] != 'T' || view[1][2] != '-') {
-                updateCurrPosition();
-            } else {
-                System.out.println("Ouch!");
-            }
+            updateCurrPosition();
             // no long hug walls if the player is entering new territory
             if (currX < minX) {
                 minX = currX;
@@ -250,22 +219,12 @@ public class Agent {
             direction = (direction + 4 - 1) % 4;
         } else if (action == 'r') {
             direction = (direction + 4 + 1) % 4;
+            // if the next move is to bomb a wall
         } else if (action == 'b') {
             dynamite--;
         }
 
-        System.out.println("The next move is: " + action);
-        System.out.println("*----------------------------END-------------------------*");
         return action;
-    }
-
-    private void listInventory() {
-        System.out.println("axe: " + axe);
-        System.out.println("gold: " + gold);
-        System.out.println("wood: " + wood);
-        System.out.println("key: " + key);
-        System.out.println("dynamite: " + dynamite);
-        System.out.println("On water: " + onWater);
     }
 
     //Update the absolute cood of the AI on the map
@@ -283,13 +242,12 @@ public class Agent {
 
     //Check if its an obstacle
     private boolean isAnObstacle(char c, int dynamites, boolean isSearch) {
+        // take dynamite into consideration if the method is called in the a star search
         if (isSearch) {
             return ((c == '~' && !wood) || (c == '*' && dynamites == 0) || (c == 'T' && !axe) || c == '.' || (c == '-' && !key));
         } else {
             return ((c == '~' && !wood) || (c == '*') || (c == 'T' && !axe) || c == '.' || (c == '-' && !key));
         }
-        //System.out.println(c + " " + dynamites + " " + (c == '*' && dynamites > 0));
-
     }
 
     //When met with an obstacle rotate
@@ -297,15 +255,13 @@ public class Agent {
         char action;
         if (isAnObstacle(view[2][1], dynamite, false)) {
             action = 'r';
-            //if (view[2][3] != '~' && view[2][3] != '*' && view[2][3] != 'T' && view[2][3] != '.') nextMoves.add('f');
         } else {
             action = 'l';
-            //nextMoves.add('f');
         }
         return action;
     }
 
-    //Scan the if there exist a tree one block away incl diagonal
+    //Scan the if there exist a tree in the view
     private Cood scanTree(char[][] view) {
 
         for (int i = 1; i < view.length - 1; i++) {
@@ -346,6 +302,7 @@ public class Agent {
                 }
             }
         }
+        // try to go to the money first, then key, then axe, then dynamite
         if (moneyCood != null) {
             if(aStarSearch(moneyCood)) {
                 return true;
@@ -367,11 +324,9 @@ public class Agent {
             }
         }
         return false;
-        // DEBUG
-        //System.out.println("(" + itemFound.getX() + ", " + itemFound.getY() + ") => " + "(" + view[j][i] + ")");
-
     }
 
+    // converts a coordinate from a view to the absolute coordinate in the stitched map
     private Cood convertCoordinateToAbs(int i, int j) {
 
         int tempDir = direction;
@@ -385,6 +340,7 @@ public class Agent {
 
     }
 
+    // do the a star search
     private boolean aStarSearch(Cood destination) {
 
         // initialize the open list
@@ -394,13 +350,11 @@ public class Agent {
         // put the starting node on the open list (you can leave its f at zero)
         open.add(new State(new Cood(currX, currY),null, 0, 0, true));
         int tempDynamite = dynamite;
-//        System.out.println("Destination is: " + map.get(destination));
 
         // while the open list is not empty
         while(!open.isEmpty()) {
             // pop the node with the least f off the open list
             State currState = open.poll();
-            System.out.println("-->Current State is at: (" + currState.getCurrCood().getX() + "," + currState.getCurrCood().getY() + ") & Fx = " + currState.calculateFx());
             // generate q's 8 successors and set their parents to q
             Queue<State> successorQueue = generateSuccessors(currState);
             // for each successor
@@ -411,7 +365,6 @@ public class Agent {
                 }
                 // if successor is the goal, stop the search
                 if (successor.getCurrCood().equals(destination)) {
-//                    System.out.println("Found the path to the item at: (" + successor.getCurrCood().getX() + "," + successor.getCurrCood().getY());
                     buildNextMovesToReachItem(successor);
                     return true;
                 }
@@ -419,14 +372,12 @@ public class Agent {
                 successor.calculateGx();
                 // calculate h(x)
                 successor.calculateHx(destination);
-//                System.out.println("Checking successor: (" + successor.getCurrCood().getX() + "," + successor.getCurrCood().getY() + ") & Gx = " + successor.getGx() + " & Hx = " + successor.getHx() + " & Fx = " + successor.calculateFx());
                 boolean skipNode = false;
                 // if a node with the same position as successor is in the OPEN list \
                 // which has a lower f than successor, skip this successor
                 for (State checkState : open) {
                     if (checkState.getCurrCood().equals(successor.getCurrCood()) &&
                             successor.calculateFx() > checkState.calculateFx()) {
-//                        System.out.println("Denied successor in open list: (" + successor.getCurrCood().getX() + "," + successor.getCurrCood().getY() + ")");
                         skipNode = true;
                     }
                 }
@@ -435,7 +386,6 @@ public class Agent {
                 for (State checkState : closed) {
                     if (checkState.getCurrCood().equals(successor.getCurrCood()) &&
                             successor.calculateFx() > checkState.calculateFx()) {
-//                        System.out.println("Denied successor in closed list: (" + successor.getCurrCood().getX() + "," + successor.getCurrCood().getY() + ")");
                         skipNode = true;
                     }
                 }
@@ -443,7 +393,6 @@ public class Agent {
                 if (map.get(destination) == 'T' && isAnObstacle(map.get(successor.getCurrCood()), 0, true)) {
                     skipNode = true;
                 } else if(isAnObstacle(map.get(successor.getCurrCood()), tempDynamite, true)) {
-//                    System.out.println("Denied successor because cannot go on this tile: (" + successor.getCurrCood().getX() + "," + successor.getCurrCood().getY() + ") & Tile is " + map.get(successor.getCurrCood()) + " & Dynamite is " + tempDynamite);
                     if (map.get(successor.getCurrCood()) == '*' && tempDynamite > 0) {
                         tempDynamite--;
                     } else {
@@ -452,7 +401,6 @@ public class Agent {
                 }
                 // otherwise, add the node to the open list
                 if(!skipNode) {
-//                    System.out.println("Added a successor: (" + successor.getCurrCood().getX() + "," + successor.getCurrCood().getY() + ")");
                     open.add(successor);
                 }
             }
@@ -467,30 +415,18 @@ public class Agent {
         for(int y = 0; y < 3; y++) {
             for (int x = 0; x < 3; x++) {
                 State newState;
-                // make sure that the current player position is not recorded as a successor
+                // make successors for the squares around the player
                 if (x == 1 && y == 0) {
                     newState = new State(new Cood(currState.getCurrCood().getX()+x-1, currState.getCurrCood().getY()+1), currState, currState.getGx(), 0, false);
-//                    System.out.println("Created successor: (" + newState.getCurrCood().getX() + "," + newState.getCurrCood().getY() + ")");
-//                    System.out.println("Successor has tile " + map.get(newState.getCurrCood()));
-//                    System.out.println("The view coordinates are: [" + y + "][" + x + "]");
                     successorQueue.add(newState);
                 } else if (x == 0 && y == 1) {
                     newState = new State(new Cood(currState.getCurrCood().getX()+x-1, currState.getCurrCood().getY()), currState, currState.getGx(), 0, false);
-//                    System.out.println("Created successor: (" + newState.getCurrCood().getX() + "," + newState.getCurrCood().getY() + ")");
-//                    System.out.println("Successor has tile " + map.get(newState.getCurrCood()));
-//                    System.out.println("The view coordinates are: [" + y + "][" + x + "]");
                     successorQueue.add(newState);
                 } else if (x == 2 && y == 1) {
                     newState = new State(new Cood(currState.getCurrCood().getX()+x-1, currState.getCurrCood().getY()), currState, currState.getGx(), 0, false);
-//                    System.out.println("Created successor: (" + newState.getCurrCood().getX() + "," + newState.getCurrCood().getY() + ")");
-//                    System.out.println("Successor has tile " + map.get(newState.getCurrCood()));
-//                    System.out.println("The view coordinates are: [" + y + "][" + x + "]");
                     successorQueue.add(newState);
                 } else if (x == 1 && y == 2) {
                     newState = new State(new Cood(currState.getCurrCood().getX()+x-1, currState.getCurrCood().getY()-1), currState, currState.getGx(), 0, false);
-//                    System.out.println("Created successor: (" + newState.getCurrCood().getX() + "," + newState.getCurrCood().getY() + ")");
-//                    System.out.println("Successor has tile " + map.get(newState.getCurrCood()));
-//                    System.out.println("The view coordinates are: [" + y + "][" + x + "]");
                     successorQueue.add(newState);
                 }
 
@@ -532,10 +468,10 @@ public class Agent {
             // if the next coordinate is a tree, cut the tree
             if (map.get(nextPosition) == 'T') {
                 nextMoves.add('c');
-            // if the next coordinate is a door, open the door
+                // if the next coordinate is a door, open the door
             } else if (map.get(nextPosition) == '-') {
                 nextMoves.add('u');
-            // if the next position is the wall, destroy the wall
+                // if the next position is the wall, destroy the wall
             } else if (map.get(nextPosition) == '*') {
                 nextMoves.add('b');
             }
@@ -585,14 +521,11 @@ public class Agent {
             }
         }
         map.put(new Cood(0,0), 'G');
-        // DEBUG
-        print_map();
     }
 
     private char[][] rotate_view(char view[][], int times) {
         char newView[][] = view.clone();
         int temp = times;
-        System.out.println("direction = " + temp);
         // if the view is already upright, return the view as is
         if (temp == 0) {
             return view;
@@ -645,94 +578,6 @@ public class Agent {
 
     }
 
-    //Print the Stitched Map out
-    private void print_map(){
-        int xs = getSmallx();
-        int ys = getSmally();
-        int xl = getLargex();
-        int yl = getLargey();
-
-        int smallest = 0;
-        int largest = 0;
-
-        //Find the smallest point
-        if (xs <= ys){
-            smallest = xs;
-        } else if (xs >= ys){
-            smallest = ys;
-        }
-
-        //Find the largest point
-        if (xl >= yl){
-            largest = xl;
-        } else if (xl <= yl){
-            largest = yl;
-        }
-
-        System.out.print("   ");
-        for (int i = smallest; i < largest + 1; i++) {
-            String edge = String.format("%1$3s", i);
-            System.out.print(edge);
-        }
-        System.out.println();
-        System.out.println("----------------------");
-        for (int i = smallest; i < largest + 1; i++) {
-            String edge = String.format("%1$3s", i);
-            System.out.print(edge + "| ");
-            for (int j = smallest; j < largest + 1; j++) {
-                Cood accCo = new Cood(j, i);
-                if (map.get(accCo) != null){
-                    System.out.print(map.get(accCo) + "  ");
-                } else {
-                    System.out.print("x  ");
-                }
-            }
-            System.out.println("|");
-        }
-        System.out.println("----------------------");
-    }
-
-    //For print_map
-    private int getSmallx(){
-        int x = 0;
-        for(Cood coKey : map.keySet()){
-            if (x > coKey.getX()){
-                x = coKey.getX();
-            }
-        }
-        return x;
-    }
-
-    private int getLargex() {
-        int x = 0;
-        for (Cood coKey : map.keySet()) {
-            if (x < coKey.getX()) {
-                x = coKey.getX();
-            }
-        }
-        return x;
-    }
-
-    private int getSmally() {
-        int y = 0;
-        for (Cood coKey : map.keySet()) {
-            if (y > coKey.getY()) {
-                y = coKey.getY();
-            }
-        }
-        return y;
-    }
-
-    private int getLargey() {
-        int y = 0;
-        for (Cood coKey : map.keySet()) {
-            if (y < coKey.getY()) {
-                y = coKey.getY();
-            }
-        }
-        return y;
-    }
-
 //-----------------END MAP STITCHING--------------------------------------//
 
     void print_view( char view[][] )
@@ -760,7 +605,7 @@ public class Agent {
         InputStream in  = null;
         OutputStream out= null;
         Socket socket   = null;
-        Agent3  agent    = new Agent3();
+        Agent  agent    = new Agent();
         char   view[][] = new char[5][5];
         char   action   = 'F';
         int port;
@@ -797,7 +642,6 @@ public class Agent {
                         }
                     }
                 }
-                agent.print_view( view ); // COMMENT THIS OUT BEFORE SUBMISSION
                 action = agent.get_action( view );
                 out.write( action );
             }
