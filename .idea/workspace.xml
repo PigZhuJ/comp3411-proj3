@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b47f10aa-5ae1-4b03-8dc9-3336d9991595" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Agent.java" afterPath="$PROJECT_DIR$/Agent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data.txt" afterPath="$PROJECT_DIR$/data.txt" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,8 +18,8 @@
       <file leaf-file-name="Agent.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Agent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="102" column="30" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="815" selection-end-column="0" />
+            <state relative-caret-position="17">
+              <caret line="512" column="74" lean-forward="false" selection-start-line="512" selection-start-column="74" selection-end-line="512" selection-end-column="74" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="imports" expanded="true" />
@@ -82,17 +80,17 @@
       <file leaf-file-name="Agent3.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Agent3.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="686" column="45" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="829" selection-end-column="0" />
+            <state relative-caret-position="2706">
+              <caret line="694" column="35" lean-forward="true" selection-start-line="694" selection-start-column="35" selection-end-line="694" selection-end-column="35" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="imports" expanded="true" />
-                <marker date="1496043244755" expanded="false" signature="29783:29960" ph="{...}" />
-                <marker date="1496043244755" expanded="false" signature="29990:30170" ph="{...}" />
-                <marker date="1496043244755" expanded="false" signature="30200:30380" ph="{...}" />
-                <marker date="1496043244755" expanded="false" signature="30410:30590" ph="{...}" />
-                <marker date="1496043244755" expanded="false" signature="30711:31181" ph="{...}" />
-                <marker date="1496043244755" expanded="false" signature="31232:32995" ph="{...}" />
+                <marker date="1496045011965" expanded="false" signature="30043:30220" ph="{...}" />
+                <marker date="1496045011965" expanded="false" signature="30250:30430" ph="{...}" />
+                <marker date="1496045011965" expanded="false" signature="30460:30640" ph="{...}" />
+                <marker date="1496045011965" expanded="false" signature="30670:30850" ph="{...}" />
+                <marker date="1496045011965" expanded="false" signature="30971:31441" ph="{...}" />
+                <marker date="1496045011965" expanded="false" signature="31492:33255" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -188,7 +186,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="debugger.hotswap" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -470,6 +468,10 @@
       <option name="time" value="4" />
     </breakpoint-manager>
     <watches-manager />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/Agent.java">
@@ -914,25 +916,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Agent3.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="686" column="45" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="829" selection-end-column="0" />
+        <state relative-caret-position="2706">
+          <caret line="694" column="35" lean-forward="true" selection-start-line="694" selection-start-column="35" selection-end-line="694" selection-end-column="35" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
-            <marker date="1496043244755" expanded="false" signature="29783:29960" ph="{...}" />
-            <marker date="1496043244755" expanded="false" signature="29990:30170" ph="{...}" />
-            <marker date="1496043244755" expanded="false" signature="30200:30380" ph="{...}" />
-            <marker date="1496043244755" expanded="false" signature="30410:30590" ph="{...}" />
-            <marker date="1496043244755" expanded="false" signature="30711:31181" ph="{...}" />
-            <marker date="1496043244755" expanded="false" signature="31232:32995" ph="{...}" />
+            <marker date="1496045011965" expanded="false" signature="30043:30220" ph="{...}" />
+            <marker date="1496045011965" expanded="false" signature="30250:30430" ph="{...}" />
+            <marker date="1496045011965" expanded="false" signature="30460:30640" ph="{...}" />
+            <marker date="1496045011965" expanded="false" signature="30670:30850" ph="{...}" />
+            <marker date="1496045011965" expanded="false" signature="30971:31441" ph="{...}" />
+            <marker date="1496045011965" expanded="false" signature="31492:33255" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Agent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="102" column="30" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="815" selection-end-column="0" />
+        <state relative-caret-position="17">
+          <caret line="512" column="74" lean-forward="false" selection-start-line="512" selection-start-column="74" selection-end-line="512" selection-end-column="74" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />

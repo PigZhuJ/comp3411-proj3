@@ -500,27 +500,25 @@ public class Agent {
     }
 
     private void buildNextMovesToReachItem(State successor) {
+        // list of coordinates that the player must go to get from curr position to destination
         LinkedList<Cood> moveList = new LinkedList<>();
         State currState = successor;
-        System.out.println("The path to get to the item is: ");
         // retrieve all the coordinates that the player has to travel
         while(!currState.isStartingState()) {
-            System.out.print("(" + currState.getCurrCood().getX() + "," +currState.getCurrCood().getY() + ") ");
             moveList.add(0, currState.getCurrCood());
             currState = currState.getPrevState();
         }
-        System.out.println();
         Cood currPosition = new Cood(currX, currY);
         int currDirection = this.direction;
-        // go through the moves
+        // go through the coordinates until a path is made to the solution
         for (Cood nextPosition : moveList) {
-            System.out.println("Next position is at: (" + nextPosition.getX() + "," + nextPosition.getY() + ")");
+            // find out where the player would go if they went forward in the direction being faced
             Cood projectedPosition = calculateProjection(currPosition, currDirection);
-            System.out.println("CurrDirection is at: " + currDirection);
-            System.out.println("Testing if matched position is at: (" + projectedPosition.getX() + "," + projectedPosition.getY() + ")");
+            // keep rotating the player until the player can go forward to the desired position
             while(!projectedPosition.equals(nextPosition)) {
                 Cood leftOfPlayer = calculateProjection(currPosition, (currDirection + 4 - 1)%4);
                 Cood rightOfPlayer = calculateProjection(currPosition, (currDirection + 1)%4);
+                // rotate right if there is a wall on the left of the player or the player only needs to go right to reach the desired position
                 if (isAnObstacle(map.get(leftOfPlayer),dynamite,false) || nextPosition.equals(rightOfPlayer)) {
                     nextMoves.add('r');
                     currDirection = (currDirection + 1)%4;
@@ -528,21 +526,24 @@ public class Agent {
                     nextMoves.add('l');
                     currDirection = (currDirection + 4 - 1)%4;
                 }
+                // calculate the new projected position once the rotation has been done
                 projectedPosition = calculateProjection(currPosition, currDirection);
-                System.out.println("CurrDirection is at: " + currDirection);
-                System.out.println("Testing if matched position is at: (" + projectedPosition.getX() + "," + projectedPosition.getY() + ")");
             }
+            // if the next coordinate is a tree, cut the tree
             if (map.get(nextPosition) == 'T') {
                 nextMoves.add('c');
+            // if the next coordinate is a door, open the door
             } else if (map.get(nextPosition) == '-') {
                 nextMoves.add('u');
+            // if the next position is the wall, destroy the wall
             } else if (map.get(nextPosition) == '*') {
                 nextMoves.add('b');
             }
+            // move forward to that next position
             nextMoves.add('f');
+            // now move forward and keep going
             currPosition = nextPosition;
         }
-        System.out.println("The actions to get to the item is: " + nextMoves.toString());
     }
 
     private Cood calculateProjection(Cood currPosition, int currDirection) {
