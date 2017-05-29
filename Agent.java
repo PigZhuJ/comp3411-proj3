@@ -542,7 +542,7 @@ public class Agent {
             // for each x coordinate
             for (int j = 0; j < 5; j++) {
                 // convert the viewCoordinate to the mapCoordinate
-                Cood newCood = createCood(j, i);
+                Cood newCood = createCood(i, j);
                 // record the positions of everything in the map
                 if (view[j][i] != '\0') {
                     map.put(newCood, newView[i][j]);
