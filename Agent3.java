@@ -113,14 +113,15 @@ public class Agent3 {
                         // if the left of player is empty and is on land, rotate left
                         // always look left first to continue hugging walls
                         // go forward if you can
-                        if (isAnObstacle(view[3][1], dynamite) && view[2][1] == ' ') {
+                        if (isAnObstacle(view[3][1], dynamite, false) && view[2][1] == ' ') {
                             action = 'l';
                             nextMoves.add('f');
-                        } else if (isAnObstacle(view[2][1], dynamite) && isAnObstacle(view[1][2], dynamite)) {
+                        } else if (isAnObstacle(view[2][1], dynamite, false) && isAnObstacle(view[1][2], dynamite, false)) {
                             action = 'r';
-                        } else if (isAnObstacle(view[2][3], dynamite) && isAnObstacle(view[1][2], dynamite)) {
+                        } else if (isAnObstacle(view[2][3], dynamite, false) && isAnObstacle(view[1][2], dynamite, false)) {
                             action = 'l';
-                        } else if (view[1][2] == ' ' && isAnObstacle(view[2][1], dynamite)) {
+                            nextMoves.add('f');
+                        } else if (view[1][2] == ' ' && isAnObstacle(view[2][1], dynamite, false)) {
                             action = 'f';
                         }
                         /*if (view[1][2] == ' ' && isAnObstacle(view[2][1])) {
@@ -142,14 +143,15 @@ public class Agent3 {
                     } else if (hugSide == 'r') {
                         // if the right of player is empty and is on land, rotate right
                         // always look right first to continue hugging walls
-                        if (isAnObstacle(view[3][3], dynamite) && view[2][3] == ' ') {
+                        if (isAnObstacle(view[3][3], dynamite, true) && view[2][3] == ' ') {
                             action = 'r';
                             nextMoves.add('f');
-                        } else if (isAnObstacle(view[2][3], dynamite) && isAnObstacle(view[1][2], dynamite)) {
+                        } else if (isAnObstacle(view[2][3], dynamite, false) && isAnObstacle(view[1][2], dynamite, false)) {
                             action = 'l';
-                        } else if (isAnObstacle(view[2][1], dynamite) && isAnObstacle(view[1][2], dynamite)) {
+                        } else if (isAnObstacle(view[2][1], dynamite, false) && isAnObstacle(view[1][2], dynamite, false)) {
                             action = 'r';
-                        } else if (view[1][2] == ' ' && isAnObstacle(view[2][3], dynamite)) {
+                            nextMoves.add('f');
+                        } else if (view[1][2] == ' ' && isAnObstacle(view[2][3], dynamite, false)) {
                             action = 'f';
                         }
                         /*if (view[1][2] == ' ' && isAnObstacle(view[2][3])) {
@@ -169,11 +171,11 @@ public class Agent3 {
                 } else {
                     System.out.println("I need something to hug");
                     // if we hit an obstacle
-                    if (isAnObstacle(view[1][2], dynamite)) {
+                    if (isAnObstacle(view[1][2], dynamite, false)) {
                         // rotate to avoid obstacles
                         action = rotateAtAnObstacle(view);
                         // if we are at a corner, start hugging that section of the block
-                        if (isAnObstacle(view[2][1], dynamite) || isAnObstacle(view[2][3], dynamite)) {
+                        if (isAnObstacle(view[2][1], dynamite, false) || isAnObstacle(view[2][3], dynamite, false)) {
                             isHuggingWall = true;
                             // determining which side of the player is going to hug
                             if (action == 'l') {
@@ -227,8 +229,8 @@ public class Agent3 {
                 axe = true;
             } else if (view[1][2] == 'd') {
                 dynamite++;
-                System.out.print(dynamite);
-                System.exit(0);
+                //System.out.print(dynamite);
+                //System.exit(0);
             }
             if (view[1][2] != '*' || view[1][2] != 'T' || view[1][2] != '-') {
                 updateCurrPosition();
@@ -255,6 +257,7 @@ public class Agent3 {
         } else if (action == 'r') {
             direction = (direction + 4 + 1) % 4;
         } else if (action == 'b') {
+            //System.exit(0);
             dynamite--;
         }
 
@@ -275,6 +278,7 @@ public class Agent3 {
         System.out.println("gold: " + gold);
         System.out.println("wood: " + wood);
         System.out.println("key: " + key);
+        System.out.println("dynamite: " + dynamite);
         System.out.println("On water: " + onWater);
     }
 
@@ -292,15 +296,20 @@ public class Agent3 {
     }
 
     //Check if its an obstacle
-    private boolean isAnObstacle(char c, int dynamites) {
+    private boolean isAnObstacle(char c, int dynamites, boolean isSearch) {
+        if (isSearch) {
+            return ((c == '~' && !wood) || (c == '*' && dynamites == 0) || (c == 'T' && !axe) || c == '.' || (c == '-' && !key));
+        } else {
+            return ((c == '~' && !wood) || (c == '*') || (c == 'T' && !axe) || c == '.' || (c == '-' && !key));
+        }
         //System.out.println(c + " " + dynamites + " " + (c == '*' && dynamites > 0));
-        return ((c == '~' && !wood) || (c == '*' && dynamites == 0) || (c == 'T' && !axe) || c == '.' || (c == '-' && !key));
+
     }
 
     //When met with an obstacle rotate
     private char rotateAtAnObstacle(char view[][]) {
         char action;
-        if (isAnObstacle(view[2][1], dynamite)) {
+        if (isAnObstacle(view[2][1], dynamite, false)) {
             action = 'r';
             //if (view[2][3] != '~' && view[2][3] != '*' && view[2][3] != 'T' && view[2][3] != '.') nextMoves.add('f');
         } else {
@@ -399,6 +408,7 @@ public class Agent3 {
         // put the starting node on the open list (you can leave its f at zero)
         open.add(new State(new Cood(currX, currY),null, 0, 0, true));
         int tempDynamite = dynamite;
+//        System.out.println("Destination is: " + map.get(destination));
 
         // while the open list is not empty
         while(!open.isEmpty()) {
@@ -415,7 +425,7 @@ public class Agent3 {
                 }
                 // if successor is the goal, stop the search
                 if (successor.getCurrCood().equals(destination)) {
-                    System.out.println("Found the path to the item at: (" + successor.getCurrCood().getX() + "," + successor.getCurrCood().getY());
+//                    System.out.println("Found the path to the item at: (" + successor.getCurrCood().getX() + "," + successor.getCurrCood().getY());
                     buildNextMovesToReachItem(successor);
                     return true;
                 }
@@ -423,14 +433,14 @@ public class Agent3 {
                 successor.calculateGx();
                 // calculate h(x)
                 successor.calculateHx(destination);
-                System.out.println("Checking successor: (" + successor.getCurrCood().getX() + "," + successor.getCurrCood().getY() + ") & Gx = " + successor.getGx() + " & Hx = " + successor.getHx() + " & Fx = " + successor.calculateFx());
+//                System.out.println("Checking successor: (" + successor.getCurrCood().getX() + "," + successor.getCurrCood().getY() + ") & Gx = " + successor.getGx() + " & Hx = " + successor.getHx() + " & Fx = " + successor.calculateFx());
                 boolean skipNode = false;
                 // if a node with the same position as successor is in the OPEN list \
                 // which has a lower f than successor, skip this successor
                 for (State checkState : open) {
                     if (checkState.getCurrCood().equals(successor.getCurrCood()) &&
-                            successor.calculateFx() > checkState.calculateFx()){
-                        System.out.println("Denied successor in open list: (" + successor.getCurrCood().getX() + "," + successor.getCurrCood().getY() + ")");
+                            successor.calculateFx() > checkState.calculateFx()) {
+//                        System.out.println("Denied successor in open list: (" + successor.getCurrCood().getX() + "," + successor.getCurrCood().getY() + ")");
                         skipNode = true;
                     }
                 }
@@ -438,14 +448,16 @@ public class Agent3 {
                 // which has a lower f than successor, skip this successor
                 for (State checkState : closed) {
                     if (checkState.getCurrCood().equals(successor.getCurrCood()) &&
-                            successor.calculateFx() > checkState.calculateFx()){
-                        System.out.println("Denied successor in closed list: (" + successor.getCurrCood().getX() + "," + successor.getCurrCood().getY() + ")");
+                            successor.calculateFx() > checkState.calculateFx()) {
+//                        System.out.println("Denied successor in closed list: (" + successor.getCurrCood().getX() + "," + successor.getCurrCood().getY() + ")");
                         skipNode = true;
                     }
                 }
                 // if that tile cannot be traversed on, skip this successor
-                if(isAnObstacle(map.get(successor.getCurrCood()), tempDynamite)) {
-                    System.out.println("Denied successor because cannot go on this tile: (" + successor.getCurrCood().getX() + "," + successor.getCurrCood().getY() + ") & Tile is " + map.get(successor.getCurrCood()) + " & Dynamite is " + tempDynamite);
+                if (map.get(destination) == 'T' && isAnObstacle(map.get(successor.getCurrCood()), 0, true)) {
+                    skipNode = true;
+                } else if(isAnObstacle(map.get(successor.getCurrCood()), tempDynamite, true)) {
+//                    System.out.println("Denied successor because cannot go on this tile: (" + successor.getCurrCood().getX() + "," + successor.getCurrCood().getY() + ") & Tile is " + map.get(successor.getCurrCood()) + " & Dynamite is " + tempDynamite);
                     if (map.get(successor.getCurrCood()) == '*' && tempDynamite > 0) {
                         tempDynamite--;
                     } else {
@@ -454,7 +466,7 @@ public class Agent3 {
                 }
                 // otherwise, add the node to the open list
                 if(!skipNode) {
-                    System.out.println("Added a successor: (" + successor.getCurrCood().getX() + "," + successor.getCurrCood().getY() + ")");
+//                    System.out.println("Added a successor: (" + successor.getCurrCood().getX() + "," + successor.getCurrCood().getY() + ")");
                     open.add(successor);
                 }
             }
@@ -472,27 +484,27 @@ public class Agent3 {
                 // make sure that the current player position is not recorded as a successor
                 if (x == 1 && y == 0) {
                     newState = new State(new Cood(currState.getCurrCood().getX()+x-1, currState.getCurrCood().getY()+1), currState, currState.getGx(), 0, false);
-                    System.out.println("Created successor: (" + newState.getCurrCood().getX() + "," + newState.getCurrCood().getY() + ")");
-                    System.out.println("Successor has tile " + map.get(newState.getCurrCood()));
-                    System.out.println("The view coordinates are: [" + y + "][" + x + "]");
+//                    System.out.println("Created successor: (" + newState.getCurrCood().getX() + "," + newState.getCurrCood().getY() + ")");
+//                    System.out.println("Successor has tile " + map.get(newState.getCurrCood()));
+//                    System.out.println("The view coordinates are: [" + y + "][" + x + "]");
                     successorQueue.add(newState);
                 } else if (x == 0 && y == 1) {
                     newState = new State(new Cood(currState.getCurrCood().getX()+x-1, currState.getCurrCood().getY()), currState, currState.getGx(), 0, false);
-                    System.out.println("Created successor: (" + newState.getCurrCood().getX() + "," + newState.getCurrCood().getY() + ")");
-                    System.out.println("Successor has tile " + map.get(newState.getCurrCood()));
-                    System.out.println("The view coordinates are: [" + y + "][" + x + "]");
+//                    System.out.println("Created successor: (" + newState.getCurrCood().getX() + "," + newState.getCurrCood().getY() + ")");
+//                    System.out.println("Successor has tile " + map.get(newState.getCurrCood()));
+//                    System.out.println("The view coordinates are: [" + y + "][" + x + "]");
                     successorQueue.add(newState);
                 } else if (x == 2 && y == 1) {
                     newState = new State(new Cood(currState.getCurrCood().getX()+x-1, currState.getCurrCood().getY()), currState, currState.getGx(), 0, false);
-                    System.out.println("Created successor: (" + newState.getCurrCood().getX() + "," + newState.getCurrCood().getY() + ")");
-                    System.out.println("Successor has tile " + map.get(newState.getCurrCood()));
-                    System.out.println("The view coordinates are: [" + y + "][" + x + "]");
+//                    System.out.println("Created successor: (" + newState.getCurrCood().getX() + "," + newState.getCurrCood().getY() + ")");
+//                    System.out.println("Successor has tile " + map.get(newState.getCurrCood()));
+//                    System.out.println("The view coordinates are: [" + y + "][" + x + "]");
                     successorQueue.add(newState);
                 } else if (x == 1 && y == 2) {
                     newState = new State(new Cood(currState.getCurrCood().getX()+x-1, currState.getCurrCood().getY()-1), currState, currState.getGx(), 0, false);
-                    System.out.println("Created successor: (" + newState.getCurrCood().getX() + "," + newState.getCurrCood().getY() + ")");
-                    System.out.println("Successor has tile " + map.get(newState.getCurrCood()));
-                    System.out.println("The view coordinates are: [" + y + "][" + x + "]");
+//                    System.out.println("Created successor: (" + newState.getCurrCood().getX() + "," + newState.getCurrCood().getY() + ")");
+//                    System.out.println("Successor has tile " + map.get(newState.getCurrCood()));
+//                    System.out.println("The view coordinates are: [" + y + "][" + x + "]");
                     successorQueue.add(newState);
                 }
 
@@ -523,7 +535,7 @@ public class Agent3 {
             while(!projectedPosition.equals(nextPosition)) {
                 Cood leftOfPlayer = calculateProjection(currPosition, (currDirection + 4 - 1)%4);
                 Cood rightOfPlayer = calculateProjection(currPosition, (currDirection + 1)%4);
-                if (isAnObstacle(map.get(leftOfPlayer),dynamite) || nextPosition.equals(rightOfPlayer)) {
+                if (isAnObstacle(map.get(leftOfPlayer),dynamite,false) || nextPosition.equals(rightOfPlayer)) {
                     nextMoves.add('r');
                     currDirection = (currDirection + 1)%4;
                 } else {
