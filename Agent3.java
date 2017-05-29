@@ -68,7 +68,7 @@ public class Agent3 {
             System.out.println("Going home now!");
             aStarSearch(new Cood(0, 0));
         }
-        // DEBUG STATEMENTS
+        // DEBUGG STATEMENTS
         System.out.println("Curr Player Position is: (" + currX + "," + currY + ")");
         System.out.println(nextMoves.toString());
 
@@ -606,10 +606,10 @@ public class Agent3 {
             // for each x coordinate
             for (int j = 0; j < 5; j++) {
                 // convert the viewCoordinate to the mapCoordinate
-                Cood newCood = createCood(j, i);
+                Cood newCood = createCood(i, j);
                 // record the positions of everything in the map
                 if (view[j][i] != '\0') {
-                    map.put(newCood, newView[i][j]);
+                    map.put(newCood, newView[j][i]);
                 } else {
                     if (onWater) {
                         map.put(newCood, '~');
@@ -651,7 +651,7 @@ public class Agent3 {
             // for each x coordinate
             for (int j = 0; j < 5; j++) {
                 // rotate the view
-                rotatedView[i][j] = view[j][4-i];
+                rotatedView[j][i] = view[i][4-j];
             }
         }
         return rotatedView;
@@ -703,9 +703,17 @@ public class Agent3 {
         } else if (xl <= yl){
             largest = yl;
         }
+
+        System.out.print("    ");
+        for (int i = smallest; i < largest + 1; i++) {
+            String edge = String.format("%1$2s", i);
+            System.out.print(edge);
+        }
+        System.out.println();
         System.out.println("----------------------");
         for (int i = smallest; i < largest + 1; i++) {
-            System.out.print("| ");
+            String edge = String.format("%1$3s", i);
+            System.out.print(edge + "| ");
             for (int j = smallest; j < largest + 1; j++) {
                 Cood accCo = new Cood(j, i);
                 if (map.get(accCo) != null){
