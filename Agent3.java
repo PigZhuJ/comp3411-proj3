@@ -231,6 +231,11 @@ public class Agent3 {
                 dynamite++;
                 //System.out.print(dynamite);
                 //System.exit(0);
+            } else if (view[1][2] == '~'){
+                onWater = true;
+            } else if (view[1][2] == ' ' && onWater){
+                onWater = false;
+                wood = false;
             }
             if (view[1][2] != '*' || view[1][2] != 'T' || view[1][2] != '-') {
                 updateCurrPosition();
@@ -259,6 +264,8 @@ public class Agent3 {
         } else if (action == 'b') {
             //System.exit(0);
             dynamite--;
+        } else if (action == 'c'){
+            wood = true;
         }
 
         // DEBUG
@@ -414,7 +421,7 @@ public class Agent3 {
         while(!open.isEmpty()) {
             // pop the node with the least f off the open list
             State currState = open.poll();
-            System.out.println("-->Current State is at: (" + currState.getCurrCood().getX() + "," + currState.getCurrCood().getY() + ") & Fx = " + currState.calculateFx());
+//            System.out.println("-->Current State is at: (" + currState.getCurrCood().getX() + "," + currState.getCurrCood().getY() + ") & Fx = " + currState.calculateFx());
             // generate q's 8 successors and set their parents to q
             Queue<State> successorQueue = generateSuccessors(currState);
             // for each successor
@@ -543,8 +550,8 @@ public class Agent3 {
                     currDirection = (currDirection + 4 - 1)%4;
                 }
                 projectedPosition = calculateProjection(currPosition, currDirection);
-                System.out.println("CurrDirection is at: " + currDirection);
-                System.out.println("Testing if matched position is at: (" + projectedPosition.getX() + "," + projectedPosition.getY() + ")");
+//                System.out.println("CurrDirection is at: " + currDirection);
+//                System.out.println("Testing if matched position is at: (" + projectedPosition.getX() + "," + projectedPosition.getY() + ")");
             }
             if (map.get(nextPosition) == 'T') {
                 nextMoves.add('c');
@@ -556,7 +563,7 @@ public class Agent3 {
             nextMoves.add('f');
             currPosition = nextPosition;
         }
-        System.out.println("The actions to get to the item is: " + nextMoves.toString());
+//        System.out.println("The actions to get to the item is: " + nextMoves.toString());
     }
 
     private Cood calculateProjection(Cood currPosition, int currDirection) {
