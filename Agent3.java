@@ -423,7 +423,8 @@ public class Agent3 {
             for (int j = 0; j < 5; j++) {
                 // if there is an item seen in the view, record the position of that
                 if(view[j][i] == '$' || view[j][i] == 'a' || view[j][i] == 'd' || view[j][i] == 'k') {
-                    Cood itemFound = createCood(i,j);
+                    Cood tempCood = convertCoordinateToAbs(i,j);
+                    Cood itemFound = createCood(tempCood.getX(),tempCood.getY());
                     // DEBUG
                     System.out.println("(" + itemFound.getX() + ", " + itemFound.getY() + ") => " + "(" + view[j][i] + ")");
                     return itemFound;
@@ -431,6 +432,19 @@ public class Agent3 {
             }
         }
         return null;
+    }
+
+    private Cood convertCoordinateToAbs(int i, int j) {
+
+        int tempDir = direction;
+        while (tempDir != 0) {
+            int temp = i;
+            i = j;
+            j = 4 - temp;
+            tempDir = (tempDir + 1) % 4;
+        }
+        return new Cood(i,j);
+
     }
 
     private boolean aStarSearch(Cood destination) {
