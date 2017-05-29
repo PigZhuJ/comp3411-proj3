@@ -562,6 +562,7 @@ public class Agent {
     private char[][] rotate_view(char view[][], int times) {
         char newView[][] = view.clone();
         int temp = times;
+        // DEBUG
         System.out.println("direction = " + temp);
         // if the view is already upright, return the view as is
         if (temp == 0) {
