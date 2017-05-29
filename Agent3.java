@@ -207,7 +207,7 @@ public class Agent3 {
             }
         }
 
-        /*if (action == 'f' && view[1][2] == '.' && (view[1][2] == '~' && !wood)) {
+        if (action == 'f' && (view[1][2] == '.' || (view[1][2] == '~' && !wood) || view[1][2] == '*')) {
             System.out.println("Oh shit!");
             double coinFlip = Math.random() % 2;
             if (coinFlip == 0) {
@@ -215,7 +215,7 @@ public class Agent3 {
             } else {
                 action = 'r';
             }
-        }*/
+        }
 //-----------------STEPS AFTER DETERMINING PLAYER ACTION------------------//
         if (action == 'f') {
             if (view[1][2] == '$') {
@@ -231,6 +231,8 @@ public class Agent3 {
                 dynamite++;
                 //System.out.print(dynamite);
                 //System.exit(0);
+            } else if (view[1][2] == 'k'){
+                key = true;
             } else if (view[1][2] == '~'){
                 onWater = true;
             } else if (view[1][2] == ' ' && onWater){
@@ -261,10 +263,9 @@ public class Agent3 {
             direction = (direction + 4 - 1) % 4;
         } else if (action == 'r') {
             direction = (direction + 4 + 1) % 4;
-        } else if (action == 'b') {
-            //System.exit(0);
+        } else if (action == 'b' && dynamite != 0) {
             dynamite--;
-        } else if (action == 'c'){
+        } else if (action == 'c') {
             wood = true;
         }
 
@@ -275,6 +276,8 @@ public class Agent3 {
             System.exit(0);
         }
 
+        System.out.print("List of Next move are: ");
+        System.out.println(nextMoves.toString());
         System.out.println("The next move is: " + action);
         System.out.println("*----------------------------END-------------------------*");
         return action;
@@ -523,7 +526,7 @@ public class Agent3 {
     private void buildNextMovesToReachItem(State successor) {
         LinkedList<Cood> moveList = new LinkedList<>();
         State currState = successor;
-        System.out.println("The path to get to the item is: ");
+//        System.out.println("The path to get to the item is: ");
         // retrieve all the coordinates that the player has to travel
         while(!currState.isStartingState()) {
             System.out.print("(" + currState.getCurrCood().getX() + "," +currState.getCurrCood().getY() + ") ");
@@ -535,10 +538,10 @@ public class Agent3 {
         int currDirection = this.direction;
         // go through the moves
         for (Cood nextPosition : moveList) {
-            System.out.println("Next position is at: (" + nextPosition.getX() + "," + nextPosition.getY() + ")");
+//            System.out.println("Next position is at: (" + nextPosition.getX() + "," + nextPosition.getY() + ")");
             Cood projectedPosition = calculateProjection(currPosition, currDirection);
-            System.out.println("CurrDirection is at: " + currDirection);
-            System.out.println("Testing if matched position is at: (" + projectedPosition.getX() + "," + projectedPosition.getY() + ")");
+//            System.out.println("CurrDirection is at: " + currDirection);
+//            System.out.println("Testing if matched position is at: (" + projectedPosition.getX() + "," + projectedPosition.getY() + ")");
             while(!projectedPosition.equals(nextPosition)) {
                 Cood leftOfPlayer = calculateProjection(currPosition, (currDirection + 4 - 1)%4);
                 Cood rightOfPlayer = calculateProjection(currPosition, (currDirection + 1)%4);
