@@ -262,7 +262,7 @@ public class Agent3 {
         }
 
         // DEBUG
-        if (moves < 1000) {
+        if (moves < 2000) {
             moves++;
         } else {
             System.exit(0);
