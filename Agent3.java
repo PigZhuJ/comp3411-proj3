@@ -231,6 +231,8 @@ public class Agent3 {
                 dynamite++;
                 //System.out.print(dynamite);
                 //System.exit(0);
+            } else if (view[1][2] == 'k'){
+                key = true;
             } else if (view[1][2] == '~'){
                 onWater = true;
             } else if (view[1][2] == ' ' && onWater){
@@ -263,9 +265,9 @@ public class Agent3 {
             direction = (direction + 4 + 1) % 4;
         } else if (action == 'b' && dynamite != 0) {
             dynamite--;
-        } else if (action == 'c'){
+        } else if (action == 'c') {
             wood = true;
-        } else if (action == 'k')
+        }
 
         // DEBUG
         if (moves < 2000) {
